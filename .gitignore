@@ -1,15 +1,24 @@
-# Node
+# -------------------------------
+# Node / Angular
+# -------------------------------
 node_modules/
-
-# Angular
 dist/
 .tmp/
+out-tsc/
 
 # Logs
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-error.log*
 
-# IDE
+# Environment
+.env
+.env.*.local
+
+# Angular / CLI
+.angular/
+.angular-cache/
+
+# IDEs
 .vscode/
 .idea/
 
@@ -17,5 +26,17 @@ yarn-error.log
 .DS_Store
 Thumbs.db
 
-# Environment
-.env
+# Optional: system temp files
+*.tmp
+*.swp
+*.swo
+*~
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage
+coverage/
+
+# Build results
+build/
