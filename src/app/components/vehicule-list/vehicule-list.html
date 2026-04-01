@@ -1,0 +1,8 @@
+<div *ngFor="let v of vehicules" class="vehicule-card">
+    <h3>{{ v.marque }} {{ v.modele }}</h3>
+    <p>Année: {{ v.annee || 'N/A' }}</p>
+    <p>Kilométrage: {{ v.kilometrage || 'N/A' }} km</p>
+    <p>Prix: {{ v.prix | currency:'EUR' }}</p>
+    <p>Type: {{ v.typeOffre }}</p>
+    <p>Disponible: {{ v.disponible ? 'Oui' : 'Non' }}</p>
+</div>
