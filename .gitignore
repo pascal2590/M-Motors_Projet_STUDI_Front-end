@@ -1,13 +1,19 @@
-# Node
+# Node / Angular
 node_modules/
-
-# Angular
 dist/
 .tmp/
+out-tsc/
 
 # Logs
-npm-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-error.log*
+
+# Angular
+.angular/
+.angular-cache/
+
+# Environment
+.env
 
 # IDE
 .vscode/
@@ -17,5 +23,8 @@ yarn-error.log
 .DS_Store
 Thumbs.db
 
-# Environment
-.env
+# Coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo
