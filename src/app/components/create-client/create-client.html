@@ -1,0 +1,9 @@
+<form #clientForm="ngForm" (ngSubmit)="onSubmit(clientForm)">
+    <input name="nom" ngModel required placeholder="Nom">
+    <input name="prenom" ngModel required placeholder="Prénom">
+    <input name="email" ngModel required email placeholder="Email">
+    <input name="password" ngModel required minlength="6" type="password" placeholder="Mot de passe">
+    <input name="telephone" ngModel placeholder="Téléphone">
+    <input name="adresse" ngModel placeholder="Adresse">
+    <button type="submit" [disabled]="clientForm.invalid">Créer le compte</button>
+</form>
