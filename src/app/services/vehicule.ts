@@ -4,14 +4,24 @@ import { Observable } from 'rxjs';
 import { Vehicule } from '../models/vehicule.model';
 
 @Injectable({
-  providedIn: 'root'  // fournit le service à l'application entière
+  providedIn: 'root'
 })
 export class VehiculeService {
-  private apiUrl = 'https://localhost:7183/api/vehicule'; // URL de ton backend C#
+
+  private apiUrl = 'https://localhost:7183/api/vehicule';
 
   constructor(private http: HttpClient) { }
 
+  // Tous les véhicules (US1)
   getVehicules(): Observable<Vehicule[]> {
     return this.http.get<Vehicule[]>(this.apiUrl);
   }
+
+  // Filtrer par type (US2)
+  getVehiculesByType(type: string): Observable<Vehicule[]> {
+    return this.http.get<Vehicule[]>(
+      `${this.apiUrl}/type/${type}`
+    );
+  }
+
 }

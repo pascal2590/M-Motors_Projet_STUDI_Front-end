@@ -1,0 +1,39 @@
+<h2>Filtrer les véhicules</h2>
+
+<div>
+
+    <button (click)="filtrer('vente')">
+        Vente
+    </button>
+
+    <button (click)="filtrer('location')">
+        Location
+    </button>
+
+    <button (click)="resetFiltre()">
+        Tous
+    </button>
+
+</div>
+
+<hr>
+
+<div *ngIf="vehicules.length === 0">
+    Aucun véhicule trouvé.
+</div>
+
+<ul>
+
+    <li *ngFor="let v of vehicules">
+
+        <strong>
+            {{ v.marque }}
+        </strong>
+
+        {{ v.modele }}
+
+        — {{ v.typeOffre }}
+
+    </li>
+
+</ul>
