@@ -1,0 +1,134 @@
+<!-- NAVBAR -->
+
+<nav class="navbar">
+    <div class="logo">M-MOTORS</div>
+
+    <ul class="menu">
+        <li>Acheter</li>
+        <li>Vendre</li>
+        <li>Services</li>
+        <li>À propos</li>
+    </ul>
+
+    <button class="btn-primary">
+        Nous contacter
+    </button>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            L'occasion en toute confiance
+        </h1>
+
+        <p>
+            Des véhicules contrôlés, garantis et prêts à prendre la route.
+        </p>
+
+        <div class="search-box">
+
+            <input placeholder="Marque">
+
+            <input placeholder="Modèle">
+
+            <input placeholder="Budget max">
+
+            <button class="btn-primary">
+                Rechercher
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stat">
+        <h2>+2500</h2>
+        <p>Véhicules disponibles</p>
+    </div>
+
+    <div class="stat">
+        <h2>+35000</h2>
+        <p>Clients satisfaits</p>
+    </div>
+
+    <div class="stat">
+        <h2>24 mois</h2>
+        <p>de garantie</p>
+    </div>
+
+    <div class="stat">
+        <h2>4.7/5</h2>
+        <p>Avis clients</p>
+    </div>
+
+</section>
+
+<!-- VEHICULES -->
+
+<section class="vehicules">
+
+    <h2>Nos véhicules d'occasion</h2>
+
+    <div class="vehicule-grid">
+
+        <div class="card" *ngFor="let v of vehicules">
+
+            <img [src]="v.imageUrl || 'assets/car-placeholder.jpg'">
+
+            <div class="card-body">
+
+                <h3>
+                    {{v.marque}} {{v.modele}}
+                </h3>
+
+                <p>
+                    {{v.kilometrage}} km
+                </p>
+
+                <p class="price">
+                    {{v.prix | currency:'EUR'}}
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- SERVICES -->
+
+<section class="services">
+
+    <div class="service">
+        🚗
+        <p>Achat sécurisé</p>
+    </div>
+
+    <div class="service">
+        🔄
+        <p>Reprise véhicule</p>
+    </div>
+
+    <div class="service">
+        💰
+        <p>Financement</p>
+    </div>
+
+    <div class="service">
+        🛠️
+        <p>SAV dédié</p>
+    </div>
+
+</section>

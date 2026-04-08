@@ -1,0 +1,151 @@
+/* NAVBAR */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 40px;
+
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.menu li {
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    height: 420px;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.6),
+            rgba(0, 0, 0, 0.6)),
+        url('/assets/hero-car.jpg');
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    color: white;
+    margin-left: 80px;
+}
+
+.hero h1 {
+    font-size: 42px;
+}
+
+.search-box {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.search-box input {
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+}
+
+.btn-primary {
+    background: #0d6efd;
+    color: white;
+
+    border: none;
+
+    padding: 10px 18px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+}
+
+/* STATS */
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+
+    margin: 40px 0;
+}
+
+.stat h2 {
+    color: #0d6efd;
+}
+
+/* VEHICULES */
+
+.vehicules {
+    padding: 40px;
+}
+
+.vehicule-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 20px;
+}
+
+.card {
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.price {
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+/* SERVICES */
+
+.services {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+
+    background: #f4f4f4;
+
+    padding: 40px;
+
+    text-align: center;
+}
+
+.service {
+    font-size: 18px;
+}
