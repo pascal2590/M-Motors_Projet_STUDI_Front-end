@@ -16,7 +16,7 @@ export class Home implements OnInit {
 
   vehicules: any[] = [];
 
-  private apiUrl = 'https://localhost:7183/api/vehicules';
+  private apiUrl = 'https://localhost:7183/api/Vehicule';
 
   constructor(private http: HttpClient) { }
 
@@ -28,7 +28,7 @@ export class Home implements OnInit {
     this.http.get<any[]>(this.apiUrl)
       .subscribe({
         next: data => {
-          this.vehicules = data.slice(0, 5); // 5 véhicules max
+          this.vehicules = data.slice(0, 5); // Affichage de 5 véhicules
         },
         error: err => console.error(err)
       });
