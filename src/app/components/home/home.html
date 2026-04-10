@@ -1,12 +1,11 @@
 <!-- NAVBAR -->
 <nav class="navbar">
 
-    <div class="logo">M-MOTORS</div>
+    <div class="logo">M-Motors</div>
 
     <ul class="menu">
         <li>Acheter</li>
-        <li>Vendre</li>
-        <li>Services</li>
+        <li>Louer</li>      
         <li>À propos</li>
         <li class="contact-item">Nous contacter</li>
     </ul>
@@ -23,8 +22,7 @@
 
     <ul>
         <li>Acheter</li>
-        <li>Vendre</li>
-        <li>Services</li>
+        <li>Louer</li>    
         <li>À propos</li>
         <li class="contact-btn">Nous contacter</li>
     </ul>
@@ -32,22 +30,27 @@
 
 <div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()"></div>
 
-<!-- RECHERCHE -->
-<div class="search-bar">
+<!-- BARRE DE RECHERCHE -->
+<div class="search-wrapper">
     <div class="search-container">
-        <input type="text" placeholder="Rechercher un véhicule (Audi, BMW, 2022...)" [(ngModel)]="searchTerm"
-            (input)="search()">
-        <button class="search-btn" (click)="search()">🔍</button>
+        <input type="text" class="search-input" placeholder="Rechercher...">
+        <button class="search-btn" title="Rechercher">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-4.35-4.35M16.65 10.65a6 6 0 11-12 0 6 6 0 0112 0z" />
+            </svg>
+        </button>
     </div>
 </div>
 
 <!-- HERO -->
+
 <section class="hero">
     <div class="section-container">
-        <h1>L'occasion en toute confiance</h1>
-        <p>Des véhicules contrôlés, garantis et prêts à prendre la route.</p>
-    </div>
+        <h1>Site de vente et de location (LLD OA) de véhicules d'occasions</h1>        
+    </div>    
 </section>
+
 
 <!-- STATS -->
 <section class="stats">
@@ -55,21 +58,12 @@
         <div class="stat">
             <h2>+2500</h2>
             <p>Véhicules disponibles</p>
-        </div>
-        <div class="stat">
-            <h2>+35000</h2>
-            <p>Clients satisfaits</p>
-        </div>
-        <div class="stat">
-            <h2>24 mois</h2>
-            <p>de garantie</p>
-        </div>
-        <div class="stat">
-            <h2>4.7/5</h2>
-            <p>Avis clients</p>
-        </div>
+        </div>        
     </div>
 </section>
+
+
+
 
 <!-- VEHICULES -->
 <section class="vehicules">

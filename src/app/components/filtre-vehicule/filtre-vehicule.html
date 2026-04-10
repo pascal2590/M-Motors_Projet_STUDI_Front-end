@@ -1,39 +1,110 @@
-<h2>Filtrer les véhicules</h2>
+<section class="filtre-section">
 
-<div>
+    <h2 class="section-title">
+        Filtrer les véhicules
+    </h2>
 
-    <button (click)="filtrer('vente')">
-        Vente
-    </button>
+    <!-- ========================= -->
+    <!-- BOUTONS FILTRES -->
+    <!-- ========================= -->
 
-    <button (click)="filtrer('location')">
-        Location
-    </button>
+    <div class="filtre-buttons">
 
-    <button (click)="resetFiltre()">
-        Tous
-    </button>
+        <button class="btn-filtre" (click)="filtrer('vente')">
 
-</div>
+            Vente
 
-<hr>
+        </button>
 
-<div *ngIf="vehicules.length === 0">
-    Aucun véhicule trouvé.
-</div>
+        <button class="btn-filtre" (click)="filtrer('location')">
 
-<ul>
+            Location
 
-    <li *ngFor="let v of vehicules">
+        </button>
 
-        <strong>
-            {{ v.marque }}
-        </strong>
+        <button class="btn-reset" (click)="resetFiltre()">
 
-        {{ v.modele }}
+            Tous
 
-        — {{ v.typeOffre }}
+        </button>
 
-    </li>
+    </div>
 
-</ul>
+    <hr class="separator">
+
+    <!-- MESSAGE SI VIDE -->
+
+    <div class="no-result" *ngIf="vehicules.length === 0">
+
+        Aucun véhicule trouvé.
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- CARTES VEHICULES -->
+    <!-- ========================= -->
+
+    <div class="vehicule-grid">
+
+        <div *ngFor="let v of vehicules" class="vehicule-card">
+
+            <!-- IMAGE VEHICULE -->
+
+            <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
+
+            <!-- HEADER -->
+
+            <div class="vehicule-header">
+
+                <h3>
+
+                    {{ v.marque }} {{ v.modele }}
+
+                </h3>
+
+                <span class="badge">
+
+                    {{ v.typeOffre }}
+
+                </span>
+
+            </div>
+
+            <!-- BODY -->
+
+            <div class="vehicule-body">
+
+                <p>
+                    📅 Année :
+                    <strong>
+                        {{ v.annee || 'N/A' }}
+                    </strong>
+                </p>
+
+                <p>
+                    🛣 Kilométrage :
+                    <strong>
+                        {{ v.kilometrage || 'N/A' }} km
+                    </strong>
+                </p>
+
+                <p>
+                    🚘 Disponibilité :
+                    <strong>
+                        {{ v.disponible ? 'Oui' : 'Non' }}
+                    </strong>
+                </p>
+
+                <p class="price">
+
+                    {{ v.prix | currency:'EUR' }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

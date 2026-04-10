@@ -1,7 +1,165 @@
+.vehicule-grid {
+
+    padding: 60px 30px;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+}
+
+.section-title {
+
+    text-align: center;
+
+    font-size: 28px;
+
+    margin-bottom: 25px;
+
+    font-weight: bold;
+
+}
+
+
+/* ========================= */
+/* GRILLE */
+/* ========================= */
+
+.vehicule-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 20px;
+
+    padding: 20px;
+}
+
+/* ========================= */
+/* CARTE */
+/* ========================= */
+
 .vehicule-card {
-    border: 1px solid #ccc;
-    padding: 10px;
+
+    background-color: white;
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.1);
+
+    transition: 0.3s;
+}
+
+.vehicule-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================= */
+/* IMAGE */
+/* ========================= */
+
+.vehicule-image {
+
+    width: 100%;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    margin-bottom: 12px;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
+
+.vehicule-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
     margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+}
+
+/* Badge */
+
+.badge {
+
+    background-color: #28a745;
+
+    color: white;
+
+    padding: 5px 10px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+}
+
+/* ========================= */
+/* BODY */
+/* ========================= */
+
+.vehicule-body p {
+
+    margin: 5px 0;
+}
+
+/* Prix */
+
+.price {
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    color: #e63946;
+
+    margin-top: 10px;
+}
+
+/* ========================= */
+/* BOUTON DETAILS */
+/* ========================= */
+
+.btn-details {
+
+    margin-top: 12px;
+
+    width: 100%;
+
+    padding: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background-color: #1e90ff;
+
+    color: white;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.btn-details:hover {
+
+    background-color: #0d6efd;
 }
