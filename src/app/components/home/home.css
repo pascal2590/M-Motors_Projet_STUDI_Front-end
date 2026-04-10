@@ -169,6 +169,13 @@ body {
     width: 800px;
 }
 
+.results-count {
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
 
 /* =========================
    HERO

@@ -19,6 +19,9 @@ export class Home implements OnInit {
   vehicules: any[] = [];
   allVehicules: any[] = [];
 
+  totalVehicules: number = 0;
+  nombreResultats: number = 0;
+
   menuOpen = false;
   searchTerm = '';
 
@@ -39,6 +42,12 @@ export class Home implements OnInit {
       next: data => {
         this.allVehicules = data;
         this.vehicules = data.slice(0, 5);
+
+        // Nombre total de véhicules
+        this.totalVehicules = data.length
+
+        // Nombre de résultats affichés
+        this.nombreResultats = this.vehicules.length;
       },
       error: err => console.error(err)
     });
@@ -58,6 +67,8 @@ export class Home implements OnInit {
       (v.annee && v.annee.toString().includes(term)) ||
       (v.description && v.description.toLowerCase().includes(term))
     );
+    // Mise à jour du nombre trouvé
+    this.nombreResultats = this.vehicules.length;
   }
 
 }
