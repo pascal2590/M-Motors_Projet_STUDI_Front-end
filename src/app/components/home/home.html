@@ -6,8 +6,6 @@
     <ul class="menu">
         <li>Acheter</li>
         <li>Louer</li>
-        <!-- <li>À propos</li> -->
-        <!-- <li class="contact-item">Nous contacter</li>   -->
     </ul>
 
     <div class="burger" (click)="toggleMenu()">
@@ -31,7 +29,6 @@
 <div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()"></div>
 
 <!-- HERO -->
-
 <section class="hero">
     <div class="section-container">
         <h1>Site de vente et de location de véhicules d'occasions</h1>
@@ -42,11 +39,8 @@
 <section class="stats">
     <div class="section-container stats-grid">
         <div class="stat">
-
             <h2>{{ totalVehicules }}</h2>
-
             <p>Véhicules disponibles</p>
-
         </div>
     </div>
 </section>
@@ -59,14 +53,10 @@
             [(ngModel)]="searchTerm" (input)="search()" (keyup.enter)="search()">
 
         <button class="search-btn" title="Rechercher" (click)="search()">
-
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M21 21l-4.35-4.35M16.65 10.65a6 6 0 11-12 0 6 6 0 0112 0z" />
-
             </svg>
-
         </button>
 
     </div>
@@ -76,55 +66,70 @@
 <section class="vehicules">
     <div class="section-container">
 
-        <div class="results-count">
-        
-            <p *ngIf="searchTerm">
+        <!-- RESULTATS RECHERCHE -->
+        <div *ngIf="searchTerm" class="search-results">
+
+            <h2 class="section-title">
+                Résultats pour "{{ searchTerm }}"
+            </h2>
+
+            <!-- COMPTEUR -->
+            <p *ngIf="resultatsRecherche.length > 0" class="results-count">
                 {{ nombreResultats }}
                 véhicule{{ nombreResultats > 1 ? 's' : '' }}
                 trouvé{{ nombreResultats > 1 ? 's' : '' }}
             </p>
-        
+
+            <!-- RESULTATS -->
+            <div *ngIf="resultatsRecherche.length > 0; else noResult">
+
+                <div class="vehicule-grid">
+                    <div class="card" *ngFor="let v of resultatsRecherche">
+
+                        <img [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'">
+
+                        <div class="card-body">
+                            <h3>{{v.marque}} {{v.modele}} - {{v.annee}}</h3>
+                            <p>{{v.kilometrage}} km</p>
+                            <p class="price">{{v.prix | currency:'EUR'}}</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- AUCUN RESULTAT -->
+            <ng-template #noResult>
+                <div class="no-result">
+                    ❌ Aucun véhicule trouvé pour "{{ searchTerm }}"
+                </div>
+            </ng-template>
+
         </div>
 
+        <!-- OFFRES DU MOMENT -->
+        <div class="offres-section">
 
-        <!-- <h2>Nos véhicules d'occasion</h2> -->
+            <h2 class="section-title">
+                Nos meilleures offres du moment
+            </h2>
 
-        <div class="vehicule-grid">
+            <div class="vehicule-grid">
+                <div class="card" *ngFor="let v of vehicules">
 
-            <div class="card" *ngFor="let v of vehicules">
-                <img [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'">
+                    <img [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'">
 
-                <div class="card-body">
-                    <h3>{{v.marque}} {{v.modele}} - {{v.annee}}</h3>
-                    <p>{{v.kilometrage}} km</p>
-                    <p class="price">{{v.prix | currency:'EUR'}}</p>
+                    <div class="card-body">
+                        <h3>{{v.marque}} {{v.modele}} - {{v.annee}}</h3>
+                        <p>{{v.kilometrage}} km</p>
+                        <p class="price">{{v.prix | currency:'EUR'}}</p>
+                    </div>
+
                 </div>
             </div>
 
         </div>
 
-        <!-- MESSAGE SI AUCUN RESULTAT -->
-        <div *ngIf="vehicules.length === 0" class="no-result">
-
-            Aucun véhicule trouvé
-
-        </div>
-
     </div>
 </section>
-
-<!-- SERVICES -->
-<!--<section class="services">
-    <div class="section-container services-grid">
-
-        <div class="service"><p>Achat sécurisé</p>
-        </div>
-        <div class="service"><p>Reprise véhicule</p>
-        </div>
-        <div class="service"><p>Financement</p>
-        </div>
-        <div class="service"><p>SAV dédié</p>
-        </div>
-
-    </div>
-</section> -->

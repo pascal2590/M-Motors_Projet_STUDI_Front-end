@@ -16,8 +16,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class Home implements OnInit {
 
-  vehicules: any[] = [];
+  vehicules: any[] = []; // Affiche les 5 premiers véhicules (Offres du moment)
   allVehicules: any[] = [];
+
+  resultatsRecherche: any[] = [];
+  resultatsOffres: any[] = [];
 
   totalVehicules: number = 0;
   nombreResultats: number = 0;
@@ -47,7 +50,7 @@ export class Home implements OnInit {
         this.totalVehicules = data.length
 
         // Nombre de résultats affichés
-        this.nombreResultats = this.vehicules.length;
+        // this.nombreResultats = this.vehicules.length;
       },
       error: err => console.error(err)
     });
@@ -57,18 +60,28 @@ export class Home implements OnInit {
     const term = this.searchTerm.toLowerCase().trim();
 
     if (!term) {
-      this.vehicules = this.allVehicules.slice(0, 5);
+      this.resultatsRecherche = [];
+      this.resultatsOffres = [];
+      this.nombreResultats = 0;
       return;
     }
 
-    this.vehicules = this.allVehicules.filter(v =>
+    // Recherche globale
+    this.resultatsRecherche = this.allVehicules.filter(v =>
       (v.marque && v.marque.toLowerCase().includes(term)) ||
       (v.modele && v.modele.toLowerCase().includes(term)) ||
       (v.annee && v.annee.toString().includes(term)) ||
       (v.description && v.description.toLowerCase().includes(term))
     );
-    // Mise à jour du nombre trouvé
-    this.nombreResultats = this.vehicules.length;
+
+    // Recherche dans les offres du moment
+    this.resultatsOffres = this.vehicules.filter(v =>
+      (v.marque && v.marque.toLowerCase().includes(term)) ||
+      (v.modele && v.modele.toLowerCase().includes(term)) ||
+      (v.annee && v.annee.toString().includes(term))
+    );
+
+    this.nombreResultats = this.resultatsRecherche.length;
   }
 
 }

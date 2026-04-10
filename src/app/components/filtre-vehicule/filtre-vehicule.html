@@ -75,21 +75,21 @@
             <div class="vehicule-body">
 
                 <p>
-                    📅 Année :
+                    Année :
                     <strong>
                         {{ v.annee || 'N/A' }}
                     </strong>
                 </p>
 
                 <p>
-                    🛣 Kilométrage :
+                    Kilométrage :
                     <strong>
                         {{ v.kilometrage || 'N/A' }} km
                     </strong>
                 </p>
 
                 <p>
-                    🚘 Disponibilité :
+                    Disponibilité :
                     <strong>
                         {{ v.disponible ? 'Oui' : 'Non' }}
                     </strong>
@@ -100,6 +100,14 @@
                     {{ v.prix | currency:'EUR' }}
 
                 </p>
+
+                <!-- BOUTON DETAILS -->
+                
+                <button class="btn-details">
+                
+                    Voir détails
+                
+                </button>
 
             </div>
 
