@@ -1,5 +1,4 @@
 export interface Vehicule {
-
     idVehicule: number;
 
     marque: string;
@@ -20,7 +19,7 @@ export interface Vehicule {
 
     dateAjout: string;
 
-    /* ✅ AJOUT POUR LA PHOTO */
+    /* AJOUT POUR LA PHOTO */
 
     imageUrl?: string;
 
