@@ -18,31 +18,63 @@
         
         </div>
 
-        <form (ngSubmit)="register()">
-
-            <div class="form-row">
-
-                <input type="text" placeholder="Nom" [(ngModel)]="form.nom" name="nom" required>
-
-                <input type="text" placeholder="Prénom" [(ngModel)]="form.prenom" name="prenom" required>
-
+        <form (ngSubmit)="register()" #formRef="ngForm">
+        
+            <!-- NOM -->
+            <input type="text" name="nom" [(ngModel)]="form.nom" placeholder="Nom" required #nom="ngModel">
+        
+            <!-- Message erreur -->
+            <div *ngIf="nom.invalid && nom.touched" class="error-message">
+                Le nom est obligatoire.
             </div>
-
-            <input type="email" placeholder="Adresse email" [(ngModel)]="form.email" name="email" required>
-
-            <input type="password" placeholder="Mot de passe" [(ngModel)]="form.password" name="password" required>
-
-            <input type="text" placeholder="Téléphone" [(ngModel)]="form.telephone" name="telephone">
-
-            <input type="text" placeholder="Adresse" [(ngModel)]="form.adresse" name="adresse">
-
-            <button type="submit">
-
+        
+            <!-- PRENOM -->
+            <input type="text" name="prenom" [(ngModel)]="form.prenom" placeholder="Prénom" required #prenom="ngModel">
+        
+            <div *ngIf="prenom.invalid && prenom.touched" class="error-message">
+                Le prénom est obligatoire.
+            </div>
+        
+            <!-- EMAIL -->
+            <input type="email" name="email" [(ngModel)]="form.email" placeholder="Email" required email #email="ngModel">
+        
+            <div *ngIf="email.invalid && email.touched" class="error-message">
+        
+                <span *ngIf="email.errors?.['required']">
+                    L'email est obligatoire.
+                </span>
+        
+                <span *ngIf="email.errors?.['email']">
+                    Email invalide.
+                </span>
+        
+            </div>
+        
+            <!-- PASSWORD -->
+            <input type="password" name="password" [(ngModel)]="form.password" placeholder="Mot de passe" required minlength="6"
+                #password="ngModel">
+        
+            <div *ngIf="password.invalid && password.touched" class="error-message">
+        
+                <span *ngIf="password.errors?.['required']">
+                    Mot de passe obligatoire.
+                </span>
+        
+                <span *ngIf="password.errors?.['minlength']">
+                    Minimum 6 caractères.
+                </span>
+        
+            </div>
+        
+            <!-- Bouton -->
+            <button type="submit" [disabled]="formRef.invalid">
+        
                 Créer mon compte
-
+        
             </button>
-
+        
         </form>
+
 
         <p class="login-link">
 
