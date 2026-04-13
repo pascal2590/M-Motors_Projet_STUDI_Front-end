@@ -10,9 +10,7 @@ import { Vehicule } from '../../models/vehicule.model';
   standalone: true,
 
   imports: [CommonModule],
-
   templateUrl: './filtre-vehicule.html',
-
   styleUrl: './filtre-vehicule.css'
 })
 export class FiltreVehicule implements OnInit {

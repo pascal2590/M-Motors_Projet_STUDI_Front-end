@@ -4,6 +4,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { FiltreVehicule } from '../filtre-vehicule/filtre-vehicule';
+import { VehiculeList } from '../vehicule-list/vehicule-list';
+
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -11,14 +15,16 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    FiltreVehicule,
+    VehiculeList
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
 export class Home implements OnInit {
 
-  vehicules: any[] = []; // Variable pour stocker les véhicules (Offres du moment)
+  vehicules: any[] = [];
   allVehicules: any[] = [];
 
   resultatsRecherche: any[] = [];
@@ -46,16 +52,17 @@ export class Home implements OnInit {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: data => {
         this.allVehicules = data;
-        this.vehicules = data.slice(0, 5); // Affiche les 5 premiers véhicules (Offres du moment)
+        this.vehicules = data.slice(0, 5);
 
-        // Nombre total de véhicules
-        this.totalVehicules = data.length
-
-        // Nombre de résultats affichés
-        // this.nombreResultats = this.vehicules.length;
+        this.totalVehicules = data.length;
       },
       error: err => console.error(err)
     });
+  }
+
+  // Appelée par le composant filtre
+  updateSearchTerm(term: string) {
+    this.searchTerm = term;
   }
 
   search() {
@@ -68,7 +75,6 @@ export class Home implements OnInit {
       return;
     }
 
-    // Recherche globale
     this.resultatsRecherche = this.allVehicules.filter(v =>
       (v.marque && v.marque.toLowerCase().includes(term)) ||
       (v.modele && v.modele.toLowerCase().includes(term)) ||
@@ -76,7 +82,6 @@ export class Home implements OnInit {
       (v.description && v.description.toLowerCase().includes(term))
     );
 
-    // Recherche dans les offres du moment
     this.resultatsOffres = this.vehicules.filter(v =>
       (v.marque && v.marque.toLowerCase().includes(term)) ||
       (v.modele && v.modele.toLowerCase().includes(term)) ||
