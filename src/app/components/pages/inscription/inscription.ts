@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-inscription',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     HttpClientModule
   ],
   templateUrl: './inscription.html',
