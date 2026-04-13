@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
 })
 export class Home implements OnInit {
 
-  vehicules: any[] = []; // Affiche les 5 premiers véhicules (Offres du moment)
+  vehicules: any[] = []; // Variable pour stocker les véhicules (Offres du moment)
   allVehicules: any[] = [];
 
   resultatsRecherche: any[] = [];
@@ -46,7 +46,7 @@ export class Home implements OnInit {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: data => {
         this.allVehicules = data;
-        this.vehicules = data.slice(0, 5);
+        this.vehicules = data.slice(0, 5); // Affiche les 5 premiers véhicules (Offres du moment)
 
         // Nombre total de véhicules
         this.totalVehicules = data.length

@@ -6,7 +6,7 @@ import { Vehicule } from '../../models/vehicule.model';
 
 @Component({
   selector: 'app-vehicule-list',
-  standalone: true, // ✅ OBLIGATOIRE
+  standalone: true, // Pour Angular standalone components
   imports: [CommonModule],
   templateUrl: './vehicule-list.html',
   styleUrls: ['./vehicule-list.css']
@@ -20,7 +20,7 @@ export class VehiculeList implements OnInit {
   ngOnInit(): void {
 
     this.vehiculeService.getVehicules()
-      .subscribe((data: Vehicule[]) => { // ✅ type ajouté
+      .subscribe((data: Vehicule[]) => { // type ajouté
         this.vehicules = data;
       });
 
