@@ -1,0 +1,59 @@
+<section class="register-section">
+
+    <div class="register-container">
+
+        <h1>Créer un compte client</h1>
+
+        <!-- MESSAGE SUCCÈS -->
+        <div *ngIf="successMessage" class="success-message">
+        
+            {{ successMessage }}
+        
+        </div>
+        
+        <!-- MESSAGE ERREUR -->
+        <div *ngIf="errorMessage" class="error-message">
+        
+            {{ errorMessage }}
+        
+        </div>
+
+        <form (ngSubmit)="register()">
+
+            <div class="form-row">
+
+                <input type="text" placeholder="Nom" [(ngModel)]="form.nom" name="nom" required>
+
+                <input type="text" placeholder="Prénom" [(ngModel)]="form.prenom" name="prenom" required>
+
+            </div>
+
+            <input type="email" placeholder="Adresse email" [(ngModel)]="form.email" name="email" required>
+
+            <input type="password" placeholder="Mot de passe" [(ngModel)]="form.password" name="password" required>
+
+            <input type="text" placeholder="Téléphone" [(ngModel)]="form.telephone" name="telephone">
+
+            <input type="text" placeholder="Adresse" [(ngModel)]="form.adresse" name="adresse">
+
+            <button type="submit">
+
+                Créer mon compte
+
+            </button>
+
+        </form>
+
+        <p class="login-link">
+
+            Déjà inscrit ?
+
+            <a routerLink="/login">
+                Se connecter
+            </a>
+
+        </p>
+
+    </div>
+
+</section>

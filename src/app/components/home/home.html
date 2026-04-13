@@ -6,6 +6,16 @@
     <ul class="menu">
         <li>Acheter</li>
         <li>Louer</li>
+        <li>
+            <a routerLink="/inscription">
+                Inscription
+            </a>
+        </li>        
+        <li>
+            <a routerLink="/login">
+                Connexion
+            </a>
+        </li>
     </ul>
 
     <div class="burger" (click)="toggleMenu()">
@@ -21,6 +31,17 @@
     <ul>
         <li>Acheter</li>
         <li>Louer</li>
+        <li>
+            <a routerLink="/inscription" (click)="toggleMenu()">
+                Inscription
+            </a>
+        </li>
+        
+        <li>
+            <a routerLink="/login" (click)="toggleMenu()">
+                Connexion
+            </a>
+        </li>
         <li>À propos</li>
         <li class="contact-btn">Nous contacter</li>
     </ul>
