@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
 export class Inscription {
 
   private apiUrl =
-    'https://localhost:7183/api/Auth/client/register';
+    'http://localhost:5119/api/Auth/client/register';
 
   constructor(
     private http: HttpClient,
@@ -55,7 +55,7 @@ export class Inscription {
             response.token
           );
 
-          // Message succès
+          // Compte créé avec succès
           this.successMessage =
             "Compte créé avec succès ! Redirection...";
 

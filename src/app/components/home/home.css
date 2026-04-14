@@ -152,33 +152,6 @@ body {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-.search-btn {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    border: none;
-    background: #667eea;
-    color: white;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background 0.3s ease;
-}
-
-.search-btn:hover {
-    background: #5a67d8;
-}
-
-.search-btn svg {
-    width: 16px;
-    height: 16px;
-}
-
 .search-wrapper {
     display: flex;
     justify-content: center;
@@ -196,7 +169,6 @@ body {
     font-weight: 600;
     color: #333;
 }
-
 
 /* =========================
    HERO
@@ -235,8 +207,9 @@ body {
 
 .vehicule-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+    gap: 20px;
+    justify-content: center;
 }
 
 .card {
@@ -336,4 +309,41 @@ body {
     background-color: #ffecec;
     color: #d32f2f;
     text-align: center;
+}
+
+/* Affichage du nombre de résultats trouvés */
+.results-count {
+    text-align: center;
+}
+
+.results-count span {
+    display: inline-block;
+    background: #e8f5e9;
+    padding: 8px 15px;
+    border-radius: 20px;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.user-info {
+    font-weight: bold;
+    color: #fff;
+}
+
+.user-email {
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+.logout-btn {
+    background: #ff3b3b;
+    border: none;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #d60000;
 }
