@@ -24,4 +24,13 @@ export class VehiculeService {
     );
   }
 
+  // Obtenir un véhicule par ID (US09)
+  getVehiculeById(id: number): Observable<Vehicule> {
+
+    return this.http.get<Vehicule>(
+      `${this.apiUrl}/${id}`
+    );
+  }
+
+
 }

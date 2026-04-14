@@ -1,0 +1,87 @@
+<div class="vehicule-container">
+
+    <div *ngIf="vehicule" class="vehicule-card">
+
+        <!-- IMAGE -->
+
+        <div class="image-section">
+
+            <img [src]="vehicule.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
+
+        </div>
+
+        <!-- INFOS -->
+
+        <div class="info-section">
+
+            <h1>
+
+                {{ vehicule.marque }}
+                {{ vehicule.modele }}
+
+            </h1>
+
+            <p class="type">
+
+                {{ vehicule.typeOffre }}
+
+            </p>
+
+            <p class="price">
+
+                {{ vehicule.prix | currency:'EUR' }}
+
+            </p>
+
+            <div class="details">
+
+                <p>
+                    📅 Année :
+                    <strong>
+                        {{ vehicule.annee || 'N/A' }}
+                    </strong>
+                </p>
+
+                <p>
+                    🛣 Kilométrage :
+                    <strong>
+                        {{ vehicule.kilometrage || 'N/A' }} km
+                    </strong>
+                </p>
+
+                <p>
+                    🚘 Disponibilité :
+                    <strong>
+                        {{ vehicule.disponible ? 'Disponible' : 'Indisponible' }}
+                    </strong>
+                </p>
+
+            </div>
+
+            <!-- DESCRIPTION -->
+
+            <div class="description" *ngIf="vehicule.description">
+
+                <h3>Description</h3>
+
+                <p>
+
+                    {{ vehicule.description }}
+
+                </p>
+
+            </div>
+
+            <!-- BOUTON RETOUR -->
+
+            <button routerLink="/" class="btn-retour">
+
+                ⬅ Retour à la liste
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

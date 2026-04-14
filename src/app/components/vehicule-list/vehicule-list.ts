@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { VehiculeService } from '../../services/vehicule';
 import { Vehicule } from '../../models/vehicule.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-vehicule-list',
-  standalone: true, // Pour Angular standalone components
-  imports: [CommonModule],
+  standalone: true, // Pour les composants Angular standalone
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   templateUrl: './vehicule-list.html',
   styleUrls: ['./vehicule-list.css']
 })

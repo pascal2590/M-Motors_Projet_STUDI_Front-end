@@ -50,7 +50,11 @@
 
             <!-- IMAGE VEHICULE -->
 
-            <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
+            <a [routerLink]="['/vehicule', v.idVehicule]">
+            
+                <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
+            
+            </a>
 
             <!-- HEADER -->
 
@@ -99,15 +103,8 @@
 
                     {{ v.prix | currency:'EUR' }}
 
-                </p>
-
-                <!-- BOUTON DETAILS -->
+                </p>               
                 
-                <button class="btn-details">
-                
-                    Voir détails
-                
-                </button>
 
             </div>
 

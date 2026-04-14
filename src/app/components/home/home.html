@@ -199,7 +199,12 @@
 
                     <div class="card" *ngFor="let v of resultatsRecherche">
 
-                        <img [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'">
+                        <a [routerLink]="['/vehicule', v.idVehicule]">
+                        
+                            <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
+                        
+                        </a>
+
 
                         <div class="card-body">
                             <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>
@@ -230,7 +235,12 @@
 
                 <div class="card" *ngFor="let v of vehicules">
 
-                    <img [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'">
+                    <a [routerLink]="['/vehicule', v.idVehicule]">
+                    
+                        <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
+                    
+                    </a>
+
 
                     <div class="card-body">
                         <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>
