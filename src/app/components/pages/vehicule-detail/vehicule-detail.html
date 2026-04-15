@@ -72,6 +72,21 @@
 
             </div>
 
+            <!-- BOUTONS ACHAT ET LLD -->
+
+            <div class="actions">
+            
+                <button class="btn-achat" [routerLink]="['/vehicule', vehicule.idVehicule, 'achat']">
+                    Déposer un dossier Achat
+                </button>
+            
+                <button class="btn-lld" [routerLink]="['/vehicule', vehicule.idVehicule, 'lld']">
+                    Déposer un dossier Location (LLD)
+                </button>
+            
+            </div>
+
+
             <!-- BOUTON RETOUR -->
 
             <button routerLink="/" class="btn-retour">

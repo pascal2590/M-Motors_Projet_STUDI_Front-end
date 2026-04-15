@@ -40,14 +40,28 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
 
+    // DOSSIER ACHAT (protégé)
+
     {
-        path: 'vehicule/:id',
+        path: 'vehicule/:id/achat',
         loadComponent: () =>
-            import('./components/pages/vehicule-detail/vehicule-detail')
-                .then(m => m.VehiculeDetail)
+            import('./components/dossier-achat/dossier-achat')
+                .then(m => m.DossierAchat),
+        canActivate: [authGuard]
+    },
+
+    // DOSSIER LOCATION LLD (protégé)
+
+    {
+        path: 'vehicule/:id/lld',
+        loadComponent: () =>
+            import('./components/dossier-lld/dossier-lld')
+                .then(m => m.DossierLld),
+        canActivate: [authGuard]
     },
 
 
+    
     // DETAIL VEHICULE
     {
         path: 'vehicule/:id',

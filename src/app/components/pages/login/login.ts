@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
@@ -35,7 +36,8 @@ export class Login {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   login() {
@@ -73,14 +75,21 @@ export class Login {
         // USER COMPLET (IMPORTANT)
         localStorage.setItem(
           'user',
-          JSON.stringify(response.client) // ou response.user selon ton API
+          JSON.stringify(response.client)
         );
 
         this.successMessage = "Connexion réussie !";
 
+        // Récupérer l'URL demandée avant login
+        const returnUrl =
+          this.route.snapshot.queryParams['returnUrl']
+          || '/';
+
+        // Redirection après succès
         setTimeout(() => {
-          this.router.navigate(['/']);
+          this.router.navigateByUrl(returnUrl);
         }, 1000);
+
       },
 
 

@@ -1,13 +1,38 @@
-import { CanActivateFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard = () => {
 
-    const token = localStorage.getItem("token");
+    const router = inject(Router);
 
-    if (token && token !== "undefined") {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+
         return true;
+
+    }
+    else {
+
+        alert(
+            "⚠️ Vous devez être connecté pour déposer un dossier."
+        );
+
+        // Sauvegarder l'URL actuelle
+        const currentUrl = router.url;
+
+        // Rediriger vers le formulaire de login avec retour à l'URL après succès
+        router.navigate(
+            ['/login'],
+            {
+                queryParams: {
+                    returnUrl: currentUrl
+                }
+            }
+        );
+
+        return false;
+
     }
 
-    window.location.href = "/login";
-    return false;
 };

@@ -144,3 +144,39 @@
     }
 
 }
+
+/* STYLE DES BOUTONS ACHAT ET LLD */
+
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.btn-achat,
+.btn-lld {
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+    color: white;
+}
+
+.btn-achat {
+    background-color: #2e7d32;
+}
+
+.btn-achat:hover {
+    background-color: #1b5e20;
+}
+
+.btn-lld {
+    background-color: #1565c0;
+}
+
+.btn-lld:hover {
+    background-color: #0d47a1;
+}
