@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 import { FiltreVehicule } from '../filtre-vehicule/filtre-vehicule';
 import { VehiculeList } from '../vehicule-list/vehicule-list';
+
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-home',
@@ -35,29 +37,44 @@ export class Home implements OnInit {
   menuOpen = false;
   searchTerm = '';
 
-  // AJOUT USER CONNECTÉ
+  // USER CONNECTÉ
   user: any = null;
   isLoggedIn = false;
 
-  private apiUrl = 'http://localhost:5119/api/Vehicule';
+  private apiUrl =
+    'http://localhost:5119/api/Vehicule';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+
     this.loadVehicules();
+
     this.loadUser();
+
   }
 
-  // USER
+  // =========================
+  // USER CONNECTÉ
+  // =========================
+
   loadUser() {
 
-    const token = localStorage.getItem("token");
+    // Vérifier de la connexion
+    if (!this.authService.isLoggedIn()) {
 
-    if (!token) {
       this.user = null;
       this.isLoggedIn = false;
+
       return;
     }
+
+    const token =
+      this.authService.getToken();
 
     this.http.get<any>(
       "http://localhost:5119/api/Auth/client/me",
@@ -67,73 +84,141 @@ export class Home implements OnInit {
         }
       }
     ).subscribe({
+
       next: user => {
+
         this.user = user;
         this.isLoggedIn = true;
+
       },
+
       error: err => {
+
         console.error(err);
+
         this.user = null;
         this.isLoggedIn = false;
+
       }
+
     });
 
   }
 
+  // =========================
+  // LOGOUT
+  // =========================
 
-  // DECONNEXION
   logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+
+    this.authService.logout();
 
     this.user = null;
+    this.isLoggedIn = false;
 
-    window.location.href = "/";
+    this.router.navigate(['/']);
+
   }
+
+  // =========================
+  // MENU
+  // =========================
 
   toggleMenu() {
+
     this.menuOpen = !this.menuOpen;
+
   }
+
+  // =========================
+  // VEHICULES
+  // =========================
 
   loadVehicules() {
-    this.http.get<any[]>(this.apiUrl).subscribe({
-      next: data => {
-        this.allVehicules = data;
-        this.vehicules = data.slice(0, 5);
 
-        this.totalVehicules = data.length;
-      },
-      error: err => console.error(err)
-    });
+    this.http.get<any[]>(this.apiUrl)
+      .subscribe({
+
+        next: data => {
+
+          this.allVehicules = data;
+
+          this.vehicules =
+            data.slice(0, 5);
+
+          this.totalVehicules =
+            data.length;
+
+        },
+
+        error: err =>
+          console.error(err)
+
+      });
+
   }
 
+  // =========================
+  // RECHERCHE
+  // =========================
+
   updateSearchTerm(term: string) {
+
     this.searchTerm = term;
+
   }
 
   search() {
-    const term = this.searchTerm.toLowerCase().trim();
+
+    const term =
+      this.searchTerm
+        .toLowerCase()
+        .trim();
 
     if (!term) {
+
       this.resultatsRecherche = [];
       this.resultatsOffres = [];
       this.nombreResultats = 0;
+
       return;
+
     }
 
-    this.resultatsRecherche = this.allVehicules.filter(v =>
-      (v.marque && v.marque.toLowerCase().includes(term)) ||
-      (v.modele && v.modele.toLowerCase().includes(term)) ||
-      (v.annee && v.annee.toString().includes(term)) ||
-      (v.description && v.description.toLowerCase().includes(term))
-    );
+    this.resultatsRecherche =
+      this.allVehicules.filter(v =>
 
-    this.resultatsOffres = this.vehicules.filter(v =>
-      (v.marque && v.marque.toLowerCase().includes(term)) ||
-      (v.modele && v.modele.toLowerCase().includes(term)) ||
-      (v.annee && v.annee.toString().includes(term))
-    );
+        (v.marque &&
+          v.marque.toLowerCase().includes(term)) ||
 
-    this.nombreResultats = this.resultatsRecherche.length;
+        (v.modele &&
+          v.modele.toLowerCase().includes(term)) ||
+
+        (v.annee &&
+          v.annee.toString().includes(term)) ||
+
+        (v.description &&
+          v.description.toLowerCase().includes(term))
+
+      );
+
+    this.resultatsOffres =
+      this.vehicules.filter(v =>
+
+        (v.marque &&
+          v.marque.toLowerCase().includes(term)) ||
+
+        (v.modele &&
+          v.modele.toLowerCase().includes(term)) ||
+
+        (v.annee &&
+          v.annee.toString().includes(term))
+
+      );
+
+    this.nombreResultats =
+      this.resultatsRecherche.length;
+
   }
+
 }

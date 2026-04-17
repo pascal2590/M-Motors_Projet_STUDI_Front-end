@@ -1,1 +1,50 @@
-<p>dossier-lld works!</p>
+<form *ngIf="vehicule" class="form-lld" (ngSubmit)="envoyerDossier()">
+
+    <!-- DURÉE -->
+    <label for="duree">Durée du contrat *</label>
+
+    <select id="duree" name="duree" [(ngModel)]="form.duree" required #duree="ngModel" (change)="calculMensualite()">
+        <option [value]="24">24 mois</option>
+        <option [value]="36">36 mois</option>
+        <option [value]="48">48 mois</option>
+    </select>
+
+    <div class="field-error" *ngIf="duree.invalid && duree.touched">
+        La durée est obligatoire
+    </div>
+
+    <!-- KILOMÉTRAGE -->
+    <label for="kilometrage">Kilométrage annuel *</label>
+
+    <select id="kilometrage" name="kilometrage" [(ngModel)]="form.kilometrage" required #kilometrage="ngModel"
+        (change)="calculMensualite()">
+        <option [value]="10000">10 000 km</option>
+        <option [value]="15000">15 000 km</option>
+        <option [value]="20000">20 000 km</option>
+    </select>
+
+    <div class="field-error" *ngIf="kilometrage.invalid && kilometrage.touched">
+        Le kilométrage est obligatoire
+    </div>
+
+    <!-- MENSUALITÉ -->
+    <div class="mensualite">
+        💶 Mensualité estimée :
+        <strong>{{ form.mensualite | currency:'EUR' }}</strong>
+    </div>
+
+    <!-- BOUTON -->
+    <button type="submit" [disabled]="hasSubmitted">
+        Envoyer le dossier
+    </button>
+
+    <!-- MESSAGES -->
+    <div *ngIf="successMessage" class="success">
+        {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+    </div>
+
+</form>

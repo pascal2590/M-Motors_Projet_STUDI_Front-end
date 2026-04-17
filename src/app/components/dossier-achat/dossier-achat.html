@@ -1,1 +1,85 @@
-<p>dossier-achat works!</p>
+<div class="container">
+
+    <h1>Déposer un dossier d'achat</h1>
+
+    <!-- Chargement -->
+    <div *ngIf="!vehicule">
+        Chargement du véhicule...
+    </div>
+
+    <!-- Véhicule -->
+    <div *ngIf="vehicule" class="vehicule-card">
+
+        <img *ngIf="vehicule.imageUrl" [src]="vehicule.imageUrl" alt="photo véhicule" class="vehicule-img" />
+
+        <h2>
+            {{ vehicule.marque }} {{ vehicule.modele }}
+        </h2>
+
+        <p>Année : {{ vehicule.annee }}</p>
+
+        <p>Prix : {{ vehicule.prix | currency:'EUR' }}</p>
+
+    </div>
+
+    <!-- FORMULAIRE -->
+    <form *ngIf="vehicule" class="form-achat" #f="ngForm">
+
+        <!-- NOM -->
+        <label for="nom">Nom *</label>
+        <input id="nom" type="text" name="nom" [(ngModel)]="form.nom" required #nom="ngModel" />
+        <div class="field-error" *ngIf="nom.invalid && nom.touched">
+            Le nom est obligatoire
+        </div>
+
+        <!-- PRÉNOM -->
+        <label for="prenom">Prénom *</label>
+        <input id="prenom" type="text" name="prenom" [(ngModel)]="form.prenom" required #prenom="ngModel" />
+        <div class="field-error" *ngIf="prenom.invalid && prenom.touched">
+            Le prénom est obligatoire
+        </div>
+
+        <!-- EMAIL -->
+        <label for="email">Email *</label>
+        <input id="email" type="email" name="email" [(ngModel)]="form.email" required #email="ngModel" />
+        <div class="field-error" *ngIf="email.invalid && email.touched">
+            Email obligatoire et valide
+        </div>
+
+        <!-- TÉLÉPHONE -->
+        <label for="telephone">Téléphone *</label>
+        <input id="telephone" type="text" name="telephone" [(ngModel)]="form.telephone" required #telephone="ngModel" />
+        <div class="field-error" *ngIf="telephone.invalid && telephone.touched">
+            Téléphone obligatoire
+        </div>
+
+        <!-- APPORT -->
+        <label for="apport">Apport (€)</label>
+        <input id="apport" type="number" name="apport" [(ngModel)]="form.apport" />
+
+        <!-- FINANCEMENT -->
+        <label for="financement">Mode de financement</label>
+        <select id="financement" name="financement" [(ngModel)]="form.financement">
+            <option value="credit">Crédit classique</option>
+            <option value="leasing">Leasing</option>
+            <option value="comptant">Paiement comptant</option>
+        </select>
+
+        <!-- MESSAGES GLOBAUX -->
+        <div *ngIf="errorMessage" class="error">
+            {{ errorMessage }}
+        </div>
+
+        <div *ngIf="successMessage" class="success">
+            {{ successMessage }}
+        </div>
+
+        <!-- BOUTON -->
+        <button type="button" (click)="envoyerDossier()" [disabled]="f.invalid" [class.btn-disabled]="f.invalid"
+            [class.btn-active]="f.valid">
+            Envoyer le dossier
+        </button>
+
+    </form>
+
+</div>

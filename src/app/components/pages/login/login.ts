@@ -46,7 +46,7 @@ export class Login {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Validation simple
+    // Validation
     if (!this.form.email ||
       !this.form.password) {
 
@@ -72,7 +72,7 @@ export class Login {
         // TOKEN
         localStorage.setItem('token', response.token);
 
-        // USER COMPLET (IMPORTANT)
+        // USER CONNECTÉ (pour affichage nom, etc.)
         localStorage.setItem(
           'user',
           JSON.stringify(response.client)
@@ -92,7 +92,6 @@ export class Login {
 
       },
 
-
       error: err => {
 
         this.isLoading = false;
@@ -110,11 +109,7 @@ export class Login {
             "Email ou mot de passe incorrect.";
 
         }
-
       }
-
     });
-
   }
-
 }

@@ -1,38 +1,27 @@
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { CanActivateFn, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from '../services/auth';
 
-export const authGuard = () => {
+export const authGuard: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+) => {
 
+    const authService = inject(AuthService);
     const router = inject(Router);
 
-    const token = localStorage.getItem('token');
+    if (!authService.isLoggedIn()) {
 
-    if (token) {
+        alert("Vous devez être connecté");
 
-        return true;
-
-    }
-    else {
-
-        alert(
-            "⚠️ Vous devez être connecté pour déposer un dossier."
-        );
-
-        // Sauvegarder l'URL actuelle
-        const currentUrl = router.url;
-
-        // Rediriger vers le formulaire de login avec retour à l'URL après succès
-        router.navigate(
-            ['/login'],
-            {
-                queryParams: {
-                    returnUrl: currentUrl
-                }
+        router.navigate(['/login'], {
+            queryParams: {
+                returnUrl: state.url
             }
-        );
+        });
 
         return false;
-
     }
 
+    return true;
 };

@@ -1,0 +1,137 @@
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 25px;
+    color: #1f2937;
+}
+
+/* Layout 2 colonnes */
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* Carte véhicule */
+.vehicule-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.vehicule-card h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: #111827;
+}
+
+.vehicule-card p {
+    color: #6b7280;
+    margin: 6px 0;
+}
+
+/* Formulaire */
+.form-box {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600;
+    color: #374151;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    outline: none;
+}
+
+input:focus,
+select:focus {
+    border-color: #2563eb;
+}
+
+.field-error {
+    color: #e74c3c;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+/* Bouton */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-disabled {
+    background-color: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.btn-active {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.btn-active:hover {
+    background-color: #27ae60;
+}
+
+/* Message */
+.success {
+    margin-top: 15px;
+    color: green;
+}
+
+.error {
+    margin-top: 15px;
+    color: red;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.vehicule-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.vehicule-img {
+    width: 100%;
+    max-width: 420px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
