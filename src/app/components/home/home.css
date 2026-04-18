@@ -13,17 +13,31 @@ h3 {
     font-weight: 600;
 }
 
-p {
-    color: #555;
+/* Gestion propre des couleurs de texte */
+.hero p,
+.navbar p,
+.side-menu p {
+    color: white;
+}
+
+.stats p,
+.vehicules p {
+    color: #333;
+}
+
+.icon {
+    margin-right: 6px;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 /* =========================
-   CONTAINER GLOBAL
+   CONTAINER
 ========================= */
 .section-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 20px;    
+    padding: 0 20px;
 }
 
 /* =========================
@@ -31,50 +45,74 @@ p {
 ========================= */
 .navbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
-    background: white;
-    border-bottom: 1px solid #eee;
+    padding: 14px 24px;
+    background: #7c61db;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .logo {
-    font-weight: 600;
     font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .menu {
     display: flex;
-    gap: 30px;
+    gap: 28px;
     list-style: none;
-    margin: 0 auto;
-}
-
-.menu li {
-    cursor: pointer;
-}
-
-.contact-item {
-    background: #111;
-    color: white;
-    padding: 10px 18px;
-    border-radius: 25px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 
 .menu a {
     text-decoration: none;
-    color: inherit;
+    color: white;
     font-weight: 500;
+    transition: color 0.2s ease;
 }
 
-.menu a:hover {
-    color: #e30613;
+.menu a:not(.auth-btn):hover {
+    color: black;
 }
 
-/* MENU BURGER */
+/* =========================
+   BURGER
+========================= */
 .burger {
     display: none;
-    font-size: 26px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 28px;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 80;
 }
 
 /* =========================
@@ -84,57 +122,62 @@ p {
     position: fixed;
     top: 0;
     right: 0;
-    width: 260px;
+    width: 320px;
     height: 100%;
-    background: white;
-    color: #333;
-    padding: 20px;
+    background: #7c61db;
+    color: white;
+    padding: 24px;
     transform: translateX(100%);
-    transition: 0.3s;
+    transition: transform 0.3s ease;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .side-menu.open {
     transform: translateX(0);
 }
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.side-menu a {
+/* Liens classiques uniquement */
+.side-menu a:not(.auth-btn) {
+    color: white;
     text-decoration: none;
-    color: black;
-    display: block;
-    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 8px;
 }
 
-.side-menu a:hover {
-    color: #e30613;
+.side-menu a:not(.auth-btn):hover {
+    background: rgba(255, 255, 255, 0.08);
 }
 
 /* =========================
-   Barre de recherche
+   RESPONSIVE
 ========================= */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .burger {
+        display: flex;
+    }
 }
 
-body {
-    height: 100vh;
+/* =========================
+   SEARCH
+========================= */
+.search-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    margin: 40px 0;
 }
 
 .search-container {
     position: relative;
-    width: 300px;
+    width: 800px;
+    max-width: 90%;
 }
 
 .search-input {
@@ -152,29 +195,11 @@ body {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-.search-wrapper {
-    display: flex;
-    justify-content: center;
-    margin: 40px 0;
-}
-
-.search-container {
-    position: relative;
-    width: 800px;
-}
-
-.results-count {
-    margin: 20px 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-}
-
 /* =========================
    HERO
 ========================= */
 .hero {
-    padding: 60px 0;
+    padding: 40px 0 20px;
     text-align: center;
 }
 
@@ -182,22 +207,31 @@ body {
    STATS
 ========================= */
 .stats {
-     display: flex;
-    justify-content: center; /* centre horizontalement */
-    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 30px;
 }
 
 .stats-grid {
     display: flex;
-    /* justify-content: space-between; */
     text-align: center;
+}
+
+.stats h2 {
+    font-size: 36px;
+    margin-bottom: 5px;
+}
+
+.stats p {
+    font-size: 16px;
+    color: #555;
 }
 
 /* =========================
    VEHICULES
 ========================= */
 .vehicules {
-    padding: 60px 0;    
+    padding: 60px 0;
 }
 
 .vehicules h2 {
@@ -216,78 +250,31 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* animation hover */
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .card img {
     width: 100%;
     height: 180px;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
+
+.card:hover img {
+    transform: scale(1.05);
+}
+
+
 
 /* =========================
-   SERVICES
+   RESULTATS
 ========================= */
-.services {
-    padding: 60px 0;
-}
-
-.services-grid {
-    display: flex;
-    justify-content: space-between;
-}
-
-.service {
-    text-align: center;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 768px) {
-
-    .menu {
-        display: none;
-    }
-
-    .burger {
-        display: block;
-        margin-left: auto;
-    }
-
-    .stats-grid,
-    .services-grid {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
-    }
-}
-
-.main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* PHRASE D’ACCROCHE */
-.subtitle {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 35px;
-    position: relative;
-    padding-left: 20px;
-}
-
-/* PETITE BARRE VISUELLE À GAUCHE */
-.subtitle::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 6px;
-    width: 4px;
-    height: 16px;
-    background: #111;
-    border-radius: 2px;
-}
-
 .search-results {
     margin-bottom: 40px;
 }
@@ -300,6 +287,7 @@ body {
     margin: 10px 0 20px;
     font-weight: 500;
     color: #555;
+    text-align: center;
 }
 
 .no-result {
@@ -311,20 +299,9 @@ body {
     text-align: center;
 }
 
-/* Affichage du nombre de résultats trouvés */
-.results-count {
-    text-align: center;
-}
-
-.results-count span {
-    display: inline-block;
-    background: #e8f5e9;
-    padding: 8px 15px;
-    border-radius: 20px;
-    color: #2e7d32;
-    font-weight: 600;
-}
-
+/* =========================
+   USER
+========================= */
 .user-info {
     font-weight: bold;
     color: #fff;
@@ -335,15 +312,56 @@ body {
     opacity: 0.8;
 }
 
-.logout-btn {
-    background: #ff3b3b;
+/* =========================
+   BUTTONS
+========================= */
+.auth-btn {
     border: none;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+
+    background: linear-gradient(135deg, rgb(171, 154, 185), rgb(54, 24, 160));
+    color: white;
+    box-shadow: 0 4px 12px rgba(227, 6, 19, 0.25);
 }
 
-.logout-btn:hover {
-    background: #d60000;
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(227, 6, 19, 0.35);
+}
+
+/* bouton secondaire (inscription) */
+.auth-btn.secondary {
+    background: transparent;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: none;
+}
+
+/* version mobile */
+.side-menu ul {
+    padding: 0;
+    margin: 0;
+}
+
+.side-menu li {
+    list-style: none;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+
+.side-menu .auth-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 10px 14px;
 }

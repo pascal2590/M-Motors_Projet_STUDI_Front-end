@@ -47,25 +47,18 @@
 /* ========================= */
 
 .vehicule-card {
-
     background-color: white;
-
     border-radius: 12px;
-
     padding: 16px;
-
-    box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.1);
-
-    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    /* important pour le zoom image */
 }
 
 .vehicule-card:hover {
-
-    transform: translateY(-5px);
-
-    box-shadow:
-        0 8px 18px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(124, 97, 219, 0.25);
 }
 
 /* ========================= */
@@ -73,16 +66,17 @@
 /* ========================= */
 
 .vehicule-image {
-
     width: 100%;
-
     height: 180px;
-
     object-fit: cover;
-
     border-radius: 10px;
-
     margin-bottom: 12px;
+    transition: transform 0.4s ease;
+}
+
+/* zoom image */
+.vehicule-card:hover .vehicule-image {
+    transform: scale(1.08);
 }
 
 /* ========================= */

@@ -24,6 +24,11 @@ export class DossierAchat implements OnInit {
   // Véhicule
   vehicule: any;
 
+  successMessage = '';
+  errorMessage = '';
+
+  hasSubmitted = false;
+
   // API véhicules
   apiVehiculesUrl = 'http://localhost:5119/api/vehicule';
 
@@ -35,10 +40,7 @@ export class DossierAchat implements OnInit {
     telephone: '',
     apport: 0,
     financement: 'credit'
-  };
-
-  successMessage = '';
-  errorMessage = '';
+  };  
 
   constructor(
     private route: ActivatedRoute,
@@ -95,6 +97,17 @@ export class DossierAchat implements OnInit {
   // -----------------------------
   envoyerDossier() {
 
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    if (this.hasSubmitted) {
+
+      this.errorMessage =
+        "Dossier déjà envoyé";
+
+      return;
+    }
+
     if (!this.authService.isLoggedIn()) {
 
       this.errorMessage =
@@ -115,27 +128,54 @@ export class DossierAchat implements OnInit {
     }
 
     const payload = {
-      clientId: clientId,
+
+      clientId,
       vehiculeId: this.vehiculeId,
+
       ...this.form
+
     };
 
-    this.dossierService.envoyerAchat(payload)
+    this.dossierService
+      .envoyerAchat(payload)
       .subscribe({
-        next: () => {
+
+        next: (response: any) => {
+
+          if (!response.success) {
+
+            this.errorMessage =
+              response.message;
+
+            return;
+          }
 
           this.successMessage =
-            "Dossier envoyé avec succès";
+            response.message;
+
+          this.hasSubmitted = true;
+
+          // Redirection
+          setTimeout(() => {
+
+            window.location.replace('/vehicules');
+
+          }, 1500);
 
         },
-        error: () => {
+
+        error: (err) => {
+
+          console.error(err);
 
           this.errorMessage =
-            "Erreur envoi dossier";
+            "Erreur serveur, veuillez réessayer";
 
         }
+
       });
 
   }
+
 
 }

@@ -6,46 +6,50 @@
 
     <div class="logo">M-Motors</div>
 
-    <!-- MENU DESKTOP -->
-    <ul class="menu">
-    
-        <li>Acheter</li>
-        <li>Louer</li>
-    
-        <!-- CONNECTÉ -->
+    <!-- DESKTOP -->
+    <ul class="menu desktop-menu">
+
         <ng-container *ngIf="user; else guestMenu">
-    
-            <li>👤 {{ user.prenom }} {{ user.nom }}</li>
-            <li>✉️ {{ user.email }}</li>
-    
+
+            <li>{{ user.prenom }} {{ user.nom }}</li>
+            <li>{{ user.email }}</li>
+
+            <!-- BOUTON UNIQUE -->
             <li>
-                <button (click)="logout()" class="logout-btn">
-                    Déconnexion
+                <button class="auth-btn secondary" (click)="handleAuthAction()">
+                    <span class="icon">
+                        {{ user ? '⏻' : '⏻' }}
+                    </span>
+                    <span>
+                        {{ user ? 'Déconnexion' : 'Connexion' }}
+                    </span>
                 </button>
             </li>
-    
+
         </ng-container>
-    
-        <!-- NON CONNECTÉ -->
+
         <ng-template #guestMenu>
-    
+
             <li>
-                <a routerLink="/inscription">Inscription</a>
+                <a routerLink="/inscription" class="auth-btn secondary">
+                    Inscription
+                </a>
             </li>
-    
+
             <li>
-                <a routerLink="/login">Connexion</a>
+                <button class="auth-btn secondary" (click)="goToLogin()">
+                    ⏻ Connexion
+                </button>
             </li>
-    
+
         </ng-template>
-    
+
     </ul>
 
-
     <!-- BURGER -->
-    <div class="burger" (click)="toggleMenu()">
+    <button class="burger" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen" aria-label="Menu principal">
         ☰
-    </div>
+    </button>
 
 </nav>
 
@@ -53,60 +57,51 @@
 <!-- MENU MOBILE -->
 <!-- ========================= -->
 
-<div class="side-menu" [class.open]="menuOpen">
+<div class="overlay" *ngIf="menuOpen" (click)="closeMenu()" aria-hidden="true"></div>
 
-    <div class="close-btn" (click)="toggleMenu()">✕</div>
+<aside class="side-menu" [class.open]="menuOpen" role="navigation" aria-label="Menu mobile">
+
+    <button class="close-btn" (click)="closeMenu()">✕</button>
 
     <ul>
 
-        <li>Acheter</li>
-        <li>Louer</li>
-
-        <!-- CONNECTÉ -->
         <ng-container *ngIf="user; else guestMobile">
 
-            <li class="user-info">
-                👤 {{ user.prenom }} {{ user.nom }}
-            </li>
+            <p class="user-info">
+                {{ user.prenom }} {{ user.nom }}
+            </p>
 
-            <li class="user-email">
-                ✉️ {{ user.email }}
-            </li>
+            <p class="user-email">
+                {{ user.email }}
+            </p>
 
             <li>
-                <button class="logout-btn" (click)="logout(); toggleMenu()">
-                    Déconnexion
+                <button class="auth-btn secondary" (click)="handleAuthAction(); closeMenu()">
+                    {{ user ? '⏻ Déconnexion' : '⏻ Connexion' }}
                 </button>
             </li>
 
         </ng-container>
 
-        <!-- NON CONNECTÉ -->
         <ng-template #guestMobile>
-
+        
             <li>
-                <a routerLink="/inscription" (click)="toggleMenu()">
+                <a routerLink="/inscription" class="auth-btn secondary" (click)="closeMenu()">
                     Inscription
                 </a>
             </li>
-
+        
             <li>
-                <a routerLink="/login" (click)="toggleMenu()">
-                    Connexion
-                </a>
+                <button class="auth-btn secondary" (click)="goToLogin(); closeMenu()">
+                    ⏻ Connexion
+                </button>
             </li>
-
+        
         </ng-template>
-
-        <li>À propos</li>
-        <li class="contact-btn">Nous contacter</li>
 
     </ul>
 
-</div>
-
-<!-- OVERLAY -->
-<div class="overlay" *ngIf="menuOpen" (click)="toggleMenu()"></div>
+</aside>
 
 <!-- ========================= -->
 <!-- HERO -->
@@ -115,12 +110,9 @@
 <section class="hero">
     <div class="section-container">
 
-        <!-- UTILISATEUR CONNECTÉ -->
         <div *ngIf="user; else guestHero">
 
-            <h1>
-                Bienvenue {{ user.prenom }}
-            </h1>
+            <h1>Bienvenue {{ user.prenom }}</h1>
 
             <p>
                 Explorez vos véhicules et vos offres personnalisées M-Motors
@@ -128,7 +120,6 @@
 
         </div>
 
-        <!-- INVITÉ -->
         <ng-template #guestHero>
 
             <h1>
@@ -143,7 +134,6 @@
 
     </div>
 </section>
-
 
 <!-- ========================= -->
 <!-- STATS -->
@@ -170,6 +160,7 @@
 
         <input type="text" class="search-input" placeholder="Rechercher une marque, modèle, année..."
             [(ngModel)]="searchTerm" (input)="search()" (keyup.enter)="search()">
+
     </div>
 
 </div>
@@ -200,11 +191,9 @@
                     <div class="card" *ngFor="let v of resultatsRecherche">
 
                         <a [routerLink]="['/vehicule', v.idVehicule]">
-                        
-                            <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
-                        
+                            <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
+                                alt="Photo véhicule">
                         </a>
-
 
                         <div class="card-body">
                             <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>
@@ -236,11 +225,9 @@
                 <div class="card" *ngFor="let v of vehicules">
 
                     <a [routerLink]="['/vehicule', v.idVehicule]">
-                    
-                        <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
-                    
+                        <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
+                            alt="Photo véhicule">
                     </a>
-
 
                     <div class="card-body">
                         <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>

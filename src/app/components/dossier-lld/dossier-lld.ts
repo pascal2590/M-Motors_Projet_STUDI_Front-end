@@ -100,6 +100,9 @@ export class DossierLld implements OnInit {
 
   envoyerDossier() {
 
+    this.errorMessage = '';
+    this.successMessage = '';
+
     if (this.hasSubmitted) {
       this.errorMessage = "Dossier déjà envoyé";
       return;
@@ -124,18 +127,40 @@ export class DossierLld implements OnInit {
     };
 
     this.dossierService.envoyerLLD(payload).subscribe({
-      next: () => {
-        this.successMessage = "Dossier envoyé avec succès";
-        this.hasSubmitted = true; // 🔒 BLOQUE LES RENVOIS
+
+      next: (response: any) => {
+
+        if (!response.success) {
+
+          this.errorMessage =
+            response.message;
+
+          return;
+
+        }
+
+        this.successMessage =
+          response.message;
+
+        this.hasSubmitted = true;
+
       },
-      error: () => {
-        this.errorMessage = "Erreur envoi dossier";
+
+      error: (err) => {
+
+        console.error(err);
+
+        this.errorMessage =
+          "Erreur serveur";
+
       }
+
     });
+
   }
 
 
-  // CALCUL MENSUALITÉ LLD (simplifié)
+  // CALCUL MENSUALITÉ LLD
   calculMensualite() {
 
     if (!this.vehicule) return;
@@ -146,7 +171,7 @@ export class DossierLld implements OnInit {
 
     const kilometrage = this.form.kilometrage || 10000;
 
-    // formule simple (à adapter métier)
+    // formule de base : mensualité = prix / durée
     const base = prix / duree;
 
     const kmFactor =

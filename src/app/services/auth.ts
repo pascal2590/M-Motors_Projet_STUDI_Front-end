@@ -80,7 +80,7 @@ export class AuthService {
   }
 
   // =========================
-  // Vérifier connexion
+  // Vérifier la connexion
   // =========================
 
   isLoggedIn(): boolean {
