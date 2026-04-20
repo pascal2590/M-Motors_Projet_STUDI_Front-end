@@ -1,0 +1,33 @@
+<div class="client-layout">
+
+    <!-- NAV CLIENT -->
+    <nav class="client-nav">
+
+        <!-- LOGO -->
+        <div class="logo">
+            M-MOTORS
+        </div>
+
+        <!-- MENU -->
+        <div class="nav-links">
+
+            <a routerLink="/espace-client/dashboard" routerLinkActive="active" class="nav-link">
+
+                Dashboard
+            </a>
+
+            <a routerLink="/espace-client/dossiers" routerLinkActive="active" class="nav-link">
+
+                Dossiers
+            </a>
+
+        </div>
+
+    </nav>
+
+    <!-- CONTENU -->
+    <main class="client-content">
+        <router-outlet></router-outlet>
+    </main>
+
+</div>

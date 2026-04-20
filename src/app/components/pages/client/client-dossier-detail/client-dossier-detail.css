@@ -1,0 +1,67 @@
+:host {
+
+    display: block;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    max-width: 1000px;
+    margin: auto;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Carte principale */
+
+.dossier-container {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Titres */
+
+h2 {
+    color: #6a0dad;
+    margin-bottom: 15px;
+}
+
+h3 {
+    margin-top: 25px;
+    color: #333;
+}
+
+/* Véhicule image */
+
+img {
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+/* Documents */
+
+.documents-list {
+    list-style: none;
+    padding: 0;
+}
+
+.documents-list li {
+    margin-bottom: 10px;
+}
+
+.document-link {
+    text-decoration: none;
+    color: #6a0dad;
+    font-weight: 500;
+}
+
+.document-link:hover {
+    text-decoration: underline;
+}
+
+.doc-date {
+    color: #666;
+    margin-left: 8px;
+}
+

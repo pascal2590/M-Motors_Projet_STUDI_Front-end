@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { DossierService } from '../../services/dossier';
 import { AuthService } from '../../services/auth';
 
@@ -18,21 +19,17 @@ import { AuthService } from '../../services/auth';
 })
 export class DossierAchat implements OnInit {
 
-  // ID véhicule
   vehiculeId!: number;
-
-  // Véhicule
   vehicule: any;
 
   successMessage = '';
   errorMessage = '';
 
   hasSubmitted = false;
+  isLoading = false;
 
-  // API véhicules
   apiVehiculesUrl = 'http://localhost:5119/api/vehicule';
 
-  // FORMULAIRE ACHAT (UNIQUEMENT champs métier)
   form = {
     nom: '',
     prenom: '',
@@ -40,10 +37,11 @@ export class DossierAchat implements OnInit {
     telephone: '',
     apport: 0,
     financement: 'credit'
-  };  
+  };
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private http: HttpClient,
     private dossierService: DossierService,
     private authService: AuthService
@@ -51,30 +49,31 @@ export class DossierAchat implements OnInit {
 
   ngOnInit() {
 
-    this.vehiculeId = Number(
-      this.route.snapshot.paramMap.get('id')
-    );
+    this.vehiculeId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.loadVehicule();
     this.loadUserFromToken();
   }
 
-  // -----------------------------
+  // =====================================================
   // VEHICULE
-  // -----------------------------
+  // =====================================================
   loadVehicule() {
 
     this.http.get<any>(
       `${this.apiVehiculesUrl}/${this.vehiculeId}`
     ).subscribe({
       next: data => this.vehicule = data,
-      error: err => console.error(err)
+      error: err => {
+        console.error(err);
+        this.errorMessage = "Impossible de charger le véhicule";
+      }
     });
   }
 
-  // -----------------------------
-  // USER (JWT ONLY)
-  // -----------------------------
+  // =====================================================
+  // USER FROM TOKEN
+  // =====================================================
   loadUserFromToken() {
 
     const token = this.authService.getToken();
@@ -84,98 +83,85 @@ export class DossierAchat implements OnInit {
       return;
     }
 
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
 
-    // mapping
-    this.form.nom = payload.nom ?? '';
-    this.form.prenom = payload.prenom ?? '';
-    this.form.email = payload.email ?? '';
+      this.form.nom = payload.nom ?? '';
+      this.form.prenom = payload.prenom ?? '';
+      this.form.email = payload.email ?? '';
+
+    } catch (err) {
+      console.error('Token invalide', err);
+    }
   }
 
-  // -----------------------------
+  // =====================================================
   // ENVOI DOSSIER
-  // -----------------------------
+  // =====================================================
   envoyerDossier() {
 
     this.errorMessage = '';
     this.successMessage = '';
 
+    if (this.isLoading) return;
+
     if (this.hasSubmitted) {
-
-      this.errorMessage =
-        "Dossier déjà envoyé";
-
+      this.errorMessage = "Dossier déjà envoyé";
       return;
     }
 
     if (!this.authService.isLoggedIn()) {
-
-      this.errorMessage =
-        "Vous devez être connecté";
-
+      this.errorMessage = "Vous devez être connecté";
       return;
     }
 
-    const clientId =
-      this.authService.getUserId();
+    const clientId = this.authService.getUserId();
 
     if (!clientId) {
-
-      this.errorMessage =
-        "Utilisateur invalide";
-
+      this.errorMessage = "Utilisateur invalide";
       return;
     }
 
     const payload = {
-
       clientId,
       vehiculeId: this.vehiculeId,
-
       ...this.form
-
     };
 
-    this.dossierService
-      .envoyerAchat(payload)
-      .subscribe({
+    this.isLoading = true;
 
-        next: (response: any) => {
+    this.dossierService.envoyerAchat(payload).subscribe({
 
-          if (!response.success) {
+      next: (response: any) => {
 
-            this.errorMessage =
-              response.message;
+        console.log('DOSSIER RESPONSE =', response);
 
-            return;
-          }
-
-          this.successMessage =
-            response.message;
-
-          this.hasSubmitted = true;
-
-          // Redirection
-          setTimeout(() => {
-
-            window.location.replace('/vehicules');
-
-          }, 1500);
-
-        },
-
-        error: (err) => {
-
-          console.error(err);
-
-          this.errorMessage =
-            "Erreur serveur, veuillez réessayer";
-
+        if (response?.success !== true) {
+          this.errorMessage = response?.message ?? "Erreur lors de la création";
+          this.isLoading = false;
+          return;
         }
 
-      });
+        this.successMessage = response.message ?? "Dossier créé avec succès";
+        this.errorMessage = '';
+        this.hasSubmitted = true;
 
+        this.isLoading = false;
+
+        // navigation Angular propre
+        setTimeout(() => {
+          this.router.navigate(['/espace-client/dossiers']);
+        }, 1200);
+      },
+
+      error: (err) => {
+
+        console.error(err);
+
+        this.errorMessage = "Erreur serveur, veuillez réessayer";
+        this.isLoading = false;
+      }
+
+    });
   }
-
-
 }

@@ -1,0 +1,44 @@
+<div class="dossier-container">
+    <div *ngIf="loading">Chargement...</div>
+
+    <div *ngIf="!loading && dossier">
+
+        <h2>Dossier {{ dossier.typeDossier }}</h2>
+
+        <p>Status : {{ dossier.statut }}</p>
+        <p>Date : {{ dossier.dateCreation | date }}</p>
+
+        <hr>
+
+        <h3>Véhicule</h3>
+
+        <p>{{ dossier.vehicule.marque }} {{ dossier.vehicule.modele }}</p>
+        <p>{{ dossier.vehicule.annee }} - {{ dossier.vehicule.kilometrage }} km</p>
+        <p>{{ dossier.vehicule.prix }} €</p>
+        <p>{{ dossier.vehicule.description }}</p>
+
+        <img [src]="dossier.vehicule.imageUrl" width="250" />
+
+        <hr>
+
+        <h3>Documents</h3>
+        
+        <ul class="documents-list">
+        
+            <li *ngFor="let doc of dossier.documents">
+        
+                <a [href]="'http://localhost:5119/' + doc.cheminFichier" target="_blank" class="document-link">
+                    📄 {{ doc.nomDocument }}
+                </a>
+        
+                <span class="doc-date">
+                    - {{ doc.dateUpload | date }}
+                </span>
+        
+            </li>
+        
+        </ul>
+
+
+    </div>
+</div>

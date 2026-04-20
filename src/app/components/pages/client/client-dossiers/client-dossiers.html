@@ -1,0 +1,48 @@
+<div class="dossier-container">
+
+    <h2>Mes dossiers</h2>
+
+    <div class="grid">
+
+        <div class="card" *ngFor="let d of dossiers" (click)="openDossier(d.idDossier)">
+
+            <!-- IMAGE WRAPPER -->
+            <div class="image-wrapper">
+                <img [src]="d.vehicule.imageUrl" alt="vehicule">
+                <span class="badge" [ngClass]="d.statut">
+                    ● {{ d.statut }}
+                </span>
+
+            </div>
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <h3>{{ d.vehicule.marque }} {{ d.vehicule.modele }}</h3>
+
+                <p class="sub">
+                    {{ d.typeDossier }} • {{ d.dateCreation | date:'dd/MM/yyyy' }}
+                </p>
+
+                <p class="price">
+                    {{ d.vehicule.prix | currency:'EUR' }}
+                </p>
+
+                <!-- PROGRESS -->
+                <div class="progress-bar">
+                    <div class="progress" [style.width.%]="d.progression"></div>
+                </div>
+
+                <div class="progress-label">
+                    {{ d.progression }}% complété
+                </div>
+
+                <button class="btn">Voir le dossier</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

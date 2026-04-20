@@ -1,0 +1,71 @@
+<div class="dashboard">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>Mon espace client</h1>
+        <p>Suivez vos dossiers et vos demandes en temps réel</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+
+        <div class="card stat">
+            <h2>{{ totalDossiers }}</h2>
+            <p>Dossiers</p>
+        </div>
+
+        <div class="card stat">
+            <h2>{{ dossiersEnCours }}</h2>
+            <p>En cours</p>
+        </div>
+
+        <div class="card stat">
+            <h2>{{ dossiersAcceptes }}</h2>
+            <p>Acceptés</p>
+        </div>
+
+    </div>
+
+    <!-- ACTIONS RAPIDES -->
+    <div class="actions">
+
+        <a routerLink="/espace-client/dossiers" class="action-card">
+            Voir mes dossiers
+        </a>
+
+        <a routerLink="/vehicules" class="action-card">
+            Voir les véhicules
+        </a>
+
+    </div>
+
+    <!-- DERNIERS DOSSIERS -->
+    <div class="section">
+
+        <h3>Derniers dossiers</h3>
+
+        <div class="grid">
+
+            <div class="card" *ngFor="let d of dossiers">
+
+                <div class="top">
+                    <span>{{ d.vehicule.marque }} {{ d.vehicule.modele }}</span>
+
+                    <span class="badge" [ngClass]="d.statut">
+                        {{ d.statut }}
+                    </span>
+                </div>
+
+                <p class="sub">{{ d.dateCreation | date:'dd/MM/yyyy' }}</p>
+
+                <div class="progress-bar">
+                    <div class="progress" [style.width.%]="d.progression"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

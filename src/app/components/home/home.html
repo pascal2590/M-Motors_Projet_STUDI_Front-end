@@ -1,7 +1,5 @@
-<!-- ========================= -->
-<!-- NAVBAR -->
-<!-- ========================= -->
 
+<!-- NAVBAR -->
 <nav class="navbar">
 
     <div class="logo">M-Motors</div>
@@ -10,10 +8,17 @@
     <ul class="menu desktop-menu">
 
         <ng-container *ngIf="user; else guestMenu">
-
+        
             <li>{{ user.prenom }} {{ user.nom }}</li>
             <li>{{ user.email }}</li>
-
+        
+            <!-- AJOUT ICI -->
+            <li>
+                <a routerLink="/espace-client/dashboard" class="auth-btn secondary">
+                    Mon espace client
+                </a>
+            </li>
+        
             <!-- BOUTON UNIQUE -->
             <li>
                 <button class="auth-btn secondary" (click)="handleAuthAction()">
@@ -25,8 +30,9 @@
                     </span>
                 </button>
             </li>
-
+        
         </ng-container>
+
 
         <ng-template #guestMenu>
 
@@ -53,9 +59,7 @@
 
 </nav>
 
-<!-- ========================= -->
 <!-- MENU MOBILE -->
-<!-- ========================= -->
 
 <div class="overlay" *ngIf="menuOpen" (click)="closeMenu()" aria-hidden="true"></div>
 
@@ -74,6 +78,12 @@
             <p class="user-email">
                 {{ user.email }}
             </p>
+
+            <li>
+                <a routerLink="/espace-client" class="auth-btn secondary" (click)="closeMenu()">
+                    Mon espace client
+                </a>
+            </li>
 
             <li>
                 <button class="auth-btn secondary" (click)="handleAuthAction(); closeMenu()">
@@ -103,9 +113,7 @@
 
 </aside>
 
-<!-- ========================= -->
 <!-- HERO -->
-<!-- ========================= -->
 
 <section class="hero">
     <div class="section-container">
@@ -135,9 +143,7 @@
     </div>
 </section>
 
-<!-- ========================= -->
 <!-- STATS -->
-<!-- ========================= -->
 
 <section class="stats">
     <div class="section-container stats-grid">
@@ -150,9 +156,7 @@
     </div>
 </section>
 
-<!-- ========================= -->
 <!-- BARRE DE RECHERCHE -->
-<!-- ========================= -->
 
 <div class="search-wrapper">
 
@@ -165,15 +169,13 @@
 
 </div>
 
-<!-- ========================= -->
 <!-- VEHICULES -->
-<!-- ========================= -->
 
 <section class="vehicules">
 
     <div class="section-container">
 
-        <!-- RESULTATS RECHERCHE -->
+        <!-- RESULTATS DE LA RECHERCHE -->
         <div *ngIf="searchTerm" class="search-results">
 
             <h2>Résultats pour "{{ searchTerm }}"</h2>
