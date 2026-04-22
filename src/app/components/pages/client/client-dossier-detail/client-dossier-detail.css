@@ -1,67 +1,190 @@
 :host {
-
     display: block;
-    background: white;
-    border-radius: 14px;
+    background: #f6f7fb;
     padding: 30px;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
-/* Carte principale */
-
+/*  CONTAINER */
 .dossier-container {
-    background: white;
-    border-radius: 12px;
-    padding: 30px;
-    max-width: 900px;
-    margin: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
 }
 
-/* Titres */
-
+/* TITRES */
 h2 {
     color: #6a0dad;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    font-size: 22px;
 }
 
 h3 {
     margin-top: 25px;
-    color: #333;
+    font-size: 18px;
+    color: #1f2937;
 }
 
-/* Véhicule image */
-
+/*    VEHICULE */
 img {
-    margin-top: 15px;
-    border-radius: 10px;
+    margin-top: 12px;
+    border-radius: 12px;
+    max-width: 280px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
-/* Documents */
-
-.documents-list {
-    list-style: none;
-    padding: 0;
+/*    GRID DOCUMENTS */
+.documents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
 }
 
-.documents-list li {
+/*    Carte des DOCUMENTs */
+.document-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid #ececec;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    transition: 0.2s ease;
+}
+
+.document-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/*    HEADER */
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
 
-.document-link {
-    text-decoration: none;
-    color: #6a0dad;
-    font-weight: 500;
+.doc-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.document-link:hover {
+.doc-icon {
+    font-size: 16px;
+}
+
+/* LABEL DOCUMENT */
+.doc-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+/* BADGES */
+.doc-label.identite {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.doc-label.domicile {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+.doc-label.revenus {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.doc-label.rib {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.doc-label.permis {
+    background: #ffe4e6;
+    color: #be123c;
+}
+
+/*    STATUS */
+.document-status {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.document-status.ok {
+    background: #e6f7ee;
+    color: #1a7f37;
+}
+
+.document-status.missing {
+    background: #fff1f0;
+    color: #d92d20;
+}
+
+/*    BODY */
+.document-body {
+    margin-bottom: 10px;
+}
+
+.btn-link {
+    font-size: 13px;
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.btn-link:hover {
     text-decoration: underline;
 }
 
-.doc-date {
-    color: #666;
-    margin-left: 8px;
+.hint {
+    font-size: 12px;
+    color: #888;
 }
 
+/*   UPLOAD */
+.document-upload {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+input[type="file"] {
+    font-size: 12px;
+}
+
+/* bouton upload */
+.btn-upload {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.btn-upload:hover {
+    transform: scale(1.03);
+}
+
+/*    FOOTER*/
+.document-footer {
+    margin-top: 8px;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+/*    LOADING */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #6b7280;
+}
