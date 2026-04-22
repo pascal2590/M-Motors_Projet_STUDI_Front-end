@@ -5,12 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
-  // =========================
   // TOKEN
-  // =========================
-
   getToken(): string | null {
-
     const token = localStorage.getItem('token');
 
     if (!token || token === 'undefined') {
@@ -20,104 +16,85 @@ export class AuthService {
     return token;
   }
 
-  // =========================
-  // USER ID depuis JWT
-  // =========================
-
-  getUserId(): number | null {
+  // PAYLOAD JWT
+  private getPayload(): any | null {
 
     const token = this.getToken();
 
     if (!token) return null;
 
     try {
-
-      const payload =
-        JSON.parse(atob(token.split('.')[1]));
-
-      const userId =
-        payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-
-      return userId
-        ? Number(userId)
-        : null;
-
+      return JSON.parse(atob(token.split('.')[1]));
     }
-    catch {
-
-      console.warn("Token invalide");
-
+    catch (e) {
+      console.warn('Token invalide');
       return null;
-
     }
-
   }
 
-  // =========================
-  // USER depuis localStorage
-  // =========================
+  // USER ID (IMPORTANT POUR TON DASHBOARD)
+  getUserId(): number | null {
 
+    const payload = this.getPayload();
+
+    if (!payload) return null;
+
+    const userId =
+      payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+
+    return userId ? Number(userId) : null;
+  }
+
+  // PRÉNOM / NOM (si présent dans le JWT)
+  getUserName(): string {
+
+    const payload = this.getPayload();
+
+    if (!payload) return 'Client';
+
+    const prenom =
+      payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"];
+
+    const nom =
+      payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"];
+
+    if (prenom) {
+      return prenom;
+    }
+
+    return 'Client';
+  }
+
+  // USER COMPLET
   getUser(): any | null {
-
-    const user =
-      localStorage.getItem('user');
-
-    if (!user || user === 'undefined') {
-      return null;
-    }
-
-    try {
-
-      return JSON.parse(user);
-
-    }
-    catch {
-
-      return null;
-
-    }
-
+    return this.getPayload();
   }
 
-  // =========================
-  // Vérifier la connexion
-  // =========================
-
+   // AUTH CHECK
   isLoggedIn(): boolean {
 
-    const token = this.getToken();
+    const payload = this.getPayload();
 
-    if (!token) return false;
+    if (!payload) return false;
 
-    try {
+    const exp = payload.exp;
 
-      const payload =
-        JSON.parse(atob(token.split('.')[1]));
+    if (!exp) return false;
 
-      const expiration =
-        payload.exp * 1000;
-
-      return Date.now() < expiration;
-
-    }
-    catch {
-
-      return false;
-
-    }
-
+    return Date.now() < exp * 1000;
   }
 
-  // =========================
-  // LOGOUT
-  // =========================
-
+   // LOGOUT
   logout(): void {
-
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    localStorage.removeItem('prenom');
+  }
 
+  getPrenom(): string | null {
+    const user = this.getUser();
+
+    return user?.[
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
+    ] ?? null;
   }
 
 }

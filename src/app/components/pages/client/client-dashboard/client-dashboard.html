@@ -2,10 +2,11 @@
 
     <h2>Bienvenue {{ clientName }}</h2>
 
+    <!-- STATS -->
     <div class="stats">
 
         <div class="card">
-            <h3>Dossiers en attente</h3>
+            <h3>En attente</h3>
             <p>{{ stats.enAttente }}</p>
         </div>
 
@@ -21,27 +22,74 @@
 
     </div>
 
+    <!-- DOSSIERS -->
     <div class="section">
 
-        <div *ngIf="lastDossier">
-            <h3>Dernier dossier</h3>
-            <p>{{ lastDossier.typeDossier }}</p>
-            <p>{{ lastDossier.statut }}</p>
-            <p>{{ lastDossier.dateCreation | date:'dd/MM/yyyy' }}</p>
+        <h3>Mes dossiers</h3>
+
+        <div class="dossier-grid">
+
+            <div class="dossier-card" *ngFor="let d of dossiers">
+
+                <!-- VEHICULE -->
+                <div class="vehicule">
+
+                    <img class="vehicule-img" [src]="d.vehicule?.imageUrl || 'assets/no-car.png'" alt="vehicule" />
+
+                    <div class="vehicule-info">
+
+                        <strong>
+                            {{ d.vehicule?.marque || 'Véhicule' }}
+                            {{ d.vehicule?.modele || '' }}
+                        </strong>
+
+                        <div class="small">
+                            {{ d.typeDossier }} •
+                            {{ d.dateCreation | date:'dd/MM/yyyy' }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- STATUT -->
+                <div class="statut" [ngClass]="d.statut">
+                    {{ d.statut }}
+                </div>
+
+                <!-- PROGRESSION -->
+                <div class="progress-bar">
+
+                    <div class="progress" [style.width.%]="d.progression || 0">
+                    </div>
+
+                </div>
+
+                <div class="progress-label">
+                    {{ d.progression || 0 }}% complété
+                </div>
+
+                  <!-- DOCUMENTS MANQUANTS -->
+                <div class="missing" *ngIf="d.documentsManquants?.length > 0">
+
+                    <h4>Documents manquants :</h4>
+
+                    <ul>
+                        <li *ngFor="let doc of d.documentsManquants">
+                            ⚠️ {{ doc }}
+                        </li>
+                    </ul>
+
+                </div>
+
+                <!-- ACTION -->
+                <button (click)="goToDossier(d.idDossier || d.IdDossier)">
+                    Voir le dossier
+                </button>
+
+            </div>
+
         </div>
-
-
-    </div>
-
-    <div class="section">
-
-        <h3>Documents manquants</h3>
-
-        <ul>
-            <li *ngFor="let doc of documentsManquants">
-                ⚠️ {{ doc }}
-            </li>
-        </ul>
 
     </div>
 

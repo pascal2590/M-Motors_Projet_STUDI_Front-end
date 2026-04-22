@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../services/auth';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -12,88 +13,95 @@ import { Router } from '@angular/router';
 })
 export class ClientDashboard implements OnInit {
 
-  // 👋 Nom affiché dans "Bienvenue"
-  clientName: string = 'Client';
+  clientName = 'Client';
 
-  // 📊 Statistiques dossiers
   stats = {
     enAttente: 0,
     acceptes: 0,
     refuses: 0
   };
 
-  // 📄 Dernier dossier
-  lastDossier: any = null;
-
-  // ⚠️ Documents manquants (nécessaire pour ton HTML)
-  documentsManquants: string[] = [];
+  dossiers: any[] = [];
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
     this.loadDashboard();
   }
 
+  // DASHBOARD CLIENT
   loadDashboard(): void {
 
+    const clientId = this.auth.getUserId();
+
+    if (!clientId) {
+      console.warn('Client non connecté');
+      return;
+    }
+
     this.http.get<any[]>(
-      'http://localhost:5119/api/dossiers'
+      `http://localhost:5119/api/dossiers/client/${clientId}`
     ).subscribe(dossiers => {
 
-      console.log("DOSSIERS =", dossiers);
+      const norm = (s: string) => s?.toLowerCase().trim();
 
-      const normalize = (s: string) =>
-        s?.toLowerCase().trim();
+      // STATS
+      this.stats.enAttente = dossiers.filter(d => norm(d.statut) === 'en_attente').length;
+      this.stats.acceptes = dossiers.filter(d => norm(d.statut) === 'accepte').length;
+      this.stats.refuses = dossiers.filter(d => norm(d.statut) === 'refuse').length;
 
-      // 📊 Stats
-      this.stats.enAttente = dossiers.filter(d =>
-        normalize(d.statut) === 'en_attente'
-      ).length;
+      // ENRICHISSEMENT DOSSIERS
+      this.dossiers = dossiers.map(d => {
 
-      this.stats.acceptes = dossiers.filter(d =>
-        normalize(d.statut) === 'accepte'
-      ).length;
+        const docs = d.documents ?? [];
 
-      this.stats.refuses = dossiers.filter(d =>
-        normalize(d.statut) === 'refuse'
-      ).length;
+        const total = docs.length;
+        const completed = docs.filter((x: any) => x.cheminFichier).length;
 
-      // 📄 Dernier dossier (le plus récent)
-      this.lastDossier = dossiers.length > 0
-        ? dossiers.sort((a, b) =>
-          new Date(b.dateCreation).getTime() -
-          new Date(a.dateCreation).getTime()
-        )[0]
-        : null;
+        const progression = total > 0
+          ? Math.round((completed / total) * 100)
+          : 0;
 
-      // Nom affiché
-      this.clientName = this.lastDossier
-        ? `Client #${this.lastDossier.clientId}`
-        : 'Client';
+        return {
+          ...d,
+          progression,
+          documentsManquants: docs
+            .filter((x: any) => !x.cheminFichier)
+            .map((x: any) => this.getLibelleDocument(x.typeDocument))
+        };
+      });
 
-      // Simulation des documents manquants (temporaire)
-      if (this.lastDossier &&
-        normalize(this.lastDossier.statut) === 'en_attente') {
+      // NOM CLIENT
+      const prenom = this.auth.getUser()?.[
+        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
+      ];
 
-        this.documentsManquants = [
-          'Pièce d’identité',
-          'Justificatif de domicile'
-        ];
-
-      } else {
-
-        this.documentsManquants = [];
-
+      if (prenom) {
+        this.clientName = this.auth.getPrenom() ?? 'Client';
       }
+
 
     });
   }
 
+  // LIBELLÉS DOCUMENTS
+  getLibelleDocument(type: string): string {
+    switch (type) {
+      case 'identite': return 'Pièce d’identité';
+      case 'domicile': return 'Justificatif de domicile';
+      case 'revenus': return 'Justificatif de revenus';
+      case 'rib': return 'RIB';
+      case 'permis': return 'Permis de conduire';
+      default: return type;
+    }
+  }
+
+  // NAVIGATION
   goToDossier(id: number): void {
     this.router.navigate(['/espace-client/dossiers', id]);
   }
-
 }

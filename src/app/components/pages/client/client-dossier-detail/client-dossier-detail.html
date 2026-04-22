@@ -1,14 +1,19 @@
 <div class="dossier-container">
 
+    <!-- LOADING -->
     <div *ngIf="loading" class="loading">
         Chargement...
     </div>
 
+    <!-- CONTENU -->
     <div *ngIf="!loading && dossier">
 
         <h2>Dossier {{ dossier.typeDossier }}</h2>
 
-        <p><strong>Statut :</strong> {{ dossier.statut }}</p>
+        <p>
+            <strong>Statut :</strong>
+            {{ dossier.statut }}
+        </p>
 
         <p>
             <strong>Date :</strong>
@@ -20,10 +25,24 @@
         <!-- VEHICULE -->
         <h3>Véhicule</h3>
 
-        <p>{{ dossier.vehicule?.marque }} {{ dossier.vehicule?.modele }}</p>
-        <p>{{ dossier.vehicule?.annee }} - {{ dossier.vehicule?.kilometrage }} km</p>
-        <p>{{ dossier.vehicule?.prix }} €</p>
-        <p>{{ dossier.vehicule?.description }}</p>
+        <p>
+            {{ dossier.vehicule?.marque }}
+            {{ dossier.vehicule?.modele }}
+        </p>
+
+        <p>
+            {{ dossier.vehicule?.annee }}
+            -
+            {{ dossier.vehicule?.kilometrage }} km
+        </p>
+
+        <p>
+            {{ dossier.vehicule?.prix }} €
+        </p>
+
+        <p>
+            {{ dossier.vehicule?.description }}
+        </p>
 
         <img *ngIf="dossier.vehicule?.imageUrl" [src]="dossier.vehicule.imageUrl" width="250" />
 
@@ -32,19 +51,46 @@
         <!-- DOCUMENTS -->
         <h3>Documents</h3>
 
+        <!-- BARRE DE PROGRESSION -->
+        <div class="progress-container">
+
+            <div class="progress-bar">
+
+                <!-- TEXTE CENTRÉ (NE SERA JAMAIS COUPÉ) -->
+                <span class="progress-text">
+                    {{ progression }}%
+                </span>
+
+                <!-- BARRE REMPLIE -->
+                <div class="progress-fill" [style.width.%]="progression">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- GRID DOCUMENTS -->
         <div class="documents-grid">
 
             <div class="document-card" *ngFor="let doc of dossier.documents">
 
                 <!-- HEADER -->
+
                 <div class="document-header">
 
                     <div class="doc-title">
-                        <span class="doc-icon">📄</span>
+
+                        <span class="doc-icon">
+                            📄
+                        </span>
 
                         <span class="doc-label" [ngClass]="doc.typeDocument">
+
                             {{ getDocumentLabel(doc.typeDocument) }}
+
                         </span>
+
                     </div>
 
                     <div class="document-status" [class.ok]="doc.cheminFichier" [class.missing]="!doc.cheminFichier">
@@ -52,6 +98,7 @@
                         {{ doc.cheminFichier ? '✔ OK' : '❌ Manquant' }}
 
                     </div>
+
                 </div>
 
                 <!-- BODY -->
@@ -81,7 +128,8 @@
 
                 <!-- DATE -->
                 <div class="document-footer" *ngIf="doc.dateUpload">
-                    🕒 {{ doc.dateUpload | date:'dd/MM/yyyy HH:mm' }}
+                    🕒
+                    {{ doc.dateUpload | date:'dd/MM/yyyy HH:mm' }}
                 </div>
 
             </div>
@@ -89,4 +137,5 @@
         </div>
 
     </div>
+
 </div>

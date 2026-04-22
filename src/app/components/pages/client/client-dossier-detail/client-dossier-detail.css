@@ -188,3 +188,58 @@ input[type="file"] {
     padding: 20px;
     color: #6b7280;
 }
+
+/* BARRE DE PROGRESSION */
+.progress-container {
+    margin: 20px 0 10px 0;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 28px;
+    background-color: #e5e7eb;
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Barre remplie */
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+
+    transition: width 0.4s ease;
+}
+
+/* Texte pourcentage */
+
+.progress-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+
+    white-space: nowrap;
+
+    /* IMPORTANT : évite texte coupé */
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Couleurs dynamiques */
+
+.progress-low {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.progress-medium {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.progress-full {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}

@@ -20,12 +20,28 @@ export class ClientDossiersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     console.log('CLIENT-DOSSIERS INIT');
 
     this.service.getDossiers().subscribe({
       next: (data) => {
-        this.dossiers = data;
+
+        this.dossiers = data.map(d => {
+
+          // calcul des documents remplis
+          const totalDocs = d.documents?.length || 4;
+
+          const docsRemplis = d.documents
+            ? d.documents.filter((doc: any) => doc.cheminFichier).length
+            : 0;
+
+          const progression = Math.round((docsRemplis / totalDocs) * 100);
+
+          return {
+            ...d,
+            progression
+          };
+        });
+
       },
       error: (err) => {
         console.error(err);
