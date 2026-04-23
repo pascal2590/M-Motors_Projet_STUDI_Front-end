@@ -204,7 +204,6 @@ input[type="file"] {
 }
 
 /* Barre remplie */
-
 .progress-fill {
     height: 100%;
     background: linear-gradient(135deg, #22c55e, #16a34a);
@@ -217,7 +216,6 @@ input[type="file"] {
 }
 
 /* Texte pourcentage */
-
 .progress-text {
     font-size: 13px;
     font-weight: 700;
@@ -225,13 +223,12 @@ input[type="file"] {
 
     white-space: nowrap;
 
-    /* IMPORTANT : évite texte coupé */
+    /* Évite le texte coupé */
     min-width: 40px;
     text-align: right;
 }
 
 /* Couleurs dynamiques */
-
 .progress-low {
     background: linear-gradient(135deg, #ef4444, #dc2626);
 }
@@ -242,4 +239,51 @@ input[type="file"] {
 
 .progress-full {
     background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.service-item {
+    padding: 10px;
+    border-left: 4px solid #2ecc71;
+    background: #f8f8f8;
+    border-radius: 6px;
+}
+
+.service-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.service-desc {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.services-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.service-card {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.service-name {
+    font-weight: bold;
+}
+
+.service-desc {
+    font-size: 13px;
+    color: #666;
 }

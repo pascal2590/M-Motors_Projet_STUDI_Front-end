@@ -1,184 +1,126 @@
-/* ========================= */
 /* CONTAINER */
-/* ========================= */
-
 .container {
-
     max-width: 600px;
-
     margin: 40px auto;
-
     padding: 20px;
-
     text-align: center;
-
 }
 
-/* ========================= */
 /* CARTE VEHICULE */
-/* ========================= */
-
 .vehicule-card {
 
     background: white;
-
     padding: 20px;
-
     border-radius: 12px;
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
     margin-bottom: 30px;
-
 }
 
 .vehicule-img {
-
     max-width: 280px;
-
     width: 100%;
-
     border-radius: 10px;
-
     margin-bottom: 15px;
-
 }
 
-/* ========================= */
 /* FORMULAIRE */
-/* ========================= */
-
 .form-lld {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 10px;
-
     background: white;
-
     padding: 25px;
-
     border-radius: 12px;
-
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
 }
 
 /* INPUTS */
-
 input,
 select {
-
     padding: 10px;
-
     border-radius: 6px;
-
     border: 1px solid #ccc;
-
     font-size: 14px;
-
 }
 
-/* ========================= */
 /* VALIDATION */
-/* ========================= */
-
 input.invalid {
-
     border: 2px solid #dc2626;
-
     background: #fee2e2;
-
 }
 
 input.valid {
-
     border: 2px solid #16a34a;
-
 }
 
-/* ========================= */
 /* MENSUALITE */
-/* ========================= */
-
 .mensualite-box {
-
     background: #f3f4f6;
-
     padding: 15px;
-
     border-radius: 8px;
-
     margin-top: 10px;
-
 }
 
-/* ========================= */
 /* MESSAGES */
-/* ========================= */
-
 .error {
-
     color: #dc2626;
-
     font-size: 13px;
-
     text-align: left;
-
 }
 
 .error-global {
-
     color: #dc2626;
-
     font-weight: bold;
-
 }
 
 .success {
-
     color: #16a34a;
-
     font-weight: bold;
-
 }
 
-/* ========================= */
 /* BOUTON */
-/* ========================= */
-
 button {
 
     margin-top: 15px;
-
     padding: 12px;
-
     border-radius: 8px;
-
     border: none;
-
     background: #2563eb;
-
     color: white;
-
     font-weight: bold;
-
     cursor: pointer;
-
 }
 
 button:disabled {
-
     background: #9ca3af;
-
     cursor: not-allowed;
-
 }
 
 button:hover:not(:disabled) {
-
     background: #1d4ed8;
+}
 
+/* SERVICE LLD */
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.service-item {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+}
+
+.service-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.service-desc {
+    font-size: 0.9rem;
+    color: #666;
 }

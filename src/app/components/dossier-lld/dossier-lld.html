@@ -2,10 +2,7 @@
 
     <h1>Déposer un dossier LLD</h1>
 
-    <!-- ========================= -->
     <!-- VEHICULE -->
-    <!-- ========================= -->
-
     <div *ngIf="vehicule" class="vehicule-card">
 
         <img *ngIf="vehicule.imageUrl" [src]="vehicule.imageUrl" alt="photo véhicule" class="vehicule-img" />
@@ -24,10 +21,7 @@
 
     </div>
 
-    <!-- ========================= -->
     <!-- FORMULAIRE -->
-    <!-- ========================= -->
-
     <form *ngIf="vehicule" #f="ngForm" class="form-lld" (ngSubmit)="envoyerDossier()" novalidate>
 
         <!-- NOM -->
@@ -43,7 +37,6 @@
 
 
         <!-- PRENOM -->
-
         <label for="prenom">Prénom *</label>
 
         <input id="prenom" type="text" name="prenom" [(ngModel)]="form.prenom" required #prenom="ngModel"
@@ -55,7 +48,6 @@
 
 
         <!-- EMAIL -->
-
         <label for="email">Email *</label>
 
         <input id="email" type="email" name="email" [(ngModel)]="form.email" required email #email="ngModel"
@@ -67,7 +59,6 @@
 
 
         <!-- TELEPHONE -->
-
         <label for="telephone">Téléphone *</label>
 
         <input id="telephone" type="text" name="telephone" [(ngModel)]="form.telephone" required #telephone="ngModel"
@@ -79,14 +70,12 @@
 
 
         <!-- APPORT -->
-
         <label for="apport">Apport (€)</label>
 
         <input id="apport" type="number" name="apport" [(ngModel)]="form.apport" (input)="calculMensualite()" />
 
 
         <!-- DUREE -->
-
         <label for="duree">Durée</label>
 
         <select id="duree" name="duree" [(ngModel)]="form.duree" (change)="calculMensualite()">
@@ -97,7 +86,6 @@
 
 
         <!-- KILOMETRAGE -->
-
         <label for="kilometrage">Kilométrage</label>
 
         <select id="kilometrage" name="kilometrage" [(ngModel)]="form.kilometrage" (change)="calculMensualite()">
@@ -108,7 +96,6 @@
 
 
         <!-- MENSUALITE -->
-
         <div class="mensualite-box">
 
             Mensualité estimée :
@@ -119,9 +106,31 @@
 
         </div>
 
+        <!-- SERVICES LLD -->
+        <div class="section" *ngIf="services?.length">
+        
+            <h3>Services inclus dans l’offre LLD</h3>
+        
+            <div class="services-grid">
+        
+                <div class="service-card" *ngFor="let s of services">
+        
+                    <div class="service-name">
+                        {{ s.nomService }}
+                    </div>
+        
+                    <div class="service-desc">
+                        {{ s.description }}
+                    </div>
+        
+                </div>
+        
+            </div>
+        
+        </div>
+
 
         <!-- MESSAGES -->
-
         <div *ngIf="errorMessage" class="error-global">
 
             {{ errorMessage }}
@@ -136,7 +145,6 @@
 
 
         <!-- BOUTON -->
-
         <button type="submit" [disabled]="f.invalid">
             Envoyer le dossier
         </button>

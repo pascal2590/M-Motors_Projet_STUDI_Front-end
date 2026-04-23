@@ -1,3 +1,10 @@
+interface DossierDetailResponse {
+  dossier: any;
+  vehicule: any;
+  documents: any[];
+  services?: any[];
+}
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -15,12 +22,10 @@ export class ClientDossierDetailComponent implements OnInit {
   dossier: any = null;
 
   loading: boolean = true;
-
   dossierId!: number;
-
   progression: number = 0;
-
   filesMap: { [key: string]: File } = {};
+  services: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -55,28 +60,26 @@ export class ClientDossierDetailComponent implements OnInit {
 
         next: (data) => {
 
+          console.log("DOSSIER DETAIL =", data);
+
           this.dossier = data.dossier;
+          this.dossier.vehicule = data.vehicule;
+          this.dossier.documents = data.documents;
 
-          this.dossier.vehicule =
-            data.vehicule;
+          this.services = data.services ?? [];
 
-          this.dossier.documents =
-            data.documents;
+          console.log("SERVICES LLD =", this.services);
 
-          // CALCUL de la PROGRESSION
           this.calculateProgression();
 
           this.loading = false;
+        }
 
-        },
+,
 
         error: (err) => {
 
-          console.error(
-            'Erreur load dossier',
-            err
-          );
-
+          console.error('Erreur load dossier', err);
           this.loading = false;
 
         }
@@ -189,7 +192,6 @@ export class ClientDossierDetailComponent implements OnInit {
 
           // Recharge le dossier
           // recalcul de la progression auto
-
           this.loadDossier();
 
         },
@@ -229,7 +231,5 @@ export class ClientDossierDetailComponent implements OnInit {
         return type;
 
     }
-
   }
-
 }

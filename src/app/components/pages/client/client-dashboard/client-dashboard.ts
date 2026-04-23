@@ -15,6 +15,7 @@ export class ClientDashboard implements OnInit {
 
   clientName = 'Client';
 
+  // Statistiques dossiers
   stats = {
     enAttente: 0,
     acceptes: 0,
@@ -33,7 +34,7 @@ export class ClientDashboard implements OnInit {
     this.loadDashboard();
   }
 
-  // DASHBOARD CLIENT
+  // Tableau de bord côté client
   loadDashboard(): void {
 
     const clientId = this.auth.getUserId();

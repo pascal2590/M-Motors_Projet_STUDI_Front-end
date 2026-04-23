@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DossierService } from '../../services/dossier';
 import { AuthService } from '../../services/auth';
+import { ServicesLldService, ServiceLld } from '../../services/services-lld';
 
 @Component({
   selector: 'app-dossier-lld',
@@ -23,6 +24,11 @@ export class DossierLld implements OnInit {
   vehicule: any;
 
   apiVehiculesUrl = 'http://localhost:5119/api/vehicule';
+
+  // services LLD
+  services: ServiceLld[] = [];
+  servicesSelectionnes: number[] = [];
+  servicesLld: any[] = [];
 
   form = {
     nom: '',
@@ -47,20 +53,20 @@ export class DossierLld implements OnInit {
     private router: Router,
     private http: HttpClient,
     private dossierService: DossierService,
-    private authService: AuthService
+    private authService: AuthService,
+    private servicesLldService: ServicesLldService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.vehiculeId = Number(this.route.snapshot.paramMap.get('id'));
 
     this.loadVehicule();
     this.loadUserFromToken();
+    this.loadServicesLLD();
   }
 
-  // =====================================================
   // VEHICULE
-  // =====================================================
   loadVehicule() {
 
     this.http.get<any>(
@@ -74,20 +80,17 @@ export class DossierLld implements OnInit {
     });
   }
 
-  // =====================================================
-  // USER JWT
-  // =====================================================
-  loadUserFromToken() {
+    // USER JWT
+   loadUserFromToken() {
 
     const token = this.authService.getToken();
-
     if (!token) return;
 
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
 
-      this.form.nom = payload.nom ?? '';
-      this.form.prenom = payload.prenom ?? '';
+      this.form.nom = payload.given_name ?? payload.nom ?? '';
+      this.form.prenom = payload.family_name ?? payload.prenom ?? '';
       this.form.email = payload.email ?? '';
 
     } catch (err) {
@@ -95,10 +98,27 @@ export class DossierLld implements OnInit {
     }
   }
 
-  // =====================================================
+  // SERVICES LLD (ASSURANCE, ETC.) 
+  loadServicesLLD(): void {
+
+    this.servicesLldService.getAll().subscribe({
+      next: data => this.services = data,
+      error: err => console.error('Erreur services LLD', err)
+    });
+  }
+
+  toggleService(id: number): void {
+
+    if (this.servicesSelectionnes.includes(id)) {
+      this.servicesSelectionnes =
+        this.servicesSelectionnes.filter(x => x !== id);
+    } else {
+      this.servicesSelectionnes.push(id);
+    }
+  }
+
   // ENVOI DOSSIER LLD
-  // =====================================================
-  envoyerDossier() {
+  envoyerDossier(): void {
 
     this.errorMessage = '';
     this.successMessage = '';
@@ -125,7 +145,8 @@ export class DossierLld implements OnInit {
     const payload = {
       clientId,
       vehiculeId: this.vehiculeId,
-      ...this.form
+      ...this.form,
+      servicesLLD: this.servicesSelectionnes // 👈 AJOUT IMPORTANT
     };
 
     this.isLoading = true;
@@ -134,10 +155,7 @@ export class DossierLld implements OnInit {
 
       next: (response: any) => {
 
-        console.log('LLD RESPONSE =', response);
-
         if (response?.success !== true) {
-
           this.errorMessage = response?.message ?? "Erreur lors de la création";
           this.isLoading = false;
           return;
@@ -147,27 +165,21 @@ export class DossierLld implements OnInit {
         this.hasSubmitted = true;
         this.isLoading = false;
 
-        // redirection propre Angular        
         setTimeout(() => {
           this.router.navigate(['/espace-client/dossiers']);
         }, 1200);
       },
 
       error: (err) => {
-
         console.error(err);
-
         this.errorMessage = "Erreur serveur";
         this.isLoading = false;
       }
-
     });
   }
 
-  // =====================================================
-  // CALCUL MENSUALITE
-  // =====================================================
-  calculMensualite() {
+  // MENSUALITE
+  calculMensualite(): void {
 
     if (!this.vehicule) return;
 

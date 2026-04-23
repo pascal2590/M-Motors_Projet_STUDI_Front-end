@@ -48,6 +48,19 @@
 
         <hr>
 
+        <!-- SERVICES LLD -->
+        <div *ngIf="services.length > 0">
+        
+            <h3>Services LLD</h3>
+        
+            <div *ngFor="let s of services">
+                <strong>{{ s.nomService }}</strong>
+                <p>{{ s.description }}</p>
+            </div>
+        
+        </div>
+
+
         <!-- DOCUMENTS -->
         <h3>Documents</h3>
 
@@ -131,11 +144,7 @@
                     🕒
                     {{ doc.dateUpload | date:'dd/MM/yyyy HH:mm' }}
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
