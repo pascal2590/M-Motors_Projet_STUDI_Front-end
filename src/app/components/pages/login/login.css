@@ -36,7 +36,7 @@ button {
     width: 100%;
     padding: 12px;
 
-    background-color: black;
+    background-color: #9a61db;
     color: white;
 
     border: none;
@@ -47,21 +47,15 @@ button {
 }
 
 button:disabled {
-
-    background-color: gray;
-
+    background-color: #b78ae6;
 }
 
 .error-message {
-
     color: red;
     margin-bottom: 10px;
-
 }
 
 .success-message {
-
     color: green;
     margin-bottom: 10px;
-
 }
