@@ -49,26 +49,31 @@
         <hr>
 
         <!-- SERVICES LLD -->
-        <div *ngIf="services.length > 0">
+        <div class="section" *ngIf="services.length > 0">
         
-            <h3>Services LLD</h3>
+            <h3>Services inclus dans l’offre LLD</h3>
         
-            <div *ngFor="let s of services">
-                <strong>{{ s.nomService }}</strong>
-                <p>{{ s.description }}</p>
-            </div>
+            <div class="services-grid">
         
+                <div class="service-card" *ngFor="let s of services">
+        
+                    <div class="service-name">
+                        {{ s.nomService }}
+                    </div>
+        
+                    <div class="service-desc">
+                        {{ s.description }}
+                    </div>        
+                </div>        
+            </div>        
         </div>
-
 
         <!-- DOCUMENTS -->
         <h3>Documents</h3>
 
         <!-- BARRE DE PROGRESSION -->
         <div class="progress-container">
-
             <div class="progress-bar">
-
                 <!-- TEXTE CENTRÉ (NE SERA JAMAIS COUPÉ) -->
                 <span class="progress-text">
                     {{ progression }}%
@@ -78,65 +83,44 @@
                 <div class="progress-fill" [style.width.%]="progression">
 
                 </div>
-
             </div>
-
         </div>
 
         <!-- GRID DOCUMENTS -->
         <div class="documents-grid">
-
             <div class="document-card" *ngFor="let doc of dossier.documents">
-
                 <!-- HEADER -->
-
                 <div class="document-header">
-
                     <div class="doc-title">
-
                         <span class="doc-icon">
                             📄
                         </span>
-
                         <span class="doc-label" [ngClass]="doc.typeDocument">
-
                             {{ getDocumentLabel(doc.typeDocument) }}
-
                         </span>
-
                     </div>
-
                     <div class="document-status" [class.ok]="doc.cheminFichier" [class.missing]="!doc.cheminFichier">
-
                         {{ doc.cheminFichier ? '✔ OK' : '❌ Manquant' }}
-
                     </div>
-
                 </div>
 
                 <!-- BODY -->
                 <div class="document-body">
-
                     <a *ngIf="doc.cheminFichier" class="btn-link" [href]="'http://localhost:5119/' + doc.cheminFichier"
                         target="_blank">
                         Voir le document
                     </a>
-
                     <span *ngIf="!doc.cheminFichier" class="hint">
                         Aucun fichier uploadé
                     </span>
-
                 </div>
 
                 <!-- UPLOAD -->
                 <div class="document-upload">
-
                     <input type="file" (change)="onFileSelected($event, doc.typeDocument)" />
-
                     <button class="btn-upload" (click)="uploadDocument(doc)">
                         Upload
                     </button>
-
                 </div>
 
                 <!-- DATE -->

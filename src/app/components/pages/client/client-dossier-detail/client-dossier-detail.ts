@@ -23,8 +23,11 @@ export class ClientDossierDetailComponent implements OnInit {
 
   loading: boolean = true;
   dossierId!: number;
+
   progression: number = 0;
+
   filesMap: { [key: string]: File } = {};
+
   services: any[] = [];
 
   constructor(
@@ -39,8 +42,7 @@ export class ClientDossierDetailComponent implements OnInit {
 
       this.dossierId = +params['id'];
 
-      if (!this.dossierId)
-        return;
+      if (!this.dossierId) return;
 
       this.loadDossier();
 
@@ -53,134 +55,87 @@ export class ClientDossierDetailComponent implements OnInit {
 
     this.loading = true;
 
-    this.http.get<any>(
+    this.http.get<DossierDetailResponse>(
       `http://localhost:5119/api/dossiers/${this.dossierId}`
     )
       .subscribe({
 
         next: (data) => {
 
-          console.log("DOSSIER DETAIL =", data);
+          // DEBUG
+          console.log("DATA BRUT =", data);
+          console.log("DATA.services =", data.services);
+
+          this.services = data.services ?? [];
+
+          // DEBUG
+          console.log("AFTER ASSIGN =", this.services);
 
           this.dossier = data.dossier;
           this.dossier.vehicule = data.vehicule;
           this.dossier.documents = data.documents;
 
-          this.services = data.services ?? [];
-
-          console.log("SERVICES LLD =", this.services);
-
           this.calculateProgression();
 
           this.loading = false;
-        }
-
-,
+        },
 
         error: (err) => {
-
           console.error('Erreur load dossier', err);
           this.loading = false;
-
         }
-
       });
-
   }
 
-  // CALCUL de la PROGRESSION
+  // PROGRESSION
   calculateProgression(): void {
 
     if (!this.dossier?.documents) {
-
       this.progression = 0;
       return;
-
     }
 
-    const total =
-      this.dossier.documents.length;
+    const total = this.dossier.documents.length;
 
-    const completes =
-      this.dossier.documents.filter(
-        (doc: any) =>
-          doc.cheminFichier
-      ).length;
+    const completes = this.dossier.documents.filter(
+      (doc: any) => doc.cheminFichier
+    ).length;
 
-    if (total === 0) {
+    this.progression = total === 0
+      ? 0
+      : Math.round((completes / total) * 100);
 
-      this.progression = 0;
-
-    }
-    else {
-
-      this.progression =
-        Math.round(
-          (completes / total) * 100
-        );
-
-    }
-
-    console.log(
-      "Progression:",
-      this.progression + "%"
-    );
-
+    console.log("Progression:", this.progression + "%");
   }
 
-  // Sélection du fichier
-  onFileSelected(
-    event: any,
-    type: string
-  ): void {
+  // FILE SELECTION
+  onFileSelected(event: any, type: string): void {
 
-    const file =
-      event.target.files?.[0];
+    const file = event.target.files?.[0];
 
-    if (!file)
-      return;
+    if (!file) return;
 
     this.filesMap[type] = file;
 
   }
 
-  // UPLOAD du document
+  // UPLOAD DOCUMENT
   uploadDocument(doc: any): void {
 
-    const type =
-      doc.typeDocument;
-
-    const file =
-      this.filesMap[type];
+    const file = this.filesMap[doc.typeDocument];
 
     if (!file) {
 
-      console.warn(
-        'Fichier manquant pour :',
-        type
-      );
-
+      console.warn('Fichier manquant pour :', doc.typeDocument);
       return;
 
     }
 
-    const formData =
-      new FormData();
+    const formData = new FormData();
 
-    formData.append(
-      'file',
-      file
-    );
-
-    formData.append(
-      'dossierId',
-      this.dossierId.toString()
-    );
-
-    formData.append(
-      'typeDocument',
-      type
-    );
+    formData.append('file', file);
+    formData.append('dossierId', this.dossierId.toString());
+    formData.append('typeDocument', doc.typeDocument);
 
     this.http.post(
       'http://localhost:5119/api/documents/upload',
@@ -188,20 +143,9 @@ export class ClientDossierDetailComponent implements OnInit {
     )
       .subscribe({
 
-        next: () => {
+        next: () => this.loadDossier(),
 
-          // Recharge le dossier
-          // recalcul de la progression auto
-          this.loadDossier();
-
-        },
-
-        error: (err) =>
-
-          console.error(
-            'UPLOAD ERROR',
-            err
-          )
+        error: err => console.error('UPLOAD ERROR', err)
 
       });
 
@@ -212,24 +156,15 @@ export class ClientDossierDetailComponent implements OnInit {
 
     switch (type) {
 
-      case 'identite':
-        return 'Pièce d’identité';
+      case 'identite': return 'Pièce d’identité';
+      case 'domicile': return 'Justificatif de domicile';
+      case 'revenus': return 'Justificatif de revenus';
+      case 'rib': return 'RIB';
+      case 'permis': return 'Permis de conduire';
 
-      case 'domicile':
-        return 'Justificatif de domicile';
-
-      case 'revenus':
-        return 'Justificatif de revenus';
-
-      case 'rib':
-        return 'RIB';
-
-      case 'permis':
-        return 'Permis de conduire';
-
-      default:
-        return type;
-
+      default: return type;
     }
+
   }
+
 }

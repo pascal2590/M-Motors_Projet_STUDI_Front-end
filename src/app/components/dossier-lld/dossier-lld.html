@@ -35,7 +35,6 @@
             Nom obligatoire
         </div>
 
-
         <!-- PRENOM -->
         <label for="prenom">Prénom *</label>
 
@@ -45,7 +44,6 @@
         <div class="error" *ngIf="prenom.invalid && prenom.touched">
             Prénom obligatoire
         </div>
-
 
         <!-- EMAIL -->
         <label for="email">Email *</label>
@@ -57,7 +55,6 @@
             Email invalide
         </div>
 
-
         <!-- TELEPHONE -->
         <label for="telephone">Téléphone *</label>
 
@@ -68,12 +65,10 @@
             Téléphone obligatoire
         </div>
 
-
         <!-- APPORT -->
         <label for="apport">Apport (€)</label>
 
         <input id="apport" type="number" name="apport" [(ngModel)]="form.apport" (input)="calculMensualite()" />
-
 
         <!-- DUREE -->
         <label for="duree">Durée</label>
@@ -84,7 +79,6 @@
             <option [value]="48">48 mois</option>
         </select>
 
-
         <!-- KILOMETRAGE -->
         <label for="kilometrage">Kilométrage</label>
 
@@ -93,7 +87,6 @@
             <option [value]="15000">15000 km</option>
             <option [value]="20000">20000 km</option>
         </select>
-
 
         <!-- MENSUALITE -->
         <div class="mensualite-box">
@@ -123,32 +116,23 @@
                         {{ s.description }}
                     </div>
         
-                </div>
-        
+                </div>        
             </div>
         
         </div>
 
-
         <!-- MESSAGES -->
         <div *ngIf="errorMessage" class="error-global">
-
             {{ errorMessage }}
-
         </div>
 
         <div *ngIf="successMessage" class="success">
-
             {{ successMessage }}
-
         </div>
-
 
         <!-- BOUTON -->
         <button type="submit" [disabled]="f.invalid">
             Envoyer le dossier
         </button>
-
     </form>
-
 </div>
