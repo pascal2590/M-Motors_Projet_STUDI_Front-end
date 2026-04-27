@@ -2,14 +2,14 @@
 
     <h2>Connexion client</h2>
 
-    <!-- Message succès -->
+    <!-- Message du succès -->
     <div *ngIf="successMessage" class="success-message">
 
         {{ successMessage }}
 
     </div>
 
-    <!-- Message erreur -->
+    <!-- Message d'erreur -->
     <div *ngIf="errorMessage" class="error-message">
 
         {{ errorMessage }}
@@ -19,7 +19,6 @@
     <form (ngSubmit)="login()" #formRef="ngForm">
 
         <!-- EMAIL -->
-
         <input type="email" name="email" [(ngModel)]="form.email" placeholder="Email" required email #email="ngModel">
 
         <div *ngIf="email.invalid && email.touched" class="error-message">
@@ -29,7 +28,6 @@
         </div>
 
         <!-- PASSWORD -->
-
         <input type="password" name="password" [(ngModel)]="form.password" placeholder="Mot de passe" required
             minlength="6" #password="ngModel">
 
@@ -40,7 +38,6 @@
         </div>
 
         <!-- BOUTON -->
-
         <button type="submit" [disabled]="formRef.invalid || isLoading">
 
             {{ isLoading
@@ -48,6 +45,8 @@
             : 'Se connecter' }}
 
         </button>
+        
+
 
     </form>
 

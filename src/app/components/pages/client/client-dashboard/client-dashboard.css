@@ -106,7 +106,7 @@ ul {
     margin: 0;
 }
 
-li {
+li.document {
     background: #fff7ed;
     border: 1px solid #fed7aa;
     padding: 10px 12px;
@@ -149,4 +149,13 @@ li {
 .docs-title {
     font-weight: bold;
     margin-top: 10px;
+}
+
+ul.with-bullets {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.text-green-light {
+    color: #22c55e;  
 }

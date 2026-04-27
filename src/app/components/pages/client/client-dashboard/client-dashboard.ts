@@ -15,7 +15,6 @@ export class ClientDashboard implements OnInit {
 
   clientName = 'Client';
 
-  // Statistiques dossiers
   stats = {
     enAttente: 0,
     acceptes: 0,
@@ -34,7 +33,6 @@ export class ClientDashboard implements OnInit {
     this.loadDashboard();
   }
 
-  // Tableau de bord côté client
   loadDashboard(): void {
 
     const clientId = this.auth.getUserId();
@@ -50,12 +48,10 @@ export class ClientDashboard implements OnInit {
 
       const norm = (s: string) => s?.toLowerCase().trim();
 
-      // STATS
       this.stats.enAttente = dossiers.filter(d => norm(d.statut) === 'en_attente').length;
       this.stats.acceptes = dossiers.filter(d => norm(d.statut) === 'accepte').length;
       this.stats.refuses = dossiers.filter(d => norm(d.statut) === 'refuse').length;
 
-      // ENRICHISSEMENT DOSSIERS
       this.dossiers = dossiers.map(d => {
 
         const docs = d.documents ?? [];
@@ -77,19 +73,15 @@ export class ClientDashboard implements OnInit {
       });
 
       // NOM CLIENT
-      const prenom = this.auth.getUser()?.[
-        "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
-      ];
+      const prenom = this.auth.getPrenom();
 
       if (prenom) {
-        this.clientName = this.auth.getPrenom() ?? 'Client';
+        this.clientName = prenom;
       }
-
 
     });
   }
 
-  // LIBELLÉS DOCUMENTS
   getLibelleDocument(type: string): string {
     switch (type) {
       case 'identite': return 'Pièce d’identité';
@@ -101,7 +93,6 @@ export class ClientDashboard implements OnInit {
     }
   }
 
-  // NAVIGATION
   goToDossier(id: number): void {
     this.router.navigate(['/espace-client/dossiers', id]);
   }

@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { AuthService } from '../../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -17,98 +17,81 @@ import { CommonModule } from '@angular/common';
 })
 export class Login {
 
-  // URL API
-  apiUrl =
-    'http://localhost:5119/api/Auth/client/login';
-
-  // Formulaire
   form = {
     email: '',
     password: ''
   };
 
-  // Messages
   errorMessage = '';
   successMessage = '';
-
-  // Chargement
   isLoading = false;
+
+  private apiUrl = 'http://localhost:5119/api/Auth/login';
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) { }
 
   login() {
 
-    // Reset messages
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Validation
-    if (!this.form.email ||
-      !this.form.password) {
-
-      this.errorMessage =
-        "Veuillez remplir tous les champs.";
-
+    if (!this.form.email || !this.form.password) {
+      this.errorMessage = "Veuillez remplir tous les champs.";
       return;
     }
 
     this.isLoading = true;
 
-    this.http.post<any>(
-      this.apiUrl,
-      this.form
-    ).subscribe({
+    this.http.post<any>(this.apiUrl, this.form).subscribe({
 
       next: response => {
 
         this.isLoading = false;
 
-        console.log("LOGIN RESPONSE =", response); // DEBUG
+        // reset
+        this.authService.logout();
 
         // TOKEN
-        localStorage.setItem('token', response.token);
+        this.authService.saveToken(response.token);
 
-        // USER CONNECTÉ (pour affichage nom, etc.)
-        localStorage.setItem(
-          'user',
-          JSON.stringify(response.client)
-        );
+        // USER
+        this.authService.saveUser(response.user ?? response.client);
+
+        // DEBUG
+        console.log('ROLE:', this.authService.getUserRole());
+        console.log('TYPE:', this.authService.getUserType());
+        console.log('IS ADMIN:', this.authService.isBackOffice());
 
         this.successMessage = "Connexion réussie !";
 
-        // Récupérer l'URL demandée avant login
-        const returnUrl =
-          this.route.snapshot.queryParams['returnUrl']
-          || '/';
+        const returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
-        // Redirection après succès
         setTimeout(() => {
-          this.router.navigateByUrl(returnUrl);
-        }, 1000);
 
-      },
+          if (returnUrl) {
+            this.router.navigateByUrl(returnUrl);
+            return;
+          }
+
+          if (this.authService.isBackOffice()) {
+            this.router.navigate(['/admin']);
+          } else {
+            this.router.navigate(['/espace-client']);
+          }
+
+        }, 800);
+      }
+,  
 
       error: err => {
-
         this.isLoading = false;
-
-        console.error(err);
-
-        if (err.error?.message) {
-
-          this.errorMessage =
-            err.error.message;
-
-        } else {
-
-          this.errorMessage =
-            "Email ou mot de passe incorrect.";
-
-        }
+        this.errorMessage =
+          err.error?.message || "Email ou mot de passe incorrect.";
       }
     });
   }

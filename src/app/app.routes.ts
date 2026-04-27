@@ -1,41 +1,62 @@
 import { Routes } from '@angular/router';
+
 import { Home } from './components/home/home';
 import { Inscription } from './components/pages/inscription/inscription';
 import { VehiculeList } from './components/vehicule-list/vehicule-list';
 
-
-
 import { Login } from './components/pages/login/login';
 import { authGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
-    {
-        path: 'vehicules',
-        component: VehiculeList
-    },
 
-
-    // HOME PUBLIC
+    // PUBLIC
     {
         path: '',
         component: Home
     },
 
-    // INSCRIPTION
+    {
+        path: 'vehicules',
+        component: VehiculeList
+    },
+
     {
         path: 'inscription',
         component: Inscription
     },
 
-    // LOGIN
     {
         path: 'login',
         component: Login
     },
 
-  
-    // ESPACE CLIENT (PROTÉGÉ)
-  
+    // BACKOFFICE
+    {
+        path: 'admin',
+        canActivate: [adminGuard],
+        loadComponent: () =>
+            import('./components/pages/admin/admin-layout/admin-layout')
+                .then(m => m.AdminLayout),
+        children: [
+
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'dashboard'
+            },
+
+            {
+                path: 'dashboard',
+                loadComponent: () =>
+                    import('./components/pages/admin/admin-dashboard/admin-dashboard')
+                        .then(m => m.AdminDashboard)
+            }
+
+        ]
+    },
+
+    // ESPACE CLIENT
     {
         path: 'espace-client',
         canActivate: [authGuard],
@@ -44,14 +65,12 @@ export const routes: Routes = [
                 .then(m => m.ClientLayout),
         children: [
 
-            // Redirection par défaut
             {
                 path: '',
                 pathMatch: 'full',
                 redirectTo: 'dashboard'
             },
 
-            // DASHBOARD            
             {
                 path: 'dashboard',
                 loadComponent: () =>
@@ -59,8 +78,6 @@ export const routes: Routes = [
                         .then(m => m.ClientDashboard)
             },
 
-
-            // DOSSIERS
             {
                 path: 'dossiers',
                 loadComponent: () =>
@@ -68,7 +85,6 @@ export const routes: Routes = [
                         .then(m => m.ClientDossiersComponent)
             },
 
-            // DETAIL DOSSIER
             {
                 path: 'dossiers/:id',
                 loadComponent: () =>
@@ -76,14 +92,9 @@ export const routes: Routes = [
                         .then(m => m.ClientDossierDetailComponent)
             }
         ]
+    },
 
-
-    }
-,
-
-
-    // DOSSIER ACHAT (protégé)
-
+    // DOSSIERS VÉHICULE
     {
         path: 'vehicule/:id/achat',
         loadComponent: () =>
@@ -91,8 +102,6 @@ export const routes: Routes = [
                 .then(m => m.DossierAchat),
         canActivate: [authGuard]
     },
-
-    // DOSSIER LOCATION LLD (protégé)
 
     {
         path: 'vehicule/:id/lld',
@@ -102,14 +111,10 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
 
-
-    
-    // DETAIL VEHICULE
     {
         path: 'vehicule/:id',
         loadComponent: () =>
             import('./components/pages/vehicule-detail/vehicule-detail')
                 .then(m => m.VehiculeDetail)
     }
-
 ];

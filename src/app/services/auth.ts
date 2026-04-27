@@ -1,100 +1,180 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  private router = inject(Router);
+
+  logoutAndRedirect(): void {
+    this.logout();
+    this.router.navigate(['/login']);
+  }
+
   // TOKEN
   getToken(): string | null {
     const token = localStorage.getItem('token');
-
-    if (!token || token === 'undefined') {
-      return null;
-    }
-
+    if (!token || token === 'undefined') return null;
     return token;
   }
 
-  // PAYLOAD JWT
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  // USER LOCAL STORAGE : Seulement pour l'interface utilisateur - ne contient pas d'informations sensibles
+  saveUser(user: any): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getStoredUser(): any | null {
+    const user = localStorage.getItem('user');
+    if (!user || user === 'undefined') return null;
+
+    try {
+      return JSON.parse(user);
+    } catch {
+      return null;
+    }
+  }
+
+  // JWT PAYLOAD
   private getPayload(): any | null {
-
     const token = this.getToken();
-
     if (!token) return null;
 
     try {
       return JSON.parse(atob(token.split('.')[1]));
-    }
-    catch (e) {
-      console.warn('Token invalide');
+    } catch {
       return null;
     }
   }
 
-  // USER ID (IMPORTANT POUR TON DASHBOARD)
+  // USER ID
   getUserId(): number | null {
-
     const payload = this.getPayload();
-
     if (!payload) return null;
 
-    const userId =
+    const id =
       payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
 
-    return userId ? Number(userId) : null;
+    return id ? Number(id) : null;
   }
 
-  // PRÉNOM / NOM (si présent dans le JWT)
+  // NAME
   getUserName(): string {
-
     const payload = this.getPayload();
-
-    if (!payload) return 'Client';
+    if (!payload) return 'Utilisateur';
 
     const prenom =
       payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"];
 
-    const nom =
-      payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"];
-
-    if (prenom) {
-      return prenom;
-    }
-
-    return 'Client';
+    return prenom || 'Utilisateur';
   }
 
-  // USER COMPLET
-  getUser(): any | null {
-    return this.getPayload();
+  getPrenom(): string | null {
+    const payload = this.getPayload();
+
+    return payload?.[
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
+    ] ?? null;
   }
 
-   // AUTH CHECK
+  // ROLE - SOURCE UNIQUE
+  getUserRole(): string | null {
+    const payload = this.getPayload();
+
+    return payload?.[
+      "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+    ] ?? null;
+  }
+
+  // CHECK ADMIN
+  isAdmin(): boolean {
+    const role = this.getUserRole();
+
+    return role === 'Administrateur';
+  }
+
+  // CHECK BACKOFFICE
+  isBackOffice(): boolean {
+    const role = this.getUserRole();
+
+    return role === 'Administrateur'
+      || role === 'Admin'
+      || role === 'BackOffice';
+  }
+
+  // CHECK CLIENT
+  isClient(): boolean {
+    return !this.isBackOffice();
+  }
+
+  // AUTH STATUS
   isLoggedIn(): boolean {
-
     const payload = this.getPayload();
 
     if (!payload) return false;
 
     const exp = payload.exp;
 
-    if (!exp) return false;
-
-    return Date.now() < exp * 1000;
+    return exp ? Date.now() < exp * 1000 : false;
   }
 
-   // LOGOUT
+  // LOGOUT
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
-  getPrenom(): string | null {
-    const user = this.getUser();
+  // TYPE D'UTILISATEUR (Client / BackOffice)
+  getUserType(): 'Client' | 'BackOffice' | null {
 
-    return user?.[
+    const role = this.getUserRole();
+
+    if (!role) return null;
+
+    const backOfficeRoles = [
+      'Administrateur',
+      'Admin',
+      'BackOffice'
+    ];
+
+    return backOfficeRoles.includes(role)
+      ? 'BackOffice'
+      : 'Client';
+  }
+
+  getDisplayName(): string {
+
+    // priorité user localStorage (UI API response)
+    const stored = this.getStoredUser();
+
+    if (stored?.prenom) return stored.prenom;
+    if (stored?.name) return stored.name;
+    if (stored?.nom && stored?.prenom) {
+      return `${stored.prenom} ${stored.nom}`;
+    }
+
+    // fallback JWT
+    const payload = this.getPayload();
+
+    const prenom = payload?.[
       "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"
-    ] ?? null;
+    ];
+
+    const nom = payload?.[
+      "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"
+    ];
+
+    if (prenom && nom) return `${prenom} ${nom}`;
+    if (prenom) return prenom;
+
+    return 'Utilisateur';
   }
+
 
 }

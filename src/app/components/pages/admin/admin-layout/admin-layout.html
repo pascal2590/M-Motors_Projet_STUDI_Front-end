@@ -1,0 +1,41 @@
+<div class="admin-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2>M-Motors</h2>
+
+        <nav>
+            <a routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+            <a routerLink="/admin/users" routerLinkActive="active">Utilisateurs</a>
+            <a routerLink="/admin/vehicules" routerLinkActive="active">Véhicules</a>
+            <a routerLink="/admin/dossiers" routerLinkActive="active">Dossiers</a>
+        </nav>
+
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="left">
+                <h3>BackOffice</h3>
+            </div>
+
+            <div class="right">
+                Bonjour <span><b>{{ auth.getUserRole() }} </b></span>   
+                <button (click)="logout()">Déconnexion</button>
+            </div>
+
+        </header>
+
+        <!-- CONTENT -->
+        <section class="content">
+            <router-outlet></router-outlet>
+        </section>
+
+    </div>
+
+</div>

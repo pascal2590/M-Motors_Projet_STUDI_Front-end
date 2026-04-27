@@ -37,17 +37,32 @@
                     <img class="vehicule-img" [src]="d.vehicule?.imageUrl || 'assets/no-car.png'" alt="vehicule" />
 
                     <div class="vehicule-info">
-
-                        <strong>
-                            {{ d.vehicule?.marque || 'Véhicule' }}
-                            {{ d.vehicule?.modele || '' }}
-                        </strong>
-
                         <div class="small">
-                            {{ d.typeDossier }} •
-                            {{ d.dateCreation | date:'dd/MM/yyyy' }}
+                            <br>
+                            <b class="text-green-light">{{ d.typeDossier | uppercase }} :</b>
+                            <br>
+                            Date de création : {{ d.dateCreation | date:'dd/MM/yyyy' }}
                         </div>
-
+                        <p>
+                            <b>Caractéristiques du véhicule :</b>
+                        </p>                            
+                            <ul class="with-bullets">
+                                <li>
+                                    {{ d.vehicule?.marque || 'Véhicule' }}
+                                </li>
+                                <li>
+                                    {{ d.vehicule?.modele || '' }}
+                                </li>
+                                <li>
+                                    {{ d.vehicule?.annee || '' }}
+                                </li>
+                                <li>                  
+                                    {{ d.vehicule?.kilometrage ? '' + d.vehicule.kilometrage + ' km' : ''}}
+                                </li>
+                                <li>                            
+                                    {{ d.vehicule?.prix ? '' + (d.vehicule.prix | currency:'EUR') : '' }}
+                                </li>
+                            </ul>                                             
                     </div>
 
                 </div>
@@ -75,7 +90,7 @@
                     <h4>Documents manquants :</h4>
 
                     <ul>
-                        <li *ngFor="let doc of d.documentsManquants">
+                        <li *ngFor="let doc of d.documentsManquants" class="document">
                             ⚠️ {{ doc }}
                         </li>
                     </ul>

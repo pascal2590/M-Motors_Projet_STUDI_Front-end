@@ -8,7 +8,7 @@ import {
 
 import { AuthService } from '../services/auth';
 
-export const authGuard: CanActivateFn = (
+export const adminGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
 ) => {
@@ -19,8 +19,6 @@ export const authGuard: CanActivateFn = (
     // Non connecté
     if (!authService.isLoggedIn()) {
 
-        alert("Vous devez être connecté");
-
         router.navigate(['/login'], {
             queryParams: {
                 returnUrl: state.url
@@ -30,13 +28,12 @@ export const authGuard: CanActivateFn = (
         return false;
     }
 
-    // Si BackOffice : accès interdit aux clients
-    if (authService.isBackOffice()) {
+    // Vérifie BackOffice
+    if (!authService.isBackOffice()) {
 
-        router.navigate(['/admin']);
+        router.navigate(['/']);
         return false;
     }
 
-    // Sinon OK pour le Client
     return true;
 };
