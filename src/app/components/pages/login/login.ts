@@ -4,13 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth';
+import { NavbarComponent } from '../../navbar/navbar';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NavbarComponent
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'
@@ -48,17 +50,12 @@ export class Login {
     this.isLoading = true;
 
     this.http.post<any>(this.apiUrl, this.form).subscribe({
-
       next: response => {
-
         this.isLoading = false;
-
         // reset
         this.authService.logout();
-
         // TOKEN
         this.authService.saveToken(response.token);
-
         // USER
         this.authService.saveUser(response.user ?? response.client);
 
@@ -72,7 +69,6 @@ export class Login {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
         setTimeout(() => {
-
           if (returnUrl) {
             this.router.navigateByUrl(returnUrl);
             return;
@@ -83,10 +79,8 @@ export class Login {
           } else {
             this.router.navigate(['/espace-client']);
           }
-
         }, 800);
-      }
-,  
+      },  
 
       error: err => {
         this.isLoading = false;

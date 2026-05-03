@@ -1,53 +1,38 @@
 .login-container {
-
     max-width: 400px;
     margin: 80px auto;
     padding: 30px;
-
     background: white;
-
     border-radius: 10px;
-
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
 }
 
 h2 {
-
     text-align: center;
     margin-bottom: 20px;
-
 }
 
 input {
-
     width: 100%;
     padding: 12px;
-
     margin-bottom: 10px;
-
     border-radius: 6px;
     border: 1px solid #ccc;
-
 }
 
 button {
-
     width: 100%;
     padding: 12px;
-
-    background-color: #9a61db;
+    background-color: #7c61db; /* Couleur identitaire du site */
     color: white;
-
     border: none;
     border-radius: 6px;
-
     cursor: pointer;
 
 }
 
 button:disabled {
-    background-color: #b78ae6;
+    background-color: #a293d8;
 }
 
 .error-message {

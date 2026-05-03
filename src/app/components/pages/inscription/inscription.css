@@ -40,7 +40,7 @@ button {
     margin-top: 10px;
     padding: 14px;
     border: none;
-    background: #9a61db;
+    background: #7c61db;
     color: white;
     font-weight: bold;
     border-radius: 6px;
@@ -48,7 +48,7 @@ button {
 }
 
 button:hover {
-    background: #b78ae6;
+    background: #65379e;
 }
 
 .login-link {

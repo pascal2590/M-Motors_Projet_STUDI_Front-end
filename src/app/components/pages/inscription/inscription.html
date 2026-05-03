@@ -1,3 +1,4 @@
+<app-navbar></app-navbar>
 <section class="register-section">
 
     <div class="register-container">
@@ -5,21 +6,16 @@
         <h1>Créer un compte client</h1>
 
         <!-- MESSAGE SUCCÈS -->
-        <div *ngIf="successMessage" class="success-message">
-        
-            {{ successMessage }}
-        
+        <div *ngIf="successMessage" class="success-message">        
+            {{ successMessage }}        
         </div>
         
         <!-- MESSAGE ERREUR -->
-        <div *ngIf="errorMessage" class="error-message">
-        
-            {{ errorMessage }}
-        
+        <div *ngIf="errorMessage" class="error-message">        
+            {{ errorMessage }}        
         </div>
 
-        <form (ngSubmit)="register()" #formRef="ngForm">
-        
+        <form (ngSubmit)="register()" #formRef="ngForm">        
             <!-- NOM -->
             <input type="text" name="nom" [(ngModel)]="form.nom" placeholder="Nom" required #nom="ngModel">
         
@@ -46,46 +42,33 @@
         
                 <span *ngIf="email.errors?.['email']">
                     Email invalide.
-                </span>
-        
+                </span>        
             </div>
         
             <!-- PASSWORD -->
             <input type="password" name="password" [(ngModel)]="form.password" placeholder="Mot de passe" required minlength="6"
                 #password="ngModel">
         
-            <div *ngIf="password.invalid && password.touched" class="error-message">
-        
+            <div *ngIf="password.invalid && password.touched" class="error-message">        
                 <span *ngIf="password.errors?.['required']">
                     Mot de passe obligatoire.
-                </span>
-        
+                </span>        
                 <span *ngIf="password.errors?.['minlength']">
                     Minimum 6 caractères.
-                </span>
-        
+                </span>        
             </div>
         
             <!-- Bouton -->
-            <button type="submit" [disabled]="formRef.invalid">
-        
-                Créer mon compte
-        
-            </button>
-        
+            <button type="submit" [disabled]="formRef.invalid">        
+                Créer mon compte        
+            </button>        
         </form>
 
-
         <p class="login-link">
-
             Déjà inscrit ?
-
             <a routerLink="/login">
                 Se connecter
             </a>
-
         </p>
-
     </div>
-
 </section>

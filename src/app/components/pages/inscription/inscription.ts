@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from '../../navbar/navbar';
 
 @Component({
   selector: 'app-inscription',
@@ -12,6 +13,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     RouterModule,
+    NavbarComponent,
     HttpClientModule
   ],
   templateUrl: './inscription.html',
@@ -46,9 +48,7 @@ export class Inscription {
       .subscribe({
 
         next: response => {
-
           console.log("Compte créé");
-
           // Sauvegarde JWT
           localStorage.setItem(
             'token',
@@ -67,17 +67,12 @@ export class Inscription {
         },
 
         error: err => {
-
           console.error(err);
-
           alert(
             err.error?.message
             || "Erreur lors de l'inscription"
           );
-
         }
-
       });
   }
-
 }

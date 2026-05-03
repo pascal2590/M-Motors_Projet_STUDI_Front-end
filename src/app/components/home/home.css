@@ -48,7 +48,7 @@ h3 {
     justify-content: space-between;
     align-items: center;
     padding: 14px 24px;
-    background: #7c61db;
+    background: #7c61db; /* Couleur identitaire du site */
     color: white;
     position: sticky;
     top: 0;

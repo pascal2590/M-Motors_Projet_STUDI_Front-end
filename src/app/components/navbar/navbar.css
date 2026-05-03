@@ -1,0 +1,60 @@
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px;
+    background: #7c61db;
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+
+    text-decoration: none;
+    font-size: 22px !important;
+    font-weight: bold;
+    color: white;
+    margin-right: 40px;
+}
+
+.menu {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.menu a:not(.auth-btn):hover {
+    color: black;
+}
+
+/*    BOUTONS */
+button {
+    margin-top: 12px;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s ease;
+}
+
+button:hover {
+    transform: scale(1.03);
+}

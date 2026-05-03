@@ -1,19 +1,16 @@
+<app-navbar></app-navbar>
 <div class="login-container">
 
     <h2>Connexion client</h2>
 
     <!-- Message du succès -->
     <div *ngIf="successMessage" class="success-message">
-
         {{ successMessage }}
-
     </div>
 
     <!-- Message d'erreur -->
     <div *ngIf="errorMessage" class="error-message">
-
         {{ errorMessage }}
-
     </div>
 
     <form (ngSubmit)="login()" #formRef="ngForm">
@@ -22,9 +19,7 @@
         <input type="email" name="email" [(ngModel)]="form.email" placeholder="Email" required email #email="ngModel">
 
         <div *ngIf="email.invalid && email.touched" class="error-message">
-
             Email invalide
-
         </div>
 
         <!-- PASSWORD -->
@@ -32,22 +27,14 @@
             minlength="6" #password="ngModel">
 
         <div *ngIf="password.invalid && password.touched" class="error-message">
-
             Mot de passe obligatoire
-
         </div>
 
         <!-- BOUTON -->
         <button type="submit" [disabled]="formRef.invalid || isLoading">
-
             {{ isLoading
             ? 'Connexion en cours...'
             : 'Se connecter' }}
-
         </button>
-        
-
-
     </form>
-
 </div>

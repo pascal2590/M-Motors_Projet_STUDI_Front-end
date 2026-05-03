@@ -12,19 +12,12 @@
 .client-nav {
 
     display: flex;
-
     align-items: center;
-
     padding: 18px 30px;
-
     background: #7c61db;
-
     position: sticky;
-
     top: 0;
-
     z-index: 100;
-
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -32,11 +25,8 @@
 .logo {
 
     font-size: 20px;
-
     font-weight: bold;
-
     color: white;
-
     margin-right: 40px;
 }
 
