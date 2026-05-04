@@ -40,20 +40,30 @@ export const routes: Routes = [
                 .then(m => m.AdminLayout),
         children: [
 
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'dashboard'
-            },
+            { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
             {
                 path: 'dashboard',
                 loadComponent: () =>
                     import('./components/pages/admin/admin-dashboard/admin-dashboard')
                         .then(m => m.AdminDashboard)
-            }
+            },
 
+            {
+                path: 'commerciaux',
+                loadComponent: () =>
+                    import('./components/pages/admin/admin-commerciaux/admin-commerciaux')
+                        .then(m => m.AdminCommerciaux)
+            },
+
+            {
+                path: 'commerciaux/create',
+                loadComponent: () =>
+                    import('./components/pages/admin/admin-create-commercial/admin-create-commercial')
+                        .then(m => m.AdminCreateCommercial)
+            }
         ]
+
     },
 
     // ESPACE CLIENT

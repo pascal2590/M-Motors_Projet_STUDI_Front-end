@@ -1,0 +1,95 @@
+.page {
+    padding: 30px;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+/* BOUTON CREATE */
+.create-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.create-btn:hover {
+    background-color: #218838;
+}
+
+/* TABLE */
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #f5f6fa;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    font-size: 14px;
+    color: #555;
+}
+
+tbody tr {
+    border-top: 1px solid #eee;
+    transition: 0.2s;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* ACTIONS */
+.actions {
+    text-align: right;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #dc3545;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+/* EMPTY */
+.empty {
+    padding: 20px;
+    text-align: center;
+    color: #888;
+}

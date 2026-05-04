@@ -1,0 +1,38 @@
+<div class="page">
+
+    <div class="card">
+
+        <h2>Créer un commercial</h2>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+
+            <div class="form-group">
+                <label>Nom</label>
+                <input formControlName="nom" type="text" placeholder="Nom du commercial">
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input formControlName="email" type="email" placeholder="email@exemple.com">
+            </div>
+
+            <div class="form-group">
+                <label>Mot de passe</label>
+                <input formControlName="password" type="password" placeholder="••••••••">
+            </div>
+
+            <button type="submit" [disabled]="form.invalid">
+                Créer le commercial
+            </button>
+            <p class="success" *ngIf="success">
+                Commercial créé avec succès ✅
+            </p>
+             <p class="error" *ngIf="error">
+                Erreur lors de la création du commercial ❌
+            </p>
+
+        </form>
+
+    </div>
+
+</div>

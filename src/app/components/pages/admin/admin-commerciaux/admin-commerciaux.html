@@ -1,0 +1,44 @@
+<div class="page">
+
+    <div class="header">
+        <h2>Commerciaux</h2>
+        <button class="create-btn" (click)="goCreate()">
+            + Nouveau commercial
+        </button>
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th class="actions">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let c of commerciaux">
+                    <td>{{ c.idUser }}</td>
+                    <td>{{ c.nom }}</td>
+                    <td>{{ c.email }}</td>
+                    <td class="actions">
+                        <button class="delete-btn" (click)="delete(c.idUser)">
+                            Supprimer
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+        <p *ngIf="commerciaux.length === 0" class="empty">
+            Aucun commercial trouvé
+        </p>
+
+    </div>
+
+</div>

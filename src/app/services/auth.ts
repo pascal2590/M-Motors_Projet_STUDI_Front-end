@@ -100,13 +100,19 @@ export class AuthService {
   }
 
   // CHECK BACKOFFICE
+  private backOfficeRoles = [
+    'Administrateur',
+    'Admin',
+    'BackOffice',
+    'Commercial'
+  ];
+
   isBackOffice(): boolean {
     const role = this.getUserRole();
-
-    return role === 'Administrateur'
-      || role === 'Admin'
-      || role === 'BackOffice';
+    return role ? this.backOfficeRoles.includes(role) : false;
   }
+
+
 
   // CHECK CLIENT
   isClient(): boolean {
@@ -140,8 +146,10 @@ export class AuthService {
     const backOfficeRoles = [
       'Administrateur',
       'Admin',
-      'BackOffice'
+      'BackOffice',
+      'Commercial'
     ];
+
 
     return backOfficeRoles.includes(role)
       ? 'BackOffice'
