@@ -1,0 +1,38 @@
+<div class="page">
+
+    <h2>Dossiers commerciaux</h2>
+
+    <p class="subtitle">
+        Liste des dossiers assignés aux commerciaux
+    </p>
+
+    <div class="card">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Client</th>
+                    <th>Véhicule</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let d of dossiers">
+                    <td>{{ d.id }}</td>
+                    <td>{{ d.client }}</td>
+                    <td>{{ d.vehicule }}</td>
+                    <td>{{ d.status }}</td>
+                    <td>
+                        <button>Voir</button>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

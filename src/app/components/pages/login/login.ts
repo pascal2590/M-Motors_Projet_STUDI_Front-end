@@ -52,33 +52,46 @@ export class Login {
     this.http.post<any>(this.apiUrl, this.form).subscribe({
       next: response => {
         this.isLoading = false;
-        // reset
+
+        // reset ancien auth
         this.authService.logout();
+
         // TOKEN
         this.authService.saveToken(response.token);
-        // USER
-        this.authService.saveUser(response.user ?? response.client);
 
         // DEBUG
         console.log('ROLE:', this.authService.getUserRole());
         console.log('TYPE:', this.authService.getUserType());
-        console.log('IS ADMIN:', this.authService.isBackOffice());
+        console.log('IS ADMIN:', this.authService.isAdmin());
 
         this.successMessage = "Connexion réussie !";
 
         const returnUrl = this.route.snapshot.queryParams['returnUrl'];
 
         setTimeout(() => {
+
           if (returnUrl) {
             this.router.navigateByUrl(returnUrl);
             return;
           }
 
-          if (this.authService.isBackOffice()) {
-            this.router.navigate(['/admin']);
-          } else {
-            this.router.navigate(['/espace-client']);
+          const role = this.authService.getUserRole();
+
+          switch (role) {
+
+            case 'Administrateur':
+              this.router.navigate(['/admin']);
+              break;
+
+            case 'Commercial':
+              this.router.navigate(['/backoffice']);
+              break;
+
+            default:
+              this.router.navigate(['/espace-client']);
+              break;
           }
+
         }, 800);
       },  
 

@@ -3,10 +3,11 @@ import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
 import { Inscription } from './components/pages/inscription/inscription';
 import { VehiculeList } from './components/vehicule-list/vehicule-list';
-
 import { Login } from './components/pages/login/login';
+
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+import { commercialGuard } from './guards/commercial.guard';
 
 export const routes: Routes = [
 
@@ -15,23 +16,20 @@ export const routes: Routes = [
         path: '',
         component: Home
     },
-
     {
         path: 'vehicules',
         component: VehiculeList
     },
-
     {
         path: 'inscription',
         component: Inscription
     },
-
     {
         path: 'login',
         component: Login
     },
 
-    // BACKOFFICE
+      // ADMIN (STRICT ADMIN ONLY)  
     {
         path: 'admin',
         canActivate: [adminGuard],
@@ -63,10 +61,36 @@ export const routes: Routes = [
                         .then(m => m.AdminCreateCommercial)
             }
         ]
-
     },
 
-    // ESPACE CLIENT
+      // BACKOFFICE (COMMERCIAL ONLY)    
+    {
+        path: 'backoffice',
+        canActivate: [commercialGuard],
+        loadComponent: () =>
+            import('./components/pages/commercial/commercial-layout/commercial-layout')
+                .then(m => m.CommercialLayout),
+        children: [
+
+            { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+
+            {
+                path: 'dashboard',
+                loadComponent: () =>
+                    import('./components/pages/commercial/commercial-dashboard/commercial-dashboard')
+                        .then(m => m.CommercialDashboard)
+            },
+
+            {
+                path: 'dossiers',
+                loadComponent: () =>
+                    import('./components/pages/commercial/commercial-dossiers/commercial-dossiers')
+                        .then(m => m.CommercialDossiers)
+            }
+        ]
+    },
+
+      // ESPACE CLIENT  
     {
         path: 'espace-client',
         canActivate: [authGuard],
@@ -75,11 +99,7 @@ export const routes: Routes = [
                 .then(m => m.ClientLayout),
         children: [
 
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'dashboard'
-            },
+            { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
             {
                 path: 'dashboard',
@@ -104,7 +124,7 @@ export const routes: Routes = [
         ]
     },
 
-    // DOSSIERS VÉHICULE
+      // DOSSIERS VÉHICULE (GLOBAL CLIENT ACCESS) 
     {
         path: 'vehicule/:id/achat',
         loadComponent: () =>

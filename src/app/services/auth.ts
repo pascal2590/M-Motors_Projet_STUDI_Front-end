@@ -41,7 +41,7 @@ export class AuthService {
     }
   }
 
-  // JWT PAYLOAD
+  // JWT PAYLOAD EXTRACTION - SOURCE UNIQUE POUR INFOS UTILISATEUR
   private getPayload(): any | null {
     const token = this.getToken();
     if (!token) return null;
@@ -53,7 +53,7 @@ export class AuthService {
     }
   }
 
-  // USER ID
+  // USER ID - SOURCE UNIQUE
   getUserId(): number | null {
     const payload = this.getPayload();
     if (!payload) return null;
@@ -112,8 +112,6 @@ export class AuthService {
     return role ? this.backOfficeRoles.includes(role) : false;
   }
 
-
-
   // CHECK CLIENT
   isClient(): boolean {
     return !this.isBackOffice();
@@ -145,16 +143,14 @@ export class AuthService {
 
     const backOfficeRoles = [
       'Administrateur',
-      'Admin',
-      'BackOffice',
       'Commercial'
     ];
-
 
     return backOfficeRoles.includes(role)
       ? 'BackOffice'
       : 'Client';
   }
+
 
   getDisplayName(): string {
 
@@ -182,6 +178,30 @@ export class AuthService {
     if (prenom) return prenom;
 
     return 'Utilisateur';
+  }
+
+  isCommercial(): boolean {
+    return this.getUserRole() === 'Commercial';
+  }
+
+  hasRole(role: string): boolean {
+    return this.getUserRole() === role;
+  }
+
+  redirectByRole(): string {
+
+    const role = this.getUserRole();
+
+    switch (role) {
+      case 'Administrateur':
+        return '/admin';
+
+      case 'Commercial':
+        return '/backoffice';
+
+      default:
+        return '/espace-client';
+    }
   }
 
 
