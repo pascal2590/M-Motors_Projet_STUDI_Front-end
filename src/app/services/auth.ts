@@ -151,10 +151,9 @@ export class AuthService {
       : 'Client';
   }
 
-
   getDisplayName(): string {
 
-    // priorité user localStorage (UI API response)
+    // priorité user localStorage (UI API réponse)
     const stored = this.getStoredUser();
 
     if (stored?.prenom) return stored.prenom;
@@ -176,6 +175,7 @@ export class AuthService {
 
     if (prenom && nom) return `${prenom} ${nom}`;
     if (prenom) return prenom;
+    if (nom) return nom;
 
     return 'Utilisateur';
   }

@@ -8,30 +8,29 @@
 
     <div class="card">
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Client</th>
-                    <th>Véhicule</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr *ngFor="let d of dossiers">
-                    <td>{{ d.id }}</td>
-                    <td>{{ d.client }}</td>
-                    <td>{{ d.vehicule }}</td>
-                    <td>{{ d.status }}</td>
-                    <td>
-                        <button>Voir</button>
-                    </td>
-                </tr>
-            </tbody>
-
+        <table *ngIf="dossiers.length > 0; else noData">
+            <tr>
+                <th>ID</th>
+                <th>Client</th>
+                <th>Véhicule</th>
+                <th>Status</th>
+                <th>Type dossier</th>
+                <th>Date création</th>
+            </tr>
+        
+            <tr *ngFor="let d of dossiers">
+                <td>{{ d.id }}</td>
+                <td>{{ d.client }}</td>
+                <td>{{ d.vehicule }}</td>
+                <td>{{ d.status }}</td>
+                <td>{{ d.typeDossier }}</td>
+                <td>{{ d.dateCreation }}</td>
+            </tr>
         </table>
+        
+        <ng-template #noData>
+            <p>Aucun dossier trouvé</p>
+        </ng-template>
 
     </div>
 

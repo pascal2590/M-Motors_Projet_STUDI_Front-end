@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface DossierCommercial {
-  id: number;
-  client: string;
-  vehicule: string;
-  status: string;
-}
+import { CommercialService, DossierCommercial } from '../../../../services/commercial.service';
 
 @Component({
   standalone: true,
@@ -18,20 +12,20 @@ export class CommercialDossiers {
 
   dossiers: DossierCommercial[] = [];
 
+  constructor(private commercialService: CommercialService) { }
+
   ngOnInit() {
-    this.dossiers = [
-      {
-        id: 1,
-        client: 'Jean Dupont',
-        vehicule: 'BMW X5',
-        status: 'En cours'
+    this.loadDossiers();
+  }
+
+  loadDossiers() {
+    this.commercialService.getDossiers().subscribe({
+      next: data => {
+        this.dossiers = data;
       },
-      {
-        id: 2,
-        client: 'Marie Martin',
-        vehicule: 'Audi A3',
-        status: 'Validé'
+      error: err => {
+        console.error('Erreur chargement dossiers', err);
       }
-    ];
+    });
   }
 }

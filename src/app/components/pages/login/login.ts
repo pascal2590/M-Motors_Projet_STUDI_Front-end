@@ -59,7 +59,10 @@ export class Login {
         // TOKEN
         this.authService.saveToken(response.token);
 
+        this.authService.saveUser(response.user ?? response.client);
+
         // DEBUG
+        console.log('USER:', response.user);
         console.log('ROLE:', this.authService.getUserRole());
         console.log('TYPE:', this.authService.getUserType());
         console.log('IS ADMIN:', this.authService.isAdmin());
