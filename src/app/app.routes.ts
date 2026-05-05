@@ -86,7 +86,22 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./components/pages/commercial/commercial-dossiers/commercial-dossiers')
                         .then(m => m.CommercialDossiers)
+            },
+
+            {
+                path: 'dossiers/:id',
+                loadComponent: () =>
+                    import('./components/pages/commercial/commercial-dossier-detail/commercial-dossier-detail')
+                        .then(m => m.CommercialDossierDetail)
+            },
+            
+            {
+                path: 'backoffice/dossiers/:id',
+                loadComponent: () =>
+                    import('./components/pages/commercial/commercial-dossier-detail/commercial-dossier-detail')
+                        .then(m => m.CommercialDossierDetail)
             }
+
         ]
     },
 

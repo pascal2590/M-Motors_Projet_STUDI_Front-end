@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CommercialService, DossierCommercial } from '../../../../services/commercial.service';
-
+import { Router } from '@angular/router';
 @Component({
   standalone: true,
   imports: [CommonModule],
@@ -12,7 +12,10 @@ export class CommercialDossiers {
 
   dossiers: DossierCommercial[] = [];
 
-  constructor(private commercialService: CommercialService) { }
+  constructor(
+    private commercialService: CommercialService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.loadDossiers();
@@ -28,4 +31,9 @@ export class CommercialDossiers {
       }
     });
   }
+
+  goToDossier(id: number) {
+    this.router.navigate(['/backoffice/dossiers', id]);
+  }
+
 }

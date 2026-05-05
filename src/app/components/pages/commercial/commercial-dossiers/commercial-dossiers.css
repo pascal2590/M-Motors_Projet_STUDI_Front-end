@@ -33,3 +33,30 @@ th {
     text-align: left;
     background: #f8f8f8;
 }
+
+.btn-view {
+    background: linear-gradient(135deg, #9a61db, #9372b9);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+.btn-view:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
+}
+
+.btn-view:active {
+    transform: scale(0.97);
+}
+
+.btn-view:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}

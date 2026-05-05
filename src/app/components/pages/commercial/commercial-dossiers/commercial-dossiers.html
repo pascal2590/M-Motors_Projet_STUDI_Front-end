@@ -16,6 +16,7 @@
                 <th>Status</th>
                 <th>Type dossier</th>
                 <th>Date création</th>
+                <th>Actions</th>
             </tr>
         
             <tr *ngFor="let d of dossiers">
@@ -25,6 +26,11 @@
                 <td>{{ d.status }}</td>
                 <td>{{ d.typeDossier }}</td>
                 <td>{{ d.dateCreation }}</td>
+                <td>
+                    <button class="btn-view" (click)="goToDossier(d.id)">
+                        Voir
+                    </button>
+                </td>
             </tr>
         </table>
         

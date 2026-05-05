@@ -1,0 +1,108 @@
+<div *ngIf="message" class="alert">
+    {{ message }}
+</div>
+
+<div class="page">
+
+    <h2>Dossier #{{ dossier?.id }}</h2>
+
+    <p *ngIf="loading">Chargement...</p>
+
+    <div *ngIf="!loading">
+
+        <!-- DOSSIER -->
+        <div class="card">
+            <h3>Informations dossier</h3>
+        
+            <p><b>Type :</b> {{ dossier?.typeDossier }}</p>
+        
+            <p>
+                <b>Status :</b>
+                {{ dossier?.statut }}
+            </p>
+        
+            <!-- US17 : changement de statut -->                      
+
+            <div style="margin-top: 10px;">
+            
+                <label>Modifier le statut :</label>
+
+                <div class="status-row">
+                    <select [(ngModel)]="selectedStatut">
+                        <option value="en_attente">En attente</option>
+                        <option value="en_etude">En étude</option>
+                        <option value="accepte">Accepté</option>
+                        <option value="refuse">Refusé</option>
+                    </select>
+                
+                    <button class="btn-primary" (click)="validerStatut()" [disabled]="selectedStatut === dossier?.statut">
+                        Mettre à jour
+                    </button>
+                
+
+                </div>           
+                
+            
+            </div>
+
+        
+            <p><b>Date création :</b> {{ dossier?.dateCreation }}</p>
+        </div>       
+
+
+        <!-- VEHICULE -->
+        <div class="card">
+            <h3>Véhicule</h3>
+
+            <p><b>Marque :</b> {{ vehicule?.marque }}</p>
+            <p><b>Modèle :</b> {{ vehicule?.modele }}</p>
+            <p><b>Année :</b> {{ vehicule?.annee }}</p>
+            <p><b>Kilométrage :</b> {{ vehicule?.kilometrage }} km</p>
+            <p><b>Prix :</b> {{ vehicule?.prix }} €</p>
+
+            <img *ngIf="vehicule?.imageUrl" [src]="vehicule.imageUrl" width="250">
+        </div>
+
+        <!-- SERVICES LLD -->
+        <div class="card" *ngIf="services.length > 0">
+            <h3>Services LLD</h3>
+
+            <ul>
+                <li *ngFor="let s of services">
+                    {{ s.nomService }} - {{ s.description }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- DOCUMENTS -->
+        <div class="card" *ngIf="documents.length > 0">
+        
+            <h3>Documents</h3>
+        
+            <ul class="doc-list">
+        
+                <li *ngFor="let d of documents" class="doc-item">
+        
+                    <div class="doc-info">
+                        <span class="doc-type">
+                            {{ d.typeDocument }}
+                        </span>
+        
+                        <span class="doc-name">
+                            {{ d.nomDocument || 'Aucun fichier' }}
+                        </span>
+                    </div>
+        
+                    <span class="doc-status" [ngClass]="d.cheminFichier ? 'ok' : 'missing'">
+        
+                        {{ d.cheminFichier ? '✔ fourni' : '✖ manquant' }}
+        
+                    </span>
+        
+                </li>        
+            </ul>        
+        </div>
+
+    </div>
+
+</div>
