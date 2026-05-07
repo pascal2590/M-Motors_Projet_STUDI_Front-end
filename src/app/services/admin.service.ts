@@ -10,6 +10,7 @@ export class AdminService {
 
     constructor(private http: HttpClient) { }
 
+    // COMMERCIAUX
     getCommerciaux() {
         return this.http.get<any[]>(`${this.api}/commerciaux`);
     }
@@ -20,5 +21,10 @@ export class AdminService {
 
     deleteCommercial(id: number) {
         return this.http.delete(`${this.api}/commercial/${id}`);
+    }
+
+    // TOUS LES UTILISATEURS
+    getUsers() {
+        return this.http.get<any[]>(`${this.api}/users`);
     }
 }

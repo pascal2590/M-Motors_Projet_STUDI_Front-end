@@ -125,3 +125,97 @@ select:focus {
     background: #fee2e2;
     color: #991b1b;
 }
+
+.history-section {
+    margin-top: 30px;
+    padding: 25px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.history-title {
+    margin-bottom: 25px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+}
+
+.timeline {
+    position: relative;
+    margin-left: 10px;
+    padding-left: 30px;
+    border-left: 3px solid #e5e7eb;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -41px;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #9ca3af;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #d1d5db;
+}
+
+.timeline-dot.waiting {
+    background: #f59e0b;
+}
+
+.timeline-dot.study {
+    background: #3b82f6;
+}
+
+.timeline-dot.success {
+    background: #10b981;
+}
+
+.timeline-dot.refused {
+    background: #ef4444;
+}
+
+.timeline-content {
+    background: #f9fafb;
+    padding: 14px 18px;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+.timeline-content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.timeline-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.timeline-date {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.timeline-pending {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #9ca3af;
+    font-style: italic;
+}
+
+.timeline-item.success .timeline-content {
+    background: #ecfdf5;
+}
+
+.timeline-item.refused .timeline-content {
+    background: #fef2f2;
+}

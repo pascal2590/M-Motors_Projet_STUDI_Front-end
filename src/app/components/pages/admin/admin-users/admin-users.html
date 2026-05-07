@@ -1,0 +1,66 @@
+<div class="page">
+
+    <!-- HEADER -->
+    <div class="page-header">
+        <div>
+            <h2>Gestion des utilisateurs</h2>
+            <p class="subtitle">
+                Liste des utilisateurs du back-office M-Motors
+            </p>
+        </div>
+    </div>
+
+    <!-- CARD -->
+    <div class="card">
+
+        <div class="table-wrapper">
+
+            <table *ngIf="users.length > 0; else noUsers">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let u of users">
+                        <td>
+                            <span class="badge-id">
+                                #{{ u.id }}
+                            </span>
+                        </td>
+                        <td class="user-name">
+                            {{ u.nom }}
+                        </td>
+                        <td>
+                            {{ u.email }}
+                        </td>
+                        <td>
+                            <span class="role-badge" [ngClass]="{
+                                    'admin': u.role === 'Administrateur',
+                                    'commercial': u.role === 'Commercial',
+                                    'devops': u.role === 'DevOps'
+                                }">
+                                {{ u.role }}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ng-template #noUsers>
+                <div class="empty-state">
+                    <div class="empty-icon">👤</div>
+                    <h3>Aucun utilisateur</h3>
+                    <p>
+                        Aucun utilisateur n'est actuellement enregistré.
+                    </p>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

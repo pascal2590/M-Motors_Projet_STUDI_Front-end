@@ -1,0 +1,122 @@
+.page {
+    padding: 30px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #1e293b;
+}
+
+.subtitle {
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.04),
+        0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f8fafc;
+}
+
+th {
+    text-align: left;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+    font-size: 14px;
+}
+
+tbody tr {
+    transition: background 0.2s ease;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.badge-id {
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.role-badge {
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.role-badge.admin {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.role-badge.commercial {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.role-badge.devops {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+.empty-state h3 {
+    margin-bottom: 8px;
+    color: #1e293b;
+}
+
+.empty-state p {
+    color: #64748b;
+}

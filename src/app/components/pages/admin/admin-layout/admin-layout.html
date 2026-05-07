@@ -8,8 +8,8 @@
         <nav>
             <a routerLink="dashboard">Dashboard</a>
             <a *ngIf="auth.isAdmin()" routerLink="users">Utilisateurs</a>
-            <a *ngIf="auth.isAdmin()" routerLink="vehicules">Véhicules</a>
-            <a routerLink="/admin/dossiers" routerLinkActive="active">Dossiers</a>
+            <a *ngIf="auth.isCommercial()" routerLink="vehicules">Véhicules</a>
+            <a *ngIf="auth.isCommercial()" routerLink="dossier">Dossiers</a>            
             <a routerLink="commerciaux">Commerciaux</a>
 
         </nav>

@@ -21,32 +21,119 @@
                 {{ dossier?.statut }}
             </p>
         
-            <!-- US17 : changement de statut -->                      
-
+            <!-- US17 : changement de statut -->
             <div style="margin-top: 10px;">
             
                 <label>Modifier le statut :</label>
 
                 <div class="status-row">
-                    <select [(ngModel)]="selectedStatut">
-                        <option value="en_attente">En attente</option>
-                        <option value="en_etude">En étude</option>
-                        <option value="accepte">Accepté</option>
-                        <option value="refuse">Refusé</option>
+                    <select [(ngModel)]="selectedStatut" [disabled]="isFinalStatut() || getStatutsDisponibles().length === 0">
+                    
+                        <option value="" disabled>
+                            Sélectionner un statut
+                        </option>
+                    
+                        <option *ngFor="let s of getStatutsDisponibles()" [value]="s">
+                    
+                            {{
+                            s === 'en_etude'
+                            ? 'En étude'
+                            : s === 'accepte'
+                            ? 'Accepté'
+                            : s === 'refuse'
+                            ? 'Refusé'
+                            : s
+                            }}
+                    
+                        </option>
+                    
                     </select>
                 
-                    <button class="btn-primary" (click)="validerStatut()" [disabled]="selectedStatut === dossier?.statut">
-                        Mettre à jour
+                    <button class="btn-primary" (click)="validerStatut()" [disabled]="isFinalStatut()">
+                        Valider
                     </button>
-                
-
-                </div>           
-                
-            
+                </div>            
             </div>
 
-        
-            <p><b>Date création :</b> {{ dossier?.dateCreation }}</p>
+            <div class="history-section">            
+                <h3 class="history-title">
+                    Historique du dossier
+                </h3>            
+                <div class="timeline">
+            
+                    <!-- CREATION -->
+                    <div class="timeline-item done">            
+                        <div class="timeline-dot"></div>            
+                        <div class="timeline-content">
+                            <div class="timeline-label">
+                                Création du dossier
+                            </div>
+            
+                            <div class="timeline-date">
+                                {{ dossier.dateCreation | date:'dd/MM/yyyy HH:mm' }}
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- EN ATTENTE -->
+                    <div class="timeline-item done">            
+                        <div class="timeline-dot waiting"></div>            
+                        <div class="timeline-content">
+                            <div class="timeline-label">
+                                Dossier en attente
+                            </div>
+            
+                            <div class="timeline-date">
+                                {{ dossier.dateCreation | date:'dd/MM/yyyy HH:mm' }}
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- EN ETUDE -->
+                    <div class="timeline-item" [class.done]="getDateStatut('en_etude')">            
+                        <div class="timeline-dot study"></div>            
+                        <div class="timeline-content">
+                            <div class="timeline-label">
+                                Dossier en étude
+                            </div>           
+                            <div class="timeline-date" *ngIf="getDateStatut('en_etude')">
+            
+                                {{ getDateStatut('en_etude') | date:'dd/MM/yyyy HH:mm' }}
+                            </div>            
+                            <div class="timeline-pending" *ngIf="!getDateStatut('en_etude')">            
+                                En attente
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- ACCEPTE -->
+                    <div class="timeline-item success" *ngIf="getDateStatut('accepte')">            
+                        <div class="timeline-dot success"></div>            
+                        <div class="timeline-content">
+                            <div class="timeline-label">
+                                Dossier accepté
+                            </div>            
+                            <div class="timeline-date">
+                                {{ getDateStatut('accepte') | date:'dd/MM/yyyy HH:mm' }}
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- REFUSE -->
+                    <div class="timeline-item refused" *ngIf="getDateStatut('refuse')">            
+                        <div class="timeline-dot refused"></div>            
+                        <div class="timeline-content">
+                            <div class="timeline-label">
+                                Dossier refusé
+                            </div>            
+                            <div class="timeline-date">
+                                {{ getDateStatut('refuse') | date:'dd/MM/yyyy HH:mm' }}
+                            </div>
+                        </div>
+                    </div>            
+                </div>            
+            </div>
+            
         </div>       
 
 
@@ -77,12 +164,9 @@
         <!-- DOCUMENTS -->
         <div class="card" *ngIf="documents.length > 0">
         
-            <h3>Documents</h3>
-        
-            <ul class="doc-list">
-        
-                <li *ngFor="let d of documents" class="doc-item">
-        
+            <h3>Documents</h3>        
+            <ul class="doc-list">        
+                <li *ngFor="let d of documents" class="doc-item">        
                     <div class="doc-info">
                         <span class="doc-type">
                             {{ d.typeDocument }}
@@ -91,18 +175,13 @@
                         <span class="doc-name">
                             {{ d.nomDocument || 'Aucun fichier' }}
                         </span>
-                    </div>
-        
-                    <span class="doc-status" [ngClass]="d.cheminFichier ? 'ok' : 'missing'">
-        
-                        {{ d.cheminFichier ? '✔ fourni' : '✖ manquant' }}
-        
-                    </span>
-        
+                    </div>        
+                    <span class="doc-status" [ngClass]="d.cheminFichier ? 'ok' : 'missing'">        
+                        {{ d.cheminFichier ? '✔ fourni' : '✖ manquant' }}        
+                    </span>        
                 </li>        
             </ul>        
         </div>
-
     </div>
 
 </div>

@@ -10,19 +10,35 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './commercial-dossier-detail.html',
   styleUrls: ['./commercial-dossier-detail.css']
 })
-  
-  
 export class CommercialDossierDetail {
 
   dossier: any;
   vehicule: any;
   services: any[] = [];
   documents: any[] = [];
+  historique: any[] = [];
 
   loading = true;
 
-  statuts: string[] = ['en_attente', 'en_etude', 'accepte', 'refuse'];
+  getStatutsDisponibles(): string[] {
+
+    const statut = this.dossier?.statut;
+
+    switch (statut) {
+
+      case 'en_attente':
+        return ['en_etude'];
+
+      case 'en_etude':
+        return ['accepte', 'refuse'];
+
+      default:
+        return [];
+    }
+  }
   selectedStatut: string = '';
+
+  message: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,9 +54,14 @@ export class CommercialDossierDetail {
         this.vehicule = res.vehicule;
         this.services = res.services;
         this.documents = res.documents;
+        this.historique = res.historique;
+        this.selectedStatut = this.dossier?.statut;
 
-        this.selectedStatut = this.dossier?.statut; // important
-
+        const disponibles = this.getStatutsDisponibles();
+        this.selectedStatut =
+          disponibles.length > 0
+            ? disponibles[0]
+            : '';
         this.loading = false;
       },
       error: () => {
@@ -49,38 +70,41 @@ export class CommercialDossierDetail {
     });
   }
 
-  changerStatut(nouveauStatut: string) {
-    const id = this.dossier?.id;
-    if (!id) return;
 
-    this.service.updateStatutDossier(id, nouveauStatut).subscribe({
-      next: (res) => {
-        this.dossier.statut = res.statut;
-      }
-    });
+  // BLOQUAGE LOGIQUE UI - STATUTS FINAUX
+  isFinalStatut(): boolean {
+    return this.dossier?.statut === 'accepte' ||
+      this.dossier?.statut === 'refuse';
   }
 
-  message: string = '';
-
+  // UPDATE STATUT - AVEC GESTION DES ERREURS BACKEND
   validerStatut() {
-    const id = this.dossier?.id;
 
+    if (this.isFinalStatut()) {
+      this.message = "Ce dossier est déjà finalisé";
+      setTimeout(() => this.message = '', 3000);
+      return;
+    }
+
+    const id = this.dossier?.id;
     if (!id || !this.selectedStatut) return;
 
     this.service.updateStatutDossier(id, this.selectedStatut).subscribe({
       next: (res) => {
         this.dossier.statut = res.statut;
 
-        // message de confirmation
+        // synchro UI obligatoire
+        this.selectedStatut = res.statut;
+
         this.message = "Statut mis à jour avec succès ✅";
 
-        // disparition automatique après 3s
         setTimeout(() => {
           this.message = '';
         }, 3000);
       },
-      error: () => {
-        this.message = "Erreur lors de la mise à jour ❌";
+      error: (err) => {
+        // affiche message backend (très important maintenant)
+        this.message = err?.error?.message || "Erreur lors de la mise à jour ❌";
 
         setTimeout(() => {
           this.message = '';
@@ -89,9 +113,28 @@ export class CommercialDossierDetail {
     });
   }
 
+  changerStatut(nouveauStatut: string) {
 
+    if (this.isFinalStatut()) return;
 
+    const id = this.dossier?.id;
+    if (!id) return;
 
+    this.service.updateStatutDossier(id, nouveauStatut).subscribe({
+      next: (res) => {
+        this.dossier.statut = res.statut;
+        this.selectedStatut = res.statut;
+      }
+    });
+  }
 
+  getDateStatut(statut: string): string | null {
+
+    const item = this.historique.find(
+      x => x.statut === statut
+    );
+
+    return item?.date || null;
+  }
+  
 }
-

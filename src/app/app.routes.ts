@@ -29,7 +29,7 @@ export const routes: Routes = [
         component: Login
     },
 
-      // ADMIN (STRICT ADMIN ONLY)  
+      // ADMIN - Route protégée, accessible uniquement à l'administrateur
     {
         path: 'admin',
         canActivate: [adminGuard],
@@ -48,6 +48,13 @@ export const routes: Routes = [
             },
 
             {
+                path: 'users',
+                loadComponent: () =>
+                    import('./components/pages/admin/admin-users/admin-users')
+                        .then(m => m.AdminUsers)
+            },
+
+            {
                 path: 'commerciaux',
                 loadComponent: () =>
                     import('./components/pages/admin/admin-commerciaux/admin-commerciaux')
@@ -63,7 +70,7 @@ export const routes: Routes = [
         ]
     },
 
-      // BACKOFFICE (COMMERCIAL ONLY)    
+      // BACKOFFICE - Route protégée, accessible aux commerciaux et à l'administrateur  
     {
         path: 'backoffice',
         canActivate: [commercialGuard],
@@ -105,7 +112,7 @@ export const routes: Routes = [
         ]
     },
 
-      // ESPACE CLIENT  
+      // ESPACE CLIENT - Route protégée, accessible uniquement aux clients authentifiés
     {
         path: 'espace-client',
         canActivate: [authGuard],
@@ -129,7 +136,7 @@ export const routes: Routes = [
                     import('./components/pages/client/client-dossiers/client-dossiers')
                         .then(m => m.ClientDossiersComponent)
             },
-
+            
             {
                 path: 'dossiers/:id',
                 loadComponent: () =>
@@ -139,7 +146,7 @@ export const routes: Routes = [
         ]
     },
 
-      // DOSSIERS VÉHICULE (GLOBAL CLIENT ACCESS) 
+      // DOSSIERS VÉHICULE - Routes protégées, accessibles aux clients et commerciaux selon le dossier
     {
         path: 'vehicule/:id/achat',
         loadComponent: () =>
