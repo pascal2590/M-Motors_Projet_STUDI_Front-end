@@ -102,12 +102,13 @@ export const routes: Routes = [
                         .then(m => m.CommercialDossierDetail)
             },
             
-            {
-                path: 'backoffice/dossiers/:id',
-                loadComponent: () =>
-                    import('./components/pages/commercial/commercial-dossier-detail/commercial-dossier-detail')
-                        .then(m => m.CommercialDossierDetail)
-            }
+            // Doublon avec path: 'dossiers/:id'
+            //{
+            //    path: 'backoffice/dossiers/:id',
+            //    loadComponent: () =>
+            //        import('./components/pages/commercial/commercial-dossier-detail/commercial-dossier-detail')
+            //            .then(m => m.CommercialDossierDetail)
+            //}
 
         ]
     },

@@ -46,26 +46,43 @@ export class CommercialDossierDetail {
   ) { }
 
   ngOnInit() {
+
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
+    this.loadDossier(id);
+
+  }
+
+  loadDossier(id: number) {
+
+    this.loading = true;
+
     this.service.getDossierById(id).subscribe({
+
       next: (res) => {
+
         this.dossier = res.dossier;
         this.vehicule = res.vehicule;
         this.services = res.services;
         this.documents = res.documents;
         this.historique = res.historique;
+
         this.selectedStatut = this.dossier?.statut;
 
         const disponibles = this.getStatutsDisponibles();
+
         this.selectedStatut =
           disponibles.length > 0
             ? disponibles[0]
             : '';
+
         this.loading = false;
       },
+
       error: () => {
+
         this.loading = false;
+
       }
     });
   }
@@ -82,6 +99,7 @@ export class CommercialDossierDetail {
 
     if (this.isFinalStatut()) {
       this.message = "Ce dossier est déjà finalisé";
+      this.loadDossier(this.dossier.id);
       setTimeout(() => this.message = '', 3000);
       return;
     }
@@ -135,6 +153,17 @@ export class CommercialDossierDetail {
     );
 
     return item?.date || null;
+  }
+
+  canValidateDossier(): boolean {
+
+    if (!this.documents || this.documents.length === 0) {
+      return false;
+    }
+
+    return this.documents.every(
+      d => d.cheminFichier && d.cheminFichier.trim() !== ''
+    );
   }
   
 }

@@ -9,7 +9,7 @@ import { AuthService } from '../../../../services/auth';
     CommonModule, // Pour ngIf / ngFor
     RouterOutlet,
     RouterLink,
-    RouterLinkActive
+    //RouterLinkActive
   ],
   templateUrl: './admin-layout.html',
   styleUrls: ['./admin-layout.css']

@@ -6,13 +6,15 @@ import { FormsModule } from '@angular/forms';
 
 import { DossierService } from '../../services/dossier';
 import { AuthService } from '../../services/auth';
+import { NavbarComponent } from './../navbar/navbar';
 
 @Component({
   selector: 'app-dossier-achat',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NavbarComponent
   ],
   templateUrl: './dossier-achat.html',
   styleUrl: './dossier-achat.css'

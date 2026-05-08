@@ -11,6 +11,11 @@
         </div>
 
         <div class="card">
+            <h3>En étude</h3>
+            <p>{{ stats.enEtude }}</p>
+        </div>
+
+        <div class="card">
             <h3>Acceptés</h3>
             <p>{{ stats.acceptes }}</p>
         </div>
@@ -24,18 +29,12 @@
 
     <!-- DOSSIERS -->
     <div class="section">
-
         <h3>Mes dossiers</h3>
-
         <div class="dossier-grid">
-
             <div class="dossier-card" *ngFor="let d of dossiers">
-
                 <!-- VEHICULE -->
                 <div class="vehicule">
-
                     <img class="vehicule-img" [src]="d.vehicule?.imageUrl || 'assets/no-car.png'" alt="vehicule" />
-
                     <div class="vehicule-info">
                         <div class="small">
                             <br>
@@ -64,7 +63,6 @@
                                 </li>
                             </ul>                                             
                     </div>
-
                 </div>
 
                 <!-- STATUT -->
@@ -86,26 +84,19 @@
 
                   <!-- DOCUMENTS MANQUANTS -->
                 <div class="missing" *ngIf="d.documentsManquants?.length > 0">
-
                     <h4>Documents manquants :</h4>
-
                     <ul>
                         <li *ngFor="let doc of d.documentsManquants" class="document">
                             ⚠️ {{ doc }}
                         </li>
                     </ul>
-
                 </div>
 
                 <!-- ACTION -->
                 <button (click)="goToDossier(d.idDossier || d.IdDossier)">
                     Voir le dossier
                 </button>
-
             </div>
-
         </div>
-
     </div>
-
 </div>

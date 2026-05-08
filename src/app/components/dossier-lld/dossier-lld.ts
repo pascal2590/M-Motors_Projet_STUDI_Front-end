@@ -7,13 +7,15 @@ import { FormsModule } from '@angular/forms';
 import { DossierService } from '../../services/dossier';
 import { AuthService } from '../../services/auth';
 import { ServicesLldService, ServiceLld } from '../../services/services-lld';
+import { NavbarComponent } from './../navbar/navbar';
 
 @Component({
   selector: 'app-dossier-lld',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NavbarComponent
   ],
   templateUrl: './dossier-lld.html',
   styleUrl: './dossier-lld.css'

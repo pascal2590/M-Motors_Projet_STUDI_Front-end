@@ -17,6 +17,7 @@ export class ClientDashboard implements OnInit {
 
   stats = {
     enAttente: 0,
+    enEtude: 0,
     acceptes: 0,
     refuses: 0
   };
@@ -49,6 +50,7 @@ export class ClientDashboard implements OnInit {
       const norm = (s: string) => s?.toLowerCase().trim();
 
       this.stats.enAttente = dossiers.filter(d => norm(d.statut) === 'en_attente').length;
+      this.stats.enEtude = dossiers.filter(d => norm(d.statut) === 'en_etude').length;
       this.stats.acceptes = dossiers.filter(d => norm(d.statut) === 'accepte').length;
       this.stats.refuses = dossiers.filter(d => norm(d.statut) === 'refuse').length;
 

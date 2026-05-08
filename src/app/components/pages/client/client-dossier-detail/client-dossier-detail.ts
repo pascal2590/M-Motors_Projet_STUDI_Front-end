@@ -3,6 +3,7 @@ interface DossierDetailResponse {
   vehicule: any;
   documents: any[];
   services?: any[];
+  suivis?: any[];
 }
 
 import { Component, OnInit } from '@angular/core';
@@ -29,6 +30,7 @@ export class ClientDossierDetailComponent implements OnInit {
   filesMap: { [key: string]: File } = {};
 
   services: any[] = [];
+  suivis: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -62,13 +64,12 @@ export class ClientDossierDetailComponent implements OnInit {
 
         next: (data) => {
 
-          // DEBUG
           console.log("DATA BRUT =", data);
           console.log("DATA.services =", data.services);
 
           this.services = data.services ?? [];
+          this.suivis = data.suivis ?? [];
 
-          // DEBUG
           console.log("AFTER ASSIGN =", this.services);
 
           this.dossier = data.dossier;
@@ -108,7 +109,7 @@ export class ClientDossierDetailComponent implements OnInit {
     console.log("Progression:", this.progression + "%");
   }
 
-  // FILE SELECTION
+  // Sélection des fichiers
   onFileSelected(event: any, type: string): void {
 
     const file = event.target.files?.[0];
@@ -119,7 +120,7 @@ export class ClientDossierDetailComponent implements OnInit {
 
   }
 
-  // UPLOAD DOCUMENT
+  // UPLOAD des documents
   uploadDocument(doc: any): void {
 
     const file = this.filesMap[doc.typeDocument];

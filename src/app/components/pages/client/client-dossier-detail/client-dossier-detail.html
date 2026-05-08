@@ -24,6 +24,32 @@
             <strong>Mis à jour le :</strong>
             {{ dossier.dateModification | date:'dd/MM/yyyy HH:mm' }}
         </p>
+        <hr>        
+        <!-- HISTORIQUE -->        
+        <div class="section" *ngIf="suivis.length > 0">
+        
+            <h3>Historique du dossier</h3>
+        
+            <div class="timeline">        
+                <div class="timeline-item" *ngFor="let s of suivis">        
+                    <div class="timeline-badge" [ngClass]="s.statut">
+                    </div>        
+                    <div class="timeline-content">        
+                        <div class="timeline-header">        
+                            <span class="timeline-status">
+                                {{ s.statut }}
+                            </span>        
+                            <span class="timeline-date">
+                                {{ s.dateModification | date:'dd/MM/yyyy HH:mm' }}
+                            </span>        
+                        </div>        
+                        <div class="timeline-comment">
+                            {{ s.commentaire }}
+                        </div>        
+                    </div>        
+                </div>        
+            </div>        
+        </div>
 
         <hr>
 
@@ -54,18 +80,13 @@
         <hr>
 
         <!-- SERVICES LLD -->
-        <div class="section" *ngIf="services.length > 0">
-        
-            <h3>Services inclus dans l’offre LLD</h3>
-        
-            <div class="services-grid">
-        
-                <div class="service-card" *ngFor="let s of services">
-        
+        <div class="section" *ngIf="services.length > 0">        
+            <h3>Services inclus dans l’offre LLD</h3>        
+            <div class="services-grid">        
+                <div class="service-card" *ngFor="let s of services">        
                     <div class="service-name">
                         {{ s.nomService }}
-                    </div>
-        
+                    </div>        
                     <div class="service-desc">
                         {{ s.description }}
                     </div>        

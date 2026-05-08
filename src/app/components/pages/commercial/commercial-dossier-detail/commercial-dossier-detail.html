@@ -49,9 +49,23 @@
                     
                     </select>
                 
-                    <button class="btn-primary" (click)="validerStatut()" [disabled]="isFinalStatut()">
-                        Valider
+                    <button class="btn-primary" (click)="validerStatut()" [disabled]="
+                          selectedStatut === dossier?.statut ||
+                          (
+                            selectedStatut === 'accepte' &&
+                            !canValidateDossier()
+                          )
+                        ">
+                        Mettre à jour
                     </button>
+                    <p class="warning" *ngIf="
+                          selectedStatut === 'accepte' &&
+                          !canValidateDossier()
+                        ">
+                    
+                        ⚠ Attention : Tous les documents doivent être fournis avant validation du dossier.
+                    
+                    </p>
                 </div>            
             </div>
 
@@ -150,15 +164,19 @@
             <img *ngIf="vehicule?.imageUrl" [src]="vehicule.imageUrl" width="250">
         </div>
 
-        <!-- SERVICES LLD -->
-        <div class="card" *ngIf="services.length > 0">
-            <h3>Services LLD</h3>
-
-            <ul>
-                <li *ngFor="let s of services">
-                    {{ s.nomService }} - {{ s.description }}
-                </li>
-            </ul>
+        <!-- SERVICES LLD -->   
+        <div class="card" *ngIf="services.length > 0">        
+            <h3>Services LLD</h3>        
+            <div class="services-grid">        
+                <div class="service-card" *ngFor="let s of services">        
+                    <div class="service-name">
+                        {{ s.nomService }}
+                    </div>        
+                    <div class="service-desc">
+                        {{ s.description }}
+                    </div>        
+                </div>        
+            </div>        
         </div>
 
         <!-- DOCUMENTS -->

@@ -6,11 +6,12 @@ import { RouterModule } from '@angular/router';
 
 import { VehiculeService } from '../../../services/vehicule';
 import { Vehicule } from '../../../models/vehicule.model';
+import { NavbarComponent } from '../../navbar/navbar';
 
 @Component({
   selector: 'app-vehicule-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NavbarComponent],
   templateUrl: './vehicule-detail.html',
   styleUrls: ['./vehicule-detail.css']
 })
