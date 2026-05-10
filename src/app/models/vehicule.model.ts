@@ -1,4 +1,5 @@
 export interface Vehicule {
+
     idVehicule: number;
 
     marque: string;
@@ -13,14 +14,11 @@ export interface Vehicule {
 
     description?: string;
 
-    typeOffre: 'Vente' | 'Location';
+    typeOffre: 'vente' | 'location';
 
     disponible: boolean;
 
     dateAjout: string;
 
-    /* AJOUT POUR LA PHOTO */
-
     imageUrl?: string;
-
 }

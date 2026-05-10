@@ -55,14 +55,26 @@
             </div>
 
             <!-- BOUTONS ACHAT ET LLD -->
-            <div class="actions">            
-                <button class="btn-achat" [routerLink]="['/vehicule', vehicule.idVehicule, 'achat']">
+            <div class="actions" *ngIf="vehicule.disponible">
+            
+                <button *ngIf="vehicule.typeOffre === 'vente'" class="btn-achat"
+                    [routerLink]="['/vehicule', vehicule.idVehicule, 'achat']">
+            
                     Déposer un dossier Achat
-                </button>            
-                <button class="btn-lld" [routerLink]="['/vehicule', vehicule.idVehicule, 'lld']">
+            
+                </button>
+            
+                <button *ngIf="vehicule.typeOffre === 'location'" class="btn-lld"
+                    [routerLink]="['/vehicule', vehicule.idVehicule, 'lld']">
+            
                     Déposer un dossier Location (LLD)
-                </button>            
+            
+                </button>
+                <p class="indisponible" *ngIf="!vehicule.disponible">
+                    Véhicule actuellement indisponible
+                </p>
             </div>
+
         </div>
     </div>
 

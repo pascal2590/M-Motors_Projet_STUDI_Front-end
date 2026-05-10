@@ -1,0 +1,157 @@
+.vehicules-page {
+    padding: 20px;
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header .title h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.header .title p {
+    margin: 4px 0 0;
+    color: #777;
+    font-size: 13px;
+}
+
+/* BUTTON ADD */
+.btn-add {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-add:hover {
+    background: #1d4ed8;
+}
+
+/* TABLE CONTAINER */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #f1f5f9;
+}
+
+th,
+td {
+    padding: 14px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #eee;
+    transition: 0.2s;
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* IMAGE */
+img {
+    width: 90px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* BADGES */
+.badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge.vente {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.badge.location {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+/* STATUS */
+.status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.ok {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.status.no {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* ACTION BUTTONS */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit {
+    background: #f59e0b;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background: #ef4444;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-edit:hover {
+    background: #d97706;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+}
+
+/* TYPO */
+.bold {
+    font-weight: 600;
+}
+
+.price {
+    font-weight: bold;
+}

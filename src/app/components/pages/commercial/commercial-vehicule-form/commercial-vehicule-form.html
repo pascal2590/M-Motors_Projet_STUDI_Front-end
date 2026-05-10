@@ -1,0 +1,38 @@
+<h2>
+    {{ isEdit ? 'Modifier' : 'Ajouter' }}
+    un véhicule
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+    <input type="text" formControlName="marque" placeholder="Marque">
+    <input type="text" formControlName="modele" placeholder="Modèle">
+    <input type="number" formControlName="annee" placeholder="Année">
+    <input type="number" formControlName="kilometrage" placeholder="Kilométrage">
+    <input type="number" formControlName="prix" placeholder="Prix">
+    <textarea formControlName="description" placeholder="Description"></textarea>
+
+    <select formControlName="typeOffre">
+
+        <option value="vente">
+            Vente
+        </option>
+
+        <option value="location">
+            Location
+        </option>
+
+    </select>
+
+    <label>
+        Disponible
+        <input type="checkbox" formControlName="disponible">
+    </label>
+
+    <input type="text" formControlName="imageUrl" placeholder="URL image">
+
+    <button type="submit">
+        {{ isEdit ? 'Modifier' : 'Ajouter' }}
+    </button>
+
+</form>

@@ -109,7 +109,29 @@ export const routes: Routes = [
             //        import('./components/pages/commercial/commercial-dossier-detail/commercial-dossier-detail')
             //            .then(m => m.CommercialDossierDetail)
             //}
+            
+            // VEHICULES CRUD(US18)
+            // Routes de gestion des véhicules, accessibles aux commerciaux et à l'administrateur
+            {
+                path: 'vehicules',
+                loadComponent: () =>
+                    import('./components/pages/commercial/commercial-vehicules/commercial-vehicules')
+                        .then(m => m.CommercialVehicules)
+            },
 
+            {
+                path: 'vehicules/ajouter',
+                loadComponent: () =>
+                    import('./components/pages/commercial/commercial-vehicule-form/commercial-vehicule-form')
+                        .then(m => m.CommercialVehiculeForm)
+            },
+
+            {
+                path: 'vehicules/modifier/:id',
+                loadComponent: () =>
+                    import('./components/pages/commercial/commercial-vehicule-form/commercial-vehicule-form')
+                        .then(m => m.CommercialVehiculeForm)
+            }
         ]
     },
 

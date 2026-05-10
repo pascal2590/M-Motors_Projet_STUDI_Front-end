@@ -1,0 +1,86 @@
+<div class="vehicules-page">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="title">
+            <h2>Gestion des véhicules</h2>
+            <p>Administration du parc automobile</p>
+        </div>
+
+        <button class="btn-add" routerLink="/backoffice/vehicules/ajouter">
+            + Ajouter un véhicule
+        </button>
+
+    </div>
+
+    <!-- TABLE WRAPPER -->
+    <div class="table-container">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Marque</th>
+                    <th>Modèle</th>
+                    <th>Prix</th>
+                    <th>Type</th>
+                    <th>Disponibilité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let vehicule of vehicules">
+                    <!-- IMAGE -->
+                    <td>
+                        <img [src]="vehicule.imageUrl" alt="vehicule">
+                    </td>
+                    <!-- MARQUE -->
+                    <td class="bold">
+                        {{ vehicule.marque }}
+                    </td>
+                    <!-- MODELE -->
+                    <td>
+                        {{ vehicule.modele }}
+                    </td>
+
+                    <!-- PRIX -->
+                    <td class="price">
+                        {{ vehicule.prix | currency:'EUR' }}
+                    </td>
+
+                    <!-- TYPE -->
+                    <td>
+                        <span class="badge" [class.vente]="vehicule.typeOffre === 'vente'"
+                            [class.location]="vehicule.typeOffre === 'location'">
+                            {{ vehicule.typeOffre }}
+                        </span>
+                    </td>
+
+                    <!-- DISPONIBLE -->
+                    <td>
+                        <span class="status" [class.ok]="vehicule.disponible" [class.no]="!vehicule.disponible">
+                            {{ vehicule.disponible ? 'Disponible' : 'Indisponible' }}
+                        </span>
+                    </td>
+
+                    <!-- ACTIONS -->
+                    <td class="actions">
+                        <button class="btn-edit" [routerLink]="[
+                                '/backoffice/vehicules/modifier',
+                                vehicule.idVehicule
+                            ]">
+                            Modifier
+                        </button>
+
+                        <button class="btn-delete" (click)="deleteVehicule(vehicule)">
+                            Supprimer
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
