@@ -1,38 +1,128 @@
-<h2>
-    {{ isEdit ? 'Modifier' : 'Ajouter' }}
-    un véhicule
-</h2>
+<div class="vehicule-form-page">
+    <!-- CARD -->
+    <div class="form-card">
+        <!-- HEADER -->
+        <div class="form-header">
+            <h2>
+                {{ isEdit ? 'Modifier' : 'Ajouter' }}
+                un véhicule
+            </h2>
+            <p>
+                Gérez les informations du véhicule
+            </p>
+        </div>
 
-<form [formGroup]="form" (ngSubmit)="submit()">
+        <!-- FORM -->
+        <form [formGroup]="form" (ngSubmit)="submit()">
 
-    <input type="text" formControlName="marque" placeholder="Marque">
-    <input type="text" formControlName="modele" placeholder="Modèle">
-    <input type="number" formControlName="annee" placeholder="Année">
-    <input type="number" formControlName="kilometrage" placeholder="Kilométrage">
-    <input type="number" formControlName="prix" placeholder="Prix">
-    <textarea formControlName="description" placeholder="Description"></textarea>
+            <!-- GRID -->
+            <div class="form-grid">
 
-    <select formControlName="typeOffre">
+                <!-- MARQUE -->
+                <div class="form-group">
+                    <label>Marque</label>
+                    <input type="text" formControlName="marque" placeholder="Ex : Audi">
+                </div>
 
-        <option value="vente">
-            Vente
-        </option>
+                <!-- MODELE -->
+                <div class="form-group">
+                    <label>Modèle</label>
+                    <input type="text" formControlName="modele" placeholder="Ex : A4">
+                </div>
 
-        <option value="location">
-            Location
-        </option>
+                <!-- ANNEE -->
+                <div class="form-group">
+                    <label>Année</label>
+                    <input type="number" formControlName="annee" placeholder="2024">
+                </div>
 
-    </select>
+                <!-- KILOMETRAGE -->
+                <div class="form-group">
+                    <label>Kilométrage</label>
+                    <input type="number" formControlName="kilometrage" placeholder="15000">
+                </div>
 
-    <label>
-        Disponible
-        <input type="checkbox" formControlName="disponible">
-    </label>
+                <!-- PRIX -->
+                <div class="form-group">
+                    <label>Prix (€)</label>
+                    <input type="number" formControlName="prix" placeholder="25000">
+                </div>
 
-    <input type="text" formControlName="imageUrl" placeholder="URL image">
+                <!-- TYPE -->
+                <div class="form-group">
+                    <label>Type d'offre</label>
+                    <select formControlName="typeOffre">
+                        <option value="vente">
+                            Vente
+                        </option>
 
-    <button type="submit">
-        {{ isEdit ? 'Modifier' : 'Ajouter' }}
-    </button>
+                        <option value="location">
+                            Location
+                        </option>
+                    </select>
+                </div>
+            </div>
 
-</form>
+            <!-- SERVICES LLD -->
+            <div class="form-group full-width" *ngIf="
+                    form.get('typeOffre')?.value
+                    === 'location'
+                ">
+
+                <label>
+                    Services inclus dans la location
+                </label>
+
+                <div class="services-grid">
+                    <label class="service-item" *ngFor="
+                            let service of servicesLld
+                        ">
+
+                        <input type="checkbox" [value]="service.id" (change)="onServiceChange($event)" [checked]="
+                                form.value.servicesLld
+                                ?.includes(service.id)
+                            ">
+
+                        <span>
+                            {{ service.nom }}
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="form-group full-width">
+                <label>Description</label>
+                <textarea formControlName="description" rows="5" placeholder="Description du véhicule">
+                </textarea>
+            </div>
+
+            <!-- IMAGE -->
+            <div class="form-group full-width">
+                <label>URL image</label>
+                <input type="text" formControlName="imageUrl" placeholder="https://...">
+            </div>
+
+            <!-- DISPONIBLE -->
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" formControlName="disponible">
+                    <span>
+                        Véhicule disponible
+                    </span>
+                </label>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    {{
+                    isEdit
+                    ? 'Modifier le véhicule'
+                    : 'Ajouter le véhicule'
+                    }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

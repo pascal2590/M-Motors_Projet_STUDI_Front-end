@@ -1,0 +1,262 @@
+/* PAGE */
+.vehicule-form-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* CARD */
+.form-card {
+    width: 100%;
+    max-width: 950px;
+    background: white;
+    border-radius: 18px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* HEADER */
+.form-header {
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.form-header p {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,
+            minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* GROUP */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: 0.2s;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* TEXTAREA */
+textarea {
+    resize: vertical;
+}
+
+/* FULL WIDTH */
+.full-width {
+    width: 100%;
+}
+
+/* CHECKBOX */
+.checkbox-group {
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.checkbox-label input {
+    width: 18px;
+    height: 18px;
+}
+
+/* ACTIONS */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Bouton */
+.btn-submit {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-submit:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .vehicule-form-page {
+        padding: 15px;
+    }
+
+    .form-card {
+        padding: 22px;
+    }
+
+}
+
+   /* SERVICES LLD */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,
+            minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 15px;
+}
+
+/* CARD */
+.service-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 18px;
+
+    border-radius: 16px;
+
+    border: 2px solid #e5e7eb;
+
+    background: linear-gradient(135deg,
+            #ffffff,
+            #f9fafb);
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    overflow: hidden;
+}
+
+/* HOVER */
+.service-item:hover {
+    transform: translateY(-3px);
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.12);
+}
+
+/* CHECKBOX */
+.service-item input[type="checkbox"] {
+
+    width: 22px;
+    height: 22px;
+
+    accent-color: #2563eb;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+}
+
+/* TEXTE */
+.service-item span {
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #1f2937;
+
+    line-height: 1.4;
+}
+
+/* Effet quand la case est cochée */
+.service-item:has(input:checked) {
+
+    border-color: #2563eb;
+
+    background: linear-gradient(135deg,
+            #eff6ff,
+            #dbeafe);
+
+    box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.18);
+}
+
+/* PETIT BADGE */
+.service-item:has(input:checked)::after {
+
+    content: 'Inclus';
+
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    letter-spacing: 0.3px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+
+    .services-grid {
+
+        grid-template-columns: 1fr;
+    }
+}

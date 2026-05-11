@@ -1,15 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators
-} from '@angular/forms';
-import {
-  ActivatedRoute,
-  Router
-} from '@angular/router';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
 import { VehiculeService } from '../../../../services/vehicule';
 
 @Component({
@@ -30,6 +22,30 @@ export class CommercialVehiculeForm
   vehiculeId!: number;
 
   isEdit = false;
+
+  // SERVICES LLD
+  servicesLld = [
+
+    {
+      id: 1,
+      nom: 'Assurance tous risques'
+    },
+
+    {
+      id: 2,
+      nom: 'Assistance dépannage'
+    },
+
+    {
+      id: 3,
+      nom: 'Entretien et SAV'
+    },
+
+    {
+      id: 4,
+      nom: 'Contrôle technique'
+    }
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +68,8 @@ export class CommercialVehiculeForm
         Validators.required
       ],
       disponible: [true],
-      imageUrl: ['']
+      imageUrl: [''],
+      servicesLld: [[]]
     });
 
     const id = this.route
@@ -78,10 +95,54 @@ export class CommercialVehiculeForm
     }
   }
 
+  // GESTION DES SERVICES LLD
+  onServiceChange(event: any): void {
+
+    const services =
+      this.form.value.servicesLld || [];
+
+    const serviceId =
+      Number(event.target.value);
+
+    if (event.target.checked) {
+
+      if (!services.includes(serviceId)) {
+
+        services.push(serviceId);
+      }
+
+    } else {
+
+      const index =
+        services.indexOf(serviceId);
+
+      if (index >= 0) {
+
+        services.splice(index, 1);
+      }
+    }
+
+    this.form.patchValue({
+
+      servicesLld: services
+    });
+  }
+
   submit(): void {
 
     if (this.form.invalid) {
       return;
+    }
+
+    // SI VENTE => PAS DE SERVICES LLD
+    if (
+      this.form.value.typeOffre === 'vente'
+    ) {
+
+      this.form.patchValue({
+
+        servicesLld: []
+      });
     }
 
     if (this.isEdit) {
@@ -98,6 +159,13 @@ export class CommercialVehiculeForm
             this.router.navigate([
               '/backoffice/vehicules'
             ]);
+          },
+
+          error: () => {
+
+            alert(
+              'Erreur lors de la modification.'
+            );
           }
         });
 
@@ -112,6 +180,13 @@ export class CommercialVehiculeForm
             this.router.navigate([
               '/backoffice/vehicules'
             ]);
+          },
+
+          error: () => {
+
+            alert(
+              'Erreur lors de l’ajout.'
+            );
           }
         });
     }

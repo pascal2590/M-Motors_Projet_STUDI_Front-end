@@ -21,4 +21,6 @@ export interface Vehicule {
     dateAjout: string;
 
     imageUrl?: string;
+
+    servicesLld?: number[];
 }
