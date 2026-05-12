@@ -9,13 +9,13 @@
 
         <ng-container *ngIf="user; else guestMenu">
         
-            <li>{{ user.prenom }} {{ user.nom }}</li>
+            <li>{{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}</li>
             <li>{{ user.email }}</li>
         
             <!-- AJOUT ICI -->
             <li>
-                <a routerLink="/espace-client/dashboard" class="auth-btn secondary">
-                    Mon espace client
+                <a [routerLink]="authService.redirectByRole()" class="auth-btn secondary">
+                    Mon espace {{ user.role }}
                 </a>
             </li>
         
@@ -72,7 +72,7 @@
         <ng-container *ngIf="user; else guestMobile">
 
             <p class="user-info">
-                {{ user.prenom }} {{ user.nom }}
+                {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}
             </p>
 
             <p class="user-email">
@@ -120,7 +120,7 @@
 
         <div *ngIf="user; else guestHero">
 
-            <h1>Bienvenue {{ user.prenom }}</h1>
+            <h1>Bienvenue {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}</h1>
 
             <p>
                 Explorez vos véhicules et vos offres personnalisées M-Motors

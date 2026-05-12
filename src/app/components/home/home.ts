@@ -1,15 +1,11 @@
 import { FiltreVehicule } from '../filtre-vehicule/filtre-vehicule';
 import { VehiculeList } from '../vehicule-list/vehicule-list';
-
 import { Component, OnInit, HostListener } from '@angular/core';
-
 import { CommonModule } from '@angular/common';          // ngIf, ngFor
 import { FormsModule } from '@angular/forms';            // ngModel
 import { RouterModule } from '@angular/router';          // routerLink
-
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -45,7 +41,7 @@ export class Home implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router
   ) {}
 
@@ -54,17 +50,30 @@ export class Home implements OnInit {
     this.loadUser();
   }
 
-  loadUser() {
-    if (!this.authService.isLoggedIn()) return;
+  loadUser(): void {
 
-    const token = this.authService.getToken();
+    if (!this.authService.isLoggedIn()) {
+      this.user = null;
+      return;
+    }
 
-    this.http.get("http://localhost:5119/api/Auth/client/me", {
-      headers: { Authorization: `Bearer ${token}` }
-    }).subscribe({
-      next: user => this.user = user,
-      error: () => this.user = null
-    });
+    const storedUser = this.authService.getStoredUser();
+
+    const isBackOffice = this.authService.isBackOffice();
+
+    this.user = {
+
+      prenom: isBackOffice
+        ? ''
+        : storedUser?.prenom || this.authService.getPrenom(),
+
+      nom: storedUser?.nom || this.authService.getDisplayName(),
+
+      email: storedUser?.email || '',
+
+      role: this.authService.getUserRole() || 'Client'
+    };
+
   }
 
   handleAuthAction() {

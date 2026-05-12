@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth';
+import { NavbarComponent } from '../../../navbar/navbar'; 
 
 @Component({
   standalone: true,
@@ -9,6 +10,7 @@ import { AuthService } from '../../../../services/auth';
     CommonModule, // Pour ngIf / ngFor
     RouterOutlet,
     RouterLink,
+    NavbarComponent,
     //RouterLinkActive
   ],
   templateUrl: './admin-layout.html',

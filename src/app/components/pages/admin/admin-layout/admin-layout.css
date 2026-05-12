@@ -7,7 +7,7 @@
 /* SIDEBAR */
 .sidebar {
     width: 220px;
-    background: #9a61db;
+    background: #7c61db;
     color: white;
     padding: 20px;
 }
@@ -54,7 +54,7 @@
 }
 
 .topbar button {
-    background: #9a61db;
+    background: #7c61db;
     color: white;
     border: none;
     padding: 8px 12px;
