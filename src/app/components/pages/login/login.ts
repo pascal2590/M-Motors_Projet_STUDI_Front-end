@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth';
-import { NavbarComponent } from '../../navbar/navbar';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -13,7 +12,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    NavbarComponent,
     RouterModule
   ],
   templateUrl: './login.html',

@@ -1,6 +1,4 @@
-/* =========================
-   GLOBAL
-========================= */
+/* GLOBAL */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -31,18 +29,14 @@ h3 {
     font-weight: bold;
 }
 
-/* =========================
-   CONTAINER
-========================= */
+/* CONTAINER */
 .section-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* =========================
-   NAVBAR
-========================= */
+/* NAVBAR */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -81,9 +75,7 @@ h3 {
     color: black;
 }
 
-/* =========================
-   BURGER
-========================= */
+/* BURGER */
 .burger {
     display: none;
     width: 42px;
@@ -105,9 +97,7 @@ h3 {
     cursor: pointer;
 }
 
-/* =========================
-   OVERLAY
-========================= */
+/*    OVERLAY */
 .overlay {
     position: fixed;
     inset: 0;
@@ -115,9 +105,7 @@ h3 {
     z-index: 80;
 }
 
-/* =========================
-   MENU MOBILE
-========================= */
+/* MENU MOBILE */
 .side-menu {
     position: fixed;
     top: 0;
@@ -127,9 +115,12 @@ h3 {
     background: #7c61db;
     color: white;
     padding: 24px;
+
     transform: translateX(100%);
     transition: transform 0.3s ease;
-    z-index: 90;
+
+    z-index: 2000;
+    /* IMPORTANT */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -152,9 +143,7 @@ h3 {
     background: rgba(255, 255, 255, 0.08);
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .menu {
         display: none;
@@ -165,9 +154,7 @@ h3 {
     }
 }
 
-/* =========================
-   SEARCH
-========================= */
+/* SEARCH */
 .search-wrapper {
     display: flex;
     justify-content: center;
@@ -195,17 +182,13 @@ h3 {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* =========================
-   HERO
-========================= */
+/*  HERO */
 .hero {
     padding: 40px 0 20px;
     text-align: center;
 }
 
-/* =========================
-   STATS
-========================= */
+/*  STATS*/
 .stats {
     display: flex;
     justify-content: center;
@@ -227,9 +210,7 @@ h3 {
     color: #555;
 }
 
-/* =========================
-   VEHICULES
-========================= */
+/* VEHICULES */
 .vehicules {
     padding: 60px 0;
 }
@@ -256,7 +237,7 @@ h3 {
 /* animation hover */
 .card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 25px rgba(124, 97, 219, 0.25);
 }
 
 .card img {
@@ -270,11 +251,7 @@ h3 {
     transform: scale(1.05);
 }
 
-
-
-/* =========================
-   RESULTATS
-========================= */
+/* RESULTATS */
 .search-results {
     margin-bottom: 40px;
 }
@@ -299,9 +276,7 @@ h3 {
     text-align: center;
 }
 
-/* =========================
-   USER
-========================= */
+/* USER */
 .user-info {
     font-weight: bold;
     color: #fff;
@@ -312,9 +287,7 @@ h3 {
     opacity: 0.8;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+/* BUTTONS */
 .auth-btn {
     border: none;
     padding: 8px 14px;
@@ -364,4 +337,66 @@ h3 {
     align-items: center;
     box-sizing: border-box;
     padding: 10px 14px;
+}
+
+.badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: 0 auto 12px auto;
+    padding: 6px 14px;
+    background: #7c61db;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(124, 97, 219, 0.25);
+}
+
+.footer {
+    background: #7c61db;
+    color: white;
+    margin-top: 20px;
+    padding: 20px 20px 20px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer h3 {
+    margin-bottom: 10px;
+}
+
+.footer-links,
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer a {
+    color: #cbd5e1;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #9ca3af;
+    border-top: 1px solid #374151;
+    padding-top: 10px;
 }

@@ -1,13 +1,25 @@
-<app-navbar></app-navbar>
 <div class="admin-container">
 
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" *ngIf="menuOpen" (click)="closeMenu()"></div>
+
     <!-- SIDEBAR -->
-    <aside class="sidebar">       
+    <aside class="sidebar" [class.open]="menuOpen">
 
         <nav>
-            <a routerLink="/backoffice/dashboard" routerLinkActive="active">Dashboard</a>
-            <a routerLink="/backoffice/dossiers" routerLinkActive="active">Gestion des dossiers</a>
-            <a routerLink="/backoffice/vehicules" routerLinkActive="active">Gestion des véhicules</a>
+
+            <a routerLink="/backoffice/dashboard" routerLinkActive="active" (click)="closeMenu()">
+                Dashboard
+            </a>
+
+            <a routerLink="/backoffice/dossiers" routerLinkActive="active" (click)="closeMenu()">
+                Gestion des dossiers
+            </a>
+
+            <a routerLink="/backoffice/vehicules" routerLinkActive="active" (click)="closeMenu()">
+                Gestion des véhicules
+            </a>
+
         </nav>
 
     </aside>
@@ -16,18 +28,7 @@
     <div class="main">
 
         <!-- TOPBAR -->
-        <header class="topbar">
-
-            <div class="left">
-                <h3>Commercial</h3>
-            </div>
-
-            <div class="right">
-                Bonjour <b>{{ auth.getDisplayName() }} </b>
-                <button (click)="logout()">Déconnexion</button>
-            </div>
-
-        </header>
+        
 
         <!-- CONTENT -->
         <section class="content">

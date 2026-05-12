@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth';
-import { NavbarComponent } from '../../../navbar/navbar';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, NavbarComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './commercial-layout.html',
   styleUrls: ['./commercial-layout.css']
 })
@@ -21,4 +20,18 @@ export class CommercialLayout {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
+
+  menuOpen = false;
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
+
+  
 }
+
+

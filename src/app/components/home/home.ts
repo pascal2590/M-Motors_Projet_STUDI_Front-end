@@ -50,6 +50,8 @@ export class Home implements OnInit {
     this.loadUser();
   }
 
+  currentYear = new Date().getFullYear();
+
   loadUser(): void {
 
     if (!this.authService.isLoggedIn()) {

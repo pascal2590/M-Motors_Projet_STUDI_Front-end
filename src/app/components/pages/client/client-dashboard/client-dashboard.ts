@@ -8,6 +8,7 @@ import { AuthService } from '../../../../services/auth';
   selector: 'app-client-dashboard',
   standalone: true,
   imports: [CommonModule],
+
   templateUrl: './client-dashboard.html',
   styleUrls: ['./client-dashboard.css']
 })

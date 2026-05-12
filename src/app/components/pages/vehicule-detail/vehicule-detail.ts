@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule } from '@angular/router';
-
 import { VehiculeService } from '../../../services/vehicule';
 import { Vehicule } from '../../../models/vehicule.model';
-import { NavbarComponent } from '../../navbar/navbar';
 
 @Component({
   selector: 'app-vehicule-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, NavbarComponent],
+  imports: [CommonModule, RouterModule],
   templateUrl: './vehicule-detail.html',
   styleUrls: ['./vehicule-detail.css']
 })

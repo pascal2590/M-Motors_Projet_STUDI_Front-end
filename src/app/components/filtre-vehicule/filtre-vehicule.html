@@ -4,112 +4,73 @@
         Filtrer les véhicules
     </h2>
 
-    <!-- ========================= -->
     <!-- BOUTONS FILTRES -->
-    <!-- ========================= -->
-
     <div class="filtre-buttons">
 
         <button class="btn-filtre" (click)="filtrer('vente')">
-
             Vente
-
         </button>
 
         <button class="btn-filtre" (click)="filtrer('location')">
-
             Location
-
         </button>
 
         <button class="btn-reset" (click)="resetFiltre()">
-
             Tous
-
         </button>
-
     </div>
 
     <hr class="separator">
 
     <!-- MESSAGE SI VIDE -->
-
     <div class="no-result" *ngIf="vehicules.length === 0">
 
         Aucun véhicule trouvé.
 
     </div>
 
-    <!-- ========================= -->
     <!-- CARTES VEHICULES -->
-    <!-- ========================= -->
-
     <div class="vehicule-grid">
-
         <div *ngFor="let v of vehicules" class="vehicule-card">
-
             <!-- IMAGE VEHICULE -->
-
-            <a [routerLink]="['/vehicule', v.idVehicule]">
-            
-                <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
-            
+            <a [routerLink]="['/vehicule', v.idVehicule]">            
+                <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">            
             </a>
 
             <!-- HEADER -->
-
             <div class="vehicule-header">
-
                 <h3>
-
                     {{ v.marque }} {{ v.modele }}
-
                 </h3>
-
                 <span class="badge">
-
                     {{ v.typeOffre }}
-
                 </span>
-
             </div>
 
             <!-- BODY -->
-
             <div class="vehicule-body">
-
                 <p>
                     Année :
                     <strong>
                         {{ v.annee || 'N/A' }}
                     </strong>
                 </p>
-
                 <p>
                     Kilométrage :
                     <strong>
                         {{ v.kilometrage || 'N/A' }} km
                     </strong>
                 </p>
-
                 <p>
                     Disponibilité :
                     <strong>
                         {{ v.disponible ? 'Oui' : 'Non' }}
                     </strong>
                 </p>
-
                 <p class="price">
-
                     {{ v.prix | currency:'EUR' }}
-
-                </p>               
-                
-
+                </p>
             </div>
-
         </div>
-
     </div>
-
 </section>

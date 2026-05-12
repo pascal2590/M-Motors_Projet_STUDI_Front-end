@@ -1,11 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  private userSubject = new BehaviorSubject<any>(this.getStoredUser());
+  user$ = this.userSubject.asObservable();
 
   private router = inject(Router);
 
@@ -28,6 +31,7 @@ export class AuthService {
   // USER LOCAL STORAGE : Seulement pour l'interface utilisateur - ne contient pas d'informations sensibles
   saveUser(user: any): void {
     localStorage.setItem('user', JSON.stringify(user));
+    this.userSubject.next(user);
   }
 
   getStoredUser(): any | null {
@@ -112,12 +116,12 @@ export class AuthService {
     return role ? this.backOfficeRoles.includes(role) : false;
   }
 
-  // CHECK CLIENT
+  // CHECK CLIENT - tout utilisateur non backoffice est considéré comme client
   isClient(): boolean {
     return !this.isBackOffice();
   }
 
-  // AUTH STATUS
+  // AUTH STATUS - CHECK TOKEN EXPIRATION - SOURCE UNIQUE
   isLoggedIn(): boolean {
     const payload = this.getPayload();
 
@@ -132,6 +136,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.userSubject.next(null);
   }
 
   // TYPE D'UTILISATEUR (Client / BackOffice)
@@ -162,7 +167,7 @@ export class AuthService {
       return `${stored.prenom} ${stored.nom}`;
     }
 
-    // fallback JWT
+    // JWT - source unique pour infos utilisateur
     const payload = this.getPayload();
 
     const prenom = payload?.[
@@ -203,6 +208,4 @@ export class AuthService {
         return '/espace-client';
     }
   }
-
-
 }

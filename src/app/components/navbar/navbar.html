@@ -1,5 +1,106 @@
 <nav class="navbar">
+
     <a routerLink="/" class="logo">
         M-Motors
-    </a>        
+    </a>
+
+    <!-- DESKTOP -->
+    <ul class="menu desktop-menu">
+        <ng-container *ngIf="user; else guestMenu">
+            <li class="user-name">
+                Bonjour {{ user.prenom }} {{ user.nom }}
+            </li>
+
+            <li class="user-email">
+                {{ user.email }}
+            </li>
+
+            <li>
+                <a [routerLink]="getDashboardLink()" class="auth-btn secondary">
+                    Mon espace {{ getRoleLabel() }}
+                </a>
+            </li>
+
+            <li>
+                <button class="auth-btn secondary" (click)="handleAuthAction()">
+                    ⏻ Déconnexion
+                </button>
+            </li>
+        </ng-container>
+
+        <ng-template #guestMenu>
+            <li>
+                <a routerLink="/inscription" class="auth-btn secondary">
+                    Inscription
+                </a>
+            </li>
+
+            <li>
+                <button class="auth-btn secondary" (click)="goToLogin()">
+                    ⏻ Connexion
+                </button>
+            </li>
+        </ng-template>
+
+    </ul>
+
+    <!-- BURGER -->
+    <button class="burger" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen">
+        ☰
+    </button>
+
 </nav>
+
+<!-- OVERLAY -->
+<div class="overlay" *ngIf="menuOpen" (click)="closeMenu()">
+</div>
+
+<!-- MOBILE MENU -->
+<aside class="side-menu" [class.open]="menuOpen">
+
+    <button class="close-btn" (click)="closeMenu()">
+        ✕
+    </button>
+
+    <ul>
+        <ng-container *ngIf="user; else guestMobile">
+
+            <li class="mobile-user">
+                {{ user.prenom }} {{ user.nom }}
+            </li>
+
+            <li class="mobile-email">
+                {{ user.email }}
+            </li>
+
+            <li>
+                <a [routerLink]="getDashboardLink()" class="auth-btn secondary" (click)="closeMenu()">
+                    Mon espace {{ getRoleLabel() }}
+                </a>
+            </li>
+
+            <li>
+                <button class="auth-btn secondary" (click)="handleAuthAction(); closeMenu()">
+                    ⏻ Déconnexion
+                </button>
+            </li>
+
+        </ng-container>
+
+        <ng-template #guestMobile>
+            <li>
+                <a routerLink="/inscription" class="auth-btn secondary" (click)="closeMenu()">
+                    Inscription
+                </a>
+            </li>
+
+            <li>
+                <button class="auth-btn secondary" (click)="goToLogin(); closeMenu()">
+                    ⏻ Connexion
+                </button>
+            </li>
+        </ng-template>
+
+    </ul> 
+
+</aside>

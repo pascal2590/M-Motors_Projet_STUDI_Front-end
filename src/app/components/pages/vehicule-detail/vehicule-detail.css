@@ -1,152 +1,94 @@
 /* CENTRAGE GLOBAL */
 
 .vehicule-container {
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 40px 20px;
-
 }
 
 /* CARD PRINCIPALE */
-
 .vehicule-card {
-
     display: flex;
-
     max-width: 1000px;
     width: 100%;
-
     background: white;
-
     border-radius: 15px;
-
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
     overflow: hidden;
-
 }
 
 /* IMAGE */
-
 .image-section {
-
     flex: 1;
-
 }
 
 .image-section img {
-
     width: 100%;
     height: 100%;
-
     object-fit: cover;
-
 }
 
 /* INFOS */
-
 .info-section {
-
     flex: 1;
-
     padding: 30px;
-
 }
 
 /* TITRE */
-
 .info-section h1 {
-
     margin-bottom: 10px;
-
 }
 
 /* TYPE OFFRE */
-
 .type {
-
     color: #888;
-
     margin-bottom: 10px;
-
 }
 
 /* PRIX */
-
 .price {
-
     font-size: 28px;
     font-weight: bold;
-
     color: #1e88e5;
-
     margin: 20px 0;
-
 }
 
 /* DETAILS */
-
 .details p {
-
     margin: 8px 0;
-
 }
 
 /* DESCRIPTION */
-
 .description {
-
     margin-top: 20px;
-
 }
 
 /* BOUTON */
-
 .btn-retour {
-
     margin-top: 25px;
-
     padding: 12px 20px;
-
     border: none;
-
     border-radius: 8px;
-
     background-color: #1e88e5;
-
     color: white;
-
     font-weight: bold;
-
     cursor: pointer;
-
     transition: 0.2s;
-
 }
 
 .btn-retour:hover {
-
     background-color: #1565c0;
-
 }
 
 /* RESPONSIVE */
-
 @media (max-width: 768px) {
-
     .vehicule-card {
-
         flex-direction: column;
-
     }
-
 }
 
 /* STYLE DES BOUTONS ACHAT ET LLD */
-
 .actions {
     display: flex;
     gap: 15px;
@@ -166,17 +108,17 @@
 }
 
 .btn-achat {
-    background-color: #2e7d32;
+    background-color: #7c61db;
 }
 
 .btn-achat:hover {
-    background-color: #1b5e20;
+    background-color: #9686cf;
 }
 
 .btn-lld {
-    background-color: #1565c0;
+    background-color: #7c61db;
 }
 
 .btn-lld:hover {
-    background-color: #0d47a1;
+    background-color: #9686cf;
 }

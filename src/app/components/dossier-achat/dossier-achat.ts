@@ -3,18 +3,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { DossierService } from '../../services/dossier';
 import { AuthService } from '../../services/auth';
-import { NavbarComponent } from './../navbar/navbar';
 
 @Component({
   selector: 'app-dossier-achat',
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
-    NavbarComponent
+    FormsModule
   ],
   templateUrl: './dossier-achat.html',
   styleUrl: './dossier-achat.css'
@@ -57,9 +54,7 @@ export class DossierAchat implements OnInit {
     this.loadUserFromToken();
   }
 
-  // =====================================================
-  // VEHICULE
-  // =====================================================
+   // VEHICULE  
   loadVehicule() {
 
     this.http.get<any>(
@@ -73,9 +68,7 @@ export class DossierAchat implements OnInit {
     });
   }
 
-  // =====================================================
-  // USER FROM TOKEN
-  // =====================================================
+    // USER FROM TOKEN 
   loadUserFromToken() {
 
     const token = this.authService.getToken();
@@ -97,9 +90,7 @@ export class DossierAchat implements OnInit {
     }
   }
 
-  // =====================================================
-  // ENVOI DOSSIER
-  // =====================================================
+    // ENVOI DOSSIER  
   envoyerDossier() {
 
     this.errorMessage = '';

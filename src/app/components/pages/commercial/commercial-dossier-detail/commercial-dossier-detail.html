@@ -74,78 +74,27 @@
                     Historique du dossier
                 </h3>            
                 <div class="timeline">
-            
-                    <!-- CREATION -->
-                    <div class="timeline-item done">            
-                        <div class="timeline-dot"></div>            
+                
+                    <div class="timeline-item" *ngFor="let h of historiqueTrie; let i = index"
+                        [ngClass]="[h.class, i === 0 ? 'latest' : '']">
+                
+                        <div class="timeline-dot" [ngClass]="h.class"></div>
+                
                         <div class="timeline-content">
+                
                             <div class="timeline-label">
-                                Création du dossier
+                                {{ h.label }}
                             </div>
-            
+                
                             <div class="timeline-date">
-                                {{ dossier.dateCreation | date:'dd/MM/yyyy HH:mm' }}
+                                {{ h.date | date:'dd/MM/yyyy HH:mm' }}
                             </div>
+                
                         </div>
+                
                     </div>
-            
-                    <!-- EN ATTENTE -->
-                    <div class="timeline-item done">            
-                        <div class="timeline-dot waiting"></div>            
-                        <div class="timeline-content">
-                            <div class="timeline-label">
-                                Dossier en attente
-                            </div>
-            
-                            <div class="timeline-date">
-                                {{ dossier.dateCreation | date:'dd/MM/yyyy HH:mm' }}
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- EN ETUDE -->
-                    <div class="timeline-item" [class.done]="getDateStatut('en_etude')">            
-                        <div class="timeline-dot study"></div>            
-                        <div class="timeline-content">
-                            <div class="timeline-label">
-                                Dossier en étude
-                            </div>           
-                            <div class="timeline-date" *ngIf="getDateStatut('en_etude')">
-            
-                                {{ getDateStatut('en_etude') | date:'dd/MM/yyyy HH:mm' }}
-                            </div>            
-                            <div class="timeline-pending" *ngIf="!getDateStatut('en_etude')">            
-                                En attente
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- ACCEPTE -->
-                    <div class="timeline-item success" *ngIf="getDateStatut('accepte')">            
-                        <div class="timeline-dot success"></div>            
-                        <div class="timeline-content">
-                            <div class="timeline-label">
-                                Dossier accepté
-                            </div>            
-                            <div class="timeline-date">
-                                {{ getDateStatut('accepte') | date:'dd/MM/yyyy HH:mm' }}
-                            </div>
-                        </div>
-                    </div>
-            
-                    <!-- REFUSE -->
-                    <div class="timeline-item refused" *ngIf="getDateStatut('refuse')">            
-                        <div class="timeline-dot refused"></div>            
-                        <div class="timeline-content">
-                            <div class="timeline-label">
-                                Dossier refusé
-                            </div>            
-                            <div class="timeline-date">
-                                {{ getDateStatut('refuse') | date:'dd/MM/yyyy HH:mm' }}
-                            </div>
-                        </div>
-                    </div>            
-                </div>            
+                
+                </div>
             </div>
             
         </div>       

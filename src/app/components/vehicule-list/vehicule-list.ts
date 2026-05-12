@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { VehiculeService } from '../../services/vehicule';
 import { Vehicule } from '../../models/vehicule.model';
 import { RouterModule } from '@angular/router';

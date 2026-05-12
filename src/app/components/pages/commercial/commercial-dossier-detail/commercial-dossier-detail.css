@@ -263,3 +263,24 @@ select:focus {
     font-size: 14px;
     font-weight: 500;
 }
+
+.latest {
+    border-left: 4px solid #3498db;
+    background: #eef6ff;
+}
+
+.timeline-dot.success {
+    background: #2ecc71;
+}
+
+.timeline-dot.refused {
+    background: #e74c3c;
+}
+
+.timeline-dot.study {
+    background: #3498db;
+}
+
+.timeline-dot.waiting {
+    background: #f1c40f;
+}

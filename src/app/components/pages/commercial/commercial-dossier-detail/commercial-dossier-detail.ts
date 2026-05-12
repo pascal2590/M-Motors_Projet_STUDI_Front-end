@@ -46,27 +46,26 @@ export class CommercialDossierDetail {
   ) { }
 
   ngOnInit() {
-
     const id = Number(this.route.snapshot.paramMap.get('id'));
-
     this.loadDossier(id);
-
   }
 
   loadDossier(id: number) {
-
     this.loading = true;
-
     this.service.getDossierById(id).subscribe({
-
       next: (res) => {
-
         this.dossier = res.dossier;
         this.vehicule = res.vehicule;
         this.services = res.services;
         this.documents = res.documents;
-        this.historique = res.historique;
-
+        this.historique = (res.historique || []).map((h: any) => ({
+          ...h,
+          date: h.date ? new Date(h.date) : null
+        }))
+          .filter((h: any) => h.date)
+          .sort((a: any, b: any) =>
+            b.date.getTime() - a.date.getTime()
+          );
         this.selectedStatut = this.dossier?.statut;
 
         const disponibles = this.getStatutsDisponibles();
@@ -75,14 +74,11 @@ export class CommercialDossierDetail {
           disponibles.length > 0
             ? disponibles[0]
             : '';
-
         this.loading = false;
       },
 
       error: () => {
-
         this.loading = false;
-
       }
     });
   }
@@ -147,12 +143,10 @@ export class CommercialDossierDetail {
   }
 
   getDateStatut(statut: string): string | null {
+    const item = this.historique
+      ?.find(x => x.statut === statut);
 
-    const item = this.historique.find(
-      x => x.statut === statut
-    );
-
-    return item?.date || null;
+    return item?.date ?? null;
   }
 
   canValidateDossier(): boolean {
@@ -165,5 +159,48 @@ export class CommercialDossierDetail {
       d => d.cheminFichier && d.cheminFichier.trim() !== ''
     );
   }
-  
+
+  get historiqueTrie() {
+
+    const h = [
+
+      {
+        label: 'Création du dossier',
+        date: this.dossier?.dateCreation,
+        class: 'waiting'
+      },
+
+      {
+        label: 'Dossier en étude',
+        date: this.getDateStatut('en_etude'),
+        class: 'study'
+      },
+
+      {
+        label: 'Dossier accepté',
+        date: this.getDateStatut('accepte'),
+        class: 'success'
+      },
+
+      {
+        label: 'Dossier refusé',
+        date: this.getDateStatut('refuse'),
+        class: 'refused'
+      }
+
+    ];
+
+    return h
+      .filter(x => x.date)
+      .sort((a, b) =>
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+  }
+
+  getClasses(h: any, i: number) {
+    return {
+      [h.class]: true,
+      latest: i === 0
+    };
+  }  
 }

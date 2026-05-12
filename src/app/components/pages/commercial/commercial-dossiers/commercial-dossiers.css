@@ -60,3 +60,38 @@ th {
     outline: none;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
+
+.status-accepted {
+    background-color: #e6ffed;
+    border-left: 5px solid #2ecc71;
+}
+
+.status-pending {
+    background-color: #fff8e1;
+    border-left: 5px solid #f39c12;
+}
+
+.status-refused {
+    background-color: #ffe6e6;
+    border-left: 5px solid #e74c3c;
+}
+
+/* Badge status */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.status-accepted .status-badge {
+    color: #2ecc71;
+}
+
+.status-pending .status-badge {
+    color: #f39c12;
+}
+
+.status-refused .status-badge {
+    color: #e74c3c;
+}

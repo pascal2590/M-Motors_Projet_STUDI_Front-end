@@ -1,96 +1,32 @@
 
 <!-- NAVBAR -->
-<nav class="navbar">
 
-    <div class="logo">M-Motors</div>
-
-    <!-- DESKTOP -->
-    <ul class="menu desktop-menu">
-
-        <ng-container *ngIf="user; else guestMenu">
-        
-            <li>{{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}</li>
-            <li>{{ user.email }}</li>
-        
-            <!-- AJOUT ICI -->
-            <li>
-                <a [routerLink]="authService.redirectByRole()" class="auth-btn secondary">
-                    Mon espace {{ user.role }}
-                </a>
-            </li>
-        
-            <!-- BOUTON UNIQUE -->
-            <li>
-                <button class="auth-btn secondary" (click)="handleAuthAction()">
-                    <span class="icon">
-                        {{ user ? '⏻' : '⏻' }}
-                    </span>
-                    <span>
-                        {{ user ? 'Déconnexion' : 'Connexion' }}
-                    </span>
-                </button>
-            </li>
-        
-        </ng-container>
-
-
-        <ng-template #guestMenu>
-
-            <li>
-                <a routerLink="/inscription" class="auth-btn secondary">
-                    Inscription
-                </a>
-            </li>
-
-            <li>
-                <button class="auth-btn secondary" (click)="goToLogin()">
-                    ⏻ Connexion
-                </button>
-            </li>
-
-        </ng-template>
-
-    </ul>
-
-    <!-- BURGER -->
-    <button class="burger" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen" aria-label="Menu principal">
-        ☰
-    </button>
-
-</nav>
 
 <!-- MENU MOBILE -->
 
 <div class="overlay" *ngIf="menuOpen" (click)="closeMenu()" aria-hidden="true"></div>
 
 <aside class="side-menu" [class.open]="menuOpen" role="navigation" aria-label="Menu mobile">
-
     <button class="close-btn" (click)="closeMenu()">✕</button>
-
     <ul>
-
         <ng-container *ngIf="user; else guestMobile">
 
             <p class="user-info">
                 {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}
             </p>
-
             <p class="user-email">
                 {{ user.email }}
             </p>
-
             <li>
                 <a routerLink="/espace-client" class="auth-btn secondary" (click)="closeMenu()">
-                    Mon espace client
+                    Mon espace {{ user.role }}
                 </a>
             </li>
-
             <li>
                 <button class="auth-btn secondary" (click)="handleAuthAction(); closeMenu()">
                     {{ user ? '⏻ Déconnexion' : '⏻ Connexion' }}
                 </button>
             </li>
-
         </ng-container>
 
         <ng-template #guestMobile>
@@ -108,38 +44,28 @@
             </li>
         
         </ng-template>
-
     </ul>
-
 </aside>
 
 <!-- HERO -->
 
 <section class="hero">
     <div class="section-container">
-
         <div *ngIf="user; else guestHero">
-
             <h1>Bienvenue {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}</h1>
-
             <p>
                 Explorez vos véhicules et vos offres personnalisées M-Motors
             </p>
-
         </div>
 
         <ng-template #guestHero>
-
             <h1>
                 Site de vente et de location de véhicules d'occasion
             </h1>
-
             <p>
                 Connectez-vous pour accéder à toutes les fonctionnalités
             </p>
-
         </ng-template>
-
     </div>
 </section>
 
@@ -157,27 +83,19 @@
 </section>
 
 <!-- BARRE DE RECHERCHE -->
-
 <div class="search-wrapper">
-
     <div class="search-container">
-
         <input type="text" class="search-input" placeholder="Rechercher une marque, modèle, année..."
             [(ngModel)]="searchTerm" (input)="search()" (keyup.enter)="search()">
-
     </div>
-
 </div>
 
 <!-- VEHICULES -->
-
 <section class="vehicules">
-
     <div class="section-container">
 
         <!-- RESULTATS DE LA RECHERCHE -->
         <div *ngIf="searchTerm" class="search-results">
-
             <h2>Résultats pour "{{ searchTerm }}"</h2>
 
             <p class="results-count">
@@ -189,22 +107,21 @@
             <div *ngIf="resultatsRecherche.length > 0; else noResult">
 
                 <div class="vehicule-grid">
-
                     <div class="card" *ngFor="let v of resultatsRecherche">
-
                         <a [routerLink]="['/vehicule', v.idVehicule]">
                             <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
                                 alt="Photo véhicule">
                         </a>
 
                         <div class="card-body">
+                            <span class="badge">
+                                {{ v.typeOffre }}
+                            </span>
                             <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>
                             <p>{{ v.kilometrage }} km</p>
                             <p class="price">{{ v.prix | currency:'EUR' }}</p>
                         </div>
-
                     </div>
-
                 </div>
 
             </div>
@@ -232,6 +149,9 @@
                     </a>
 
                     <div class="card-body">
+                        <span class="badge">
+                            {{ v.typeOffre }}
+                        </span>
                         <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>
                         <p>{{ v.kilometrage }} km</p>
                         <p class="price">{{ v.prix | currency:'EUR' }}</p>
@@ -250,3 +170,31 @@
 <!-- COMPOSANTS -->
 <app-filtre-vehicule></app-filtre-vehicule>
 <app-vehicule-list></app-vehicule-list>
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div class="footer-brand">
+            <h3>M-Motors</h3>
+            <p>Vente et location de véhicules d’occasion</p>
+        </div>
+
+        <div class="footer-links">
+            <a routerLink="/">Accueil</a>
+            <a routerLink="/vehicules">Véhicules</a>
+            <a routerLink="/contact">Contact</a>
+        </div>
+
+        <div class="footer-contact">
+            <p>Email : </p>
+            <p>Tél : </p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 - Projet STUDI M-Motors réalisé par Pascal MOREL - Tous droits réservés
+    </div>
+
+</footer>

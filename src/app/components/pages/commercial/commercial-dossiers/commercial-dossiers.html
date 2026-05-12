@@ -19,11 +19,19 @@
                 <th>Actions</th>
             </tr>
         
-            <tr *ngFor="let d of dossiers">
+            <tr *ngFor="let d of dossiers" [ngClass]="{
+                  'status-accepted': d.status === 'accepte',
+                  'status-pending': d.status === 'en_attente',
+                  'status-refused': d.status === 'refuse'
+                }">
                 <td>{{ d.id }}</td>
                 <td>{{ d.client }}</td>
                 <td>{{ d.vehicule }}</td>
-                <td>{{ d.status }}</td>
+                <td>
+                    <span class="status-badge">
+                        {{ d.status }}
+                    </span>
+                </td>
                 <td>{{ d.typeDossier }}</td>
                 <td>{{ d.dateCreation }}</td>
                 <td>
