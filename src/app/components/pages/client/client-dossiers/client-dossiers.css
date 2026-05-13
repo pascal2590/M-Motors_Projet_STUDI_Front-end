@@ -26,7 +26,6 @@ h2 {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
     transition: 0.25s ease;
     cursor: pointer;
-
     display: flex;
     flex-direction: column;
 }
@@ -39,14 +38,11 @@ h2 {
 /* IMAGE */
 .image-wrapper {
     position: relative;
-
     height: 160px;
     background: #f3f4f6;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     overflow: hidden;
 }
 
@@ -61,19 +57,13 @@ h2 {
     position: absolute;
     top: 10px;
     right: 10px;
-
     padding: 5px 10px;
-
     font-size: 11px;
     font-weight: 600;
-
     border-radius: 20px;
-
     color: white;
     text-transform: capitalize;
-
     letter-spacing: 0.3px;
-
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
@@ -97,10 +87,8 @@ h2 {
 /* CONTENT */
 .content {
     padding: 16px;
-
     display: flex;
     flex-direction: column;
-
     overflow: visible;
 }
 
@@ -142,14 +130,10 @@ h2 {
     font-size: 12px;
     color: #6b7280;
     margin-top: 6px;
-
-    display: block;
-
-    /* 🔥 FIX PRINCIPAL */
+    display: block;    
     white-space: nowrap;
     overflow: visible;
     text-overflow: unset;
-
     width: 100%;
 }
 
@@ -157,20 +141,15 @@ h2 {
 .btn {
     margin-top: 12px;
     width: 100%;
-
     padding: 8px;
-
     border: none;
     border-radius: 8px;
-
-    background: #111827;
+    background: #7c61db;
     color: white;
-
     font-size: 12px;
-
     cursor: pointer;
 }
 
 .btn:hover {
-    background: #000;
+    background: #5a45c9;
 }

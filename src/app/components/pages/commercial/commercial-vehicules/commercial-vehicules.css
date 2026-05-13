@@ -23,9 +23,9 @@
     font-size: 13px;
 }
 
-/* BUTTON ADD */
+/* Bouton AJOUTER */
 .btn-add {
-    background: #2563eb;
+    background: #7c61db;
     color: white;
     border: none;
     padding: 10px 16px;
@@ -35,7 +35,7 @@
 }
 
 .btn-add:hover {
-    background: #1d4ed8;
+    background: #5a45c9;
 }
 
 /* TABLE CONTAINER */
@@ -122,12 +122,16 @@ img {
 }
 
 .btn-edit {
-    background: #f59e0b;
+    background: #7c61db;
     border: none;
     color: white;
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
+}
+
+.btn-edit:hover {
+    background: #5a45c9;
 }
 
 .btn-delete {
@@ -137,10 +141,6 @@ img {
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
-}
-
-.btn-edit:hover {
-    background: #d97706;
 }
 
 .btn-delete:hover {
