@@ -1,7 +1,7 @@
 <div class="page">
 
     <div class="header">
-        <h2>Commerciaux</h2>
+        <h2>Gestion des commerciaux</h2>
         <button class="create-btn" (click)="goCreate()">
             + Ajouter un commercial
         </button>
@@ -15,6 +15,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Nom</th>
+                    <th>Prénom</th>
                     <th>Email</th>
                     <th class="actions">Actions</th>
                 </tr>
@@ -24,6 +25,7 @@
                 <tr *ngFor="let c of commerciaux">
                     <td>{{ c.idUser }}</td>
                     <td>{{ c.nom }}</td>
+                    <td>{{ c.prenom }}</td>
                     <td>{{ c.email }}</td>
                     <td class="actions">
                         <button class="delete-btn" (click)="delete(c.idUser)">

@@ -1,50 +1,114 @@
 <div class="page">
 
-    <h2>Dossiers commerciaux</h2>
+    <!-- HEADER -->
+    <div class="page-header">
+        <div>
+            <h2>Dossiers commerciaux</h2>
 
-    <p class="subtitle">
-        Liste des dossiers assignés aux commerciaux
-    </p>
+            <p class="subtitle">
+                Liste des dossiers assignés aux commerciaux
+            </p>
+        </div>
+    </div>
 
+    <!-- CARD -->
     <div class="card">
 
-        <table *ngIf="dossiers.length > 0; else noData">
-            <tr>
-                <th>ID</th>
-                <th>Client</th>
-                <th>Véhicule</th>
-                <th>Status</th>
-                <th>Type dossier</th>
-                <th>Date création</th>
-                <th>Actions</th>
-            </tr>
-        
-            <tr *ngFor="let d of dossiers" [ngClass]="{
-                  'status-accepted': d.status === 'accepte',
-                  'status-pending': d.status === 'en_attente',
-                  'status-refused': d.status === 'refuse'
-                }">
-                <td>{{ d.id }}</td>
-                <td>{{ d.client }}</td>
-                <td>{{ d.vehicule }}</td>
-                <td>
-                    <span class="status-badge">
-                        {{ d.status }}
-                    </span>
-                </td>
-                <td>{{ d.typeDossier }}</td>
-                <td>{{ d.dateCreation }}</td>
-                <td>
-                    <button class="btn-view" (click)="goToDossier(d.id)">
-                        Voir
-                    </button>
-                </td>
-            </tr>
-        </table>
-        
-        <ng-template #noData>
-            <p>Aucun dossier trouvé</p>
-        </ng-template>
+        <div class="table-wrapper">
+
+            <table *ngIf="dossiers.length > 0; else noData">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Client</th>
+                        <th>Véhicule</th>
+                        <th>Statut</th>
+                        <th>Type</th>
+                        <th>Date création</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let d of dossiers">
+
+                        <!-- ID -->
+                        <td>
+                            <span class="badge-id">
+                                #{{ d.id }}
+                            </span>
+                        </td>
+
+                        <!-- CLIENT -->
+                        <td class="client-name">
+                            {{ d.client }}
+                        </td>
+
+                        <!-- VEHICULE -->
+                        <td>
+                            {{ d.vehicule }}
+                        </td>
+
+                        <!-- STATUT -->
+                        <td>
+                            <span class="status-badge" [ngClass]="{
+                                'status-accepted': d.status === 'accepte',
+                                'status-pending': d.status === 'en_attente',
+                                'status-refused': d.status === 'refuse',
+                                'status-study': d.status === 'en_etude'
+                            }">
+                                {{ d.status }}
+                            </span>
+                        </td>
+
+                        <!-- TYPE -->
+                        <td>
+                            <span class="type-badge" [ngClass]="{
+                                'achat': d.typeDossier === 'achat',
+                                'location': d.typeDossier === 'location'
+                            }">
+                                {{ d.typeDossier }}
+                            </span>
+                        </td>
+
+                        <!-- DATE -->
+                        <td>
+                            {{ d.dateCreation }}
+                        </td>
+
+                        <!-- ACTION -->
+                        <td>
+                            <button class="btn-view" (click)="goToDossier(d.id)">
+                                Voir
+                            </button>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+            <!-- EMPTY STATE -->
+            <ng-template #noData>
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        📁
+                    </div>
+
+                    <h3>Aucun dossier</h3>
+
+                    <p>
+                        Aucun dossier commercial n'est actuellement disponible.
+                    </p>
+
+                </div>
+            </ng-template>
+
+        </div>
 
     </div>
 

@@ -23,6 +23,7 @@ export class AdminCreateCommercial {
   ) {
     this.form = this.fb.group({
       nom: [''],
+      prenom: [''],
       email: [''],
       password: ['']
     });

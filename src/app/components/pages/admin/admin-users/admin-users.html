@@ -20,7 +20,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>
-                        <th>Email</th>
+                        <th>Prénom</th>
+                        <th>Email</th>                 
                         <th>Rôle</th>
                     </tr>
                 </thead>
@@ -35,6 +36,9 @@
                         </td>
                         <td class="user-name">
                             {{ u.nom }}
+                        </td>
+                        <td>
+                            {{ u.prenom }}
                         </td>
                         <td>
                             {{ u.email }}
