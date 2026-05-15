@@ -20,6 +20,7 @@
 
                 <thead>
                     <tr>
+                        <th>Dossier géré par :</th>
                         <th>ID</th>
                         <th>Client</th>
                         <th>Véhicule</th>
@@ -33,6 +34,9 @@
                 <tbody>
 
                     <tr *ngFor="let d of dossiers">
+
+                        <!-- COMMERCIAL -->
+                        <td>{{ d.commercial }}</td>
 
                         <!-- ID -->
                         <td>

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface DossierCommercial {
+    commercial: string;
     id: number;
     client: string;
     vehicule: string;
@@ -25,12 +26,12 @@ export class CommercialService {
         return this.http.get<DossierCommercial[]>(`${this.apiUrl}/dossiers`);
     }
 
-    // DETAIL du dossier (OK tu gardes dossiers controller)
+    // DETAIL du dossier dans le DossiersController.cs
     getDossierById(id: number): Observable<any> {
         return this.http.get<any>(`http://localhost:5119/api/dossiers/${id}`);
     }
 
-    // ✅ FIX IMPORTANT : correction endpoint backend réel
+    // Correction endpoint backend réel pour update statut dossier
     updateStatutDossier(id: number, statut: string): Observable<any> {
         return this.http.put(
             `http://localhost:5119/api/dossiers/${id}/statut`,
@@ -38,6 +39,13 @@ export class CommercialService {
             {
                 headers: { 'Content-Type': 'application/json' }
             }
+        );
+    }
+
+    assignDossier(id: number): Observable<any> {
+        return this.http.put(
+            `http://localhost:5119/api/dossiers/${id}/assign`,
+            {}
         );
     }
 }

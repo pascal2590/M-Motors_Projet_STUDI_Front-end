@@ -110,10 +110,16 @@ export class Home implements OnInit {
   }
 
   loadVehicules() {
-    this.http.get<any[]>(this.apiUrl).subscribe(data => {
-      this.allVehicules = data;
-      this.vehicules = data.slice(0, 5);
-      this.totalVehicules = data.length;
+    this.http.get<any[]>(this.apiUrl).subscribe({
+      next: (data) => {
+        this.allVehicules = data || [];
+        this.vehicules = (data || []).slice(0, 5);
+        this.totalVehicules = (data || []).length;
+      },
+
+      error: (err) => {
+        console.error('Erreur API véhicules :', err);
+      }
     });
   }
 
