@@ -31,7 +31,7 @@ describe('VehiculeService', () => {
         annee: 2020,
         kilometrage: 15000,
         prix: 15000,
-        typeOffre: 'Vente',
+        typeOffre: 'vente',
         disponible: true,
         dateAjout: new Date().toISOString()
       },
@@ -42,7 +42,7 @@ describe('VehiculeService', () => {
         annee: 2021,
         kilometrage: 10000,
         prix: 18000,
-        typeOffre: 'Location',
+        typeOffre: 'location',
         disponible: true,
         dateAjout: new Date().toISOString()
       }
