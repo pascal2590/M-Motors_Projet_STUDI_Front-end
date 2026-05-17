@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CommercialDossiers } from './commercial-dossiers';
 
 describe('CommercialDossiers', () => {

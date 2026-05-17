@@ -2,7 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 import { VehiculeService } from './vehicule';
-import { Vehicule } from '../models/vehicule.model'; // ✅ AJOUT IMPORTANT
+import { Vehicule } from '../models/vehicule.model';
+import { environment } from '../../environments/environment';
 
 describe('VehiculeService', () => {
 
@@ -55,7 +56,7 @@ describe('VehiculeService', () => {
 
     });
 
-    const req = httpMock.expectOne('http://localhost:5000/api/vehicule');
+    const req = httpMock.expectOne(`${environment.apiUrl}/vehicule`);
 
     expect(req.request.method).toBe('GET');
 

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-inscription',
@@ -20,8 +21,7 @@ import { RouterModule } from '@angular/router';
 })
 export class Inscription {
 
-  private apiUrl =
-    'http://localhost:5119/api/Auth/client/register';
+  private apiUrl = `${environment.apiUrl}/Auth/client/register`;
 
   constructor(
     private http: HttpClient,

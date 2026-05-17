@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';          // routerLink
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -37,7 +38,7 @@ export class Home implements OnInit {
 
   user: any = null;
 
-  private apiUrl = 'http://localhost:5119/api/Vehicule';
+  private apiUrl = `${environment.apiUrl}/Vehicule`;
 
   constructor(
     private http: HttpClient,

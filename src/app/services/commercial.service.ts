@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface DossierCommercial {
     commercial: string;
@@ -17,34 +18,44 @@ export interface DossierCommercial {
 })
 export class CommercialService {
 
-    private apiUrl = 'http://localhost:5119/api/commercial';
+    private commercialApi = `${environment.apiUrl}/commercial`;
+    private dossiersApi = `${environment.apiUrl}/dossiers`;
 
     constructor(private http: HttpClient) { }
 
-    // LISTE des dossiers commerciaux
+    // LISTE DOSSIERS COMMERCIAUX
     getDossiers(): Observable<DossierCommercial[]> {
-        return this.http.get<DossierCommercial[]>(`${this.apiUrl}/dossiers`);
+        return this.http.get<DossierCommercial[]>(
+            `${this.commercialApi}/dossiers`
+        );
     }
 
-    // DETAIL du dossier dans le DossiersController.cs
+  
+    // DETAIL DOSSIER
+    // GET /api/dossiers/{id}  
     getDossierById(id: number): Observable<any> {
-        return this.http.get<any>(`http://localhost:5119/api/dossiers/${id}`);
+        return this.http.get<any>(
+            `${this.dossiersApi}/${id}`
+        );
     }
 
-    // Correction endpoint backend réel pour update statut dossier
+    // UPDATE STATUT DOSSIER
+    // PUT /api/dossiers/{id}/statut   
     updateStatutDossier(id: number, statut: string): Observable<any> {
         return this.http.put(
-            `http://localhost:5119/api/dossiers/${id}/statut`,
-            JSON.stringify(statut),
+            `${this.dossiersApi}/${id}/statut`,
+            `"${statut}"`,
             {
                 headers: { 'Content-Type': 'application/json' }
             }
         );
     }
 
+    // ASSIGNATION DOSSIER
+    // PUT /api/dossiers/{id}/assign
     assignDossier(id: number): Observable<any> {
         return this.http.put(
-            `http://localhost:5119/api/dossiers/${id}/assign`,
+            `${this.dossiersApi}/${id}/assign`,
             {}
         );
     }

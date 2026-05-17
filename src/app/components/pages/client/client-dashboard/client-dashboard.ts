@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -45,7 +46,7 @@ export class ClientDashboard implements OnInit {
     }
 
     this.http.get<any[]>(
-      `http://localhost:5119/api/dossiers/client/${clientId}`
+      `${environment.apiUrl}/dossiers/client/${clientId}`
     ).subscribe(dossiers => {
 
       const norm = (s: string) => s?.toLowerCase().trim();

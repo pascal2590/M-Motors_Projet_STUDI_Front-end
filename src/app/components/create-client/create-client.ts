@@ -6,7 +6,7 @@ import { Client } from '../../models/client.model';
 @Component({
   selector: 'app-create-client',
   standalone: true,
-  imports: [FormsModule],  // <-- ajoute FormsModule ici
+  imports: [FormsModule],
   templateUrl: './create-client.html',
   styleUrls: ['./create-client.css'],
 })

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth';
 import { RouterModule } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,7 @@ export class Login {
   successMessage = '';
   isLoading = false;
 
-  private apiUrl = 'http://localhost:5119/api/Auth/login';
+  private apiUrl = `${environment.apiUrl}/Auth/login`;
 
   constructor(
     private http: HttpClient,
@@ -62,10 +63,10 @@ export class Login {
         this.authService.saveUser(response.user ?? response.client);
 
         // DEBUG
-        console.log('USER:', response.user);
-        console.log('ROLE:', this.authService.getUserRole());
-        console.log('TYPE:', this.authService.getUserType());
-        console.log('IS ADMIN:', this.authService.isAdmin());
+        //console.log('USER:', response.user);
+        // console.log('ROLE:', this.authService.getUserRole());
+        // console.log('TYPE:', this.authService.getUserType());
+        // console.log('IS ADMIN:', this.authService.isAdmin());
 
         this.successMessage = "Connexion réussie !";
 

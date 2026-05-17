@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, switchMap, tap } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ClientService {
 
-    private apiUrl = 'http://localhost:5119/api/client';
+    private apiUrl = `${environment.apiUrl}/client`;
 
     constructor(private http: HttpClient) { }
   
@@ -22,7 +23,7 @@ export class ClientService {
         const token = localStorage.getItem('token');
 
         return this.http.get(
-            'http://localhost:5119/api/Auth/client/me',
+            `${this.apiUrl}/me`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -44,7 +45,7 @@ export class ClientService {
         console.log('CALL NEW ENDPOINT /api/client/dossiers');
 
         return this.http.get<any[]>(
-            `http://localhost:5119/api/client/dossiers`,
+            `${this.apiUrl}/dossiers`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -58,7 +59,7 @@ export class ClientService {
         const token = localStorage.getItem('token');
 
         return this.http.get(
-            `http://localhost:5119/api/client/dossiers/${id}`,
+            `${this.apiUrl}/dossiers/${id}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

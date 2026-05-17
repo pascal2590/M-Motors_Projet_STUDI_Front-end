@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-client-dossier-detail',
   standalone: true,
@@ -58,7 +58,7 @@ export class ClientDossierDetailComponent implements OnInit {
     this.loading = true;
 
     this.http.get<DossierDetailResponse>(
-      `http://localhost:5119/api/dossiers/${this.dossierId}`
+      `${environment.apiUrl}/dossiers/${this.dossierId}`
     )
       .subscribe({
 
@@ -139,7 +139,7 @@ export class ClientDossierDetailComponent implements OnInit {
     formData.append('typeDocument', doc.typeDocument);
 
     this.http.post(
-      'http://localhost:5119/api/documents/upload',
+      `${environment.apiUrl}/documents/upload`,
       formData
     )
       .subscribe({
