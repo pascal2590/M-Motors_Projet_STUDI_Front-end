@@ -355,3 +355,15 @@ input[type="file"] {
     color: #374151;
     font-size: 14px;
 }
+
+.success-message {
+    color: green;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.error-message {
+    color: red;
+    margin-bottom: 15px;
+    font-weight: 600;
+}

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DossierService } from '../../services/dossier';
 import { AuthService } from '../../services/auth';
 import { ServicesLldService, ServiceLld } from '../../services/services-lld';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dossier-lld',
@@ -23,7 +24,7 @@ export class DossierLld implements OnInit {
   vehiculeId!: number;
   vehicule: any;
 
-  apiVehiculesUrl = 'http://localhost:5119/api/vehicule';
+  apiVehiculesUrl = environment.apiUrl + '/vehicule';
 
   // services LLD
   services: ServiceLld[] = [];

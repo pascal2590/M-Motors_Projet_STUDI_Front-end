@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DossierService } from '../../services/dossier';
 import { AuthService } from '../../services/auth';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-dossier-achat',
@@ -27,7 +28,7 @@ export class DossierAchat implements OnInit {
   hasSubmitted = false;
   isLoading = false;
 
-  apiVehiculesUrl = 'http://localhost:5119/api/vehicule';
+  apiVehiculesUrl = environment.apiUrl + '/vehicule';
 
   form = {
     nom: '',

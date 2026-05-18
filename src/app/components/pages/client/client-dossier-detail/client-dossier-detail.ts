@@ -26,6 +26,8 @@ export class ClientDossierDetailComponent implements OnInit {
   dossierId!: number;
 
   progression: number = 0;
+  successMessage: string = '';
+  errorMessage: string = '';
 
   filesMap: { [key: string]: File } = {};
 
@@ -142,11 +144,29 @@ export class ClientDossierDetailComponent implements OnInit {
       `${environment.apiUrl}/documents/upload`,
       formData
     )
+      /* Messages pour l'upload */
       .subscribe({
 
-        next: () => this.loadDossier(),
+        next: (res: any) => {
 
-        error: err => console.error('UPLOAD ERROR', err)
+          this.successMessage =
+            res.message || 'Document uploadé avec succès';
+
+          this.errorMessage = '';
+
+          this.loadDossier();
+        },
+
+        error: (err) => {
+
+          console.error('UPLOAD ERROR', err);
+
+          this.successMessage = '';
+
+          this.errorMessage =
+            err.error?.message ||
+            'Erreur lors de l’upload du document';
+        }
 
       });
 
