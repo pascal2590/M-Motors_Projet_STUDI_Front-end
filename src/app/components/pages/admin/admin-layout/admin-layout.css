@@ -68,4 +68,43 @@
     background: #f3f4f6;
     flex: 1;
     overflow-y: auto;
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+
+    .admin-container {
+        flex-direction: column;
+    }
+
+    /* La SIDEBAR devient horizontale sur mobile */
+    .sidebar {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .sidebar nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .sidebar a {
+        padding: 6px 10px;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    /* TOPBAR s'adapte */
+    .topbar {
+        flex-direction: column;
+        gap: 10px;
+        height: auto;
+        padding: 10px;
+    }
+
+    /* CONTENT plus compact */
+    .content {
+        padding: 12px;
+    }
 }

@@ -10,7 +10,6 @@
     <button class="close-btn" (click)="closeMenu()">✕</button>
     <ul>
         <ng-container *ngIf="user; else guestMobile">
-
             <p class="user-info">
                 {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}
             </p>
@@ -29,20 +28,17 @@
             </li>
         </ng-container>
 
-        <ng-template #guestMobile>
-        
+        <ng-template #guestMobile>        
             <li>
                 <a routerLink="/inscription" class="auth-btn secondary" (click)="closeMenu()">
                     Inscription
                 </a>
-            </li>
-        
+            </li>        
             <li>
                 <button class="auth-btn secondary" (click)="goToLogin(); closeMenu()">
                     ⏻ Connexion
                 </button>
-            </li>
-        
+            </li>        
         </ng-template>
     </ul>
 </aside>
@@ -73,12 +69,10 @@
 
 <section class="stats">
     <div class="section-container stats-grid">
-
         <div class="stat">
             <h2>{{ totalVehicules }}</h2>
             <p>Véhicules disponibles</p>
         </div>
-
     </div>
 </section>
 
@@ -105,14 +99,12 @@
             </p>
 
             <div *ngIf="resultatsRecherche.length > 0; else noResult">
-
                 <div class="vehicule-grid">
                     <div class="card" *ngFor="let v of resultatsRecherche">
                         <a [routerLink]="['/vehicule', v.idVehicule]">
                             <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
                                 alt="Photo véhicule">
                         </a>
-
                         <div class="card-body">
                             <span class="badge">
                                 {{ v.typeOffre }}
@@ -123,7 +115,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <ng-template #noResult>
@@ -131,23 +122,17 @@
                     ❌ Aucun véhicule trouvé pour "{{ searchTerm }}"
                 </div>
             </ng-template>
-
         </div>
 
         <!-- OFFRES -->
         <div class="offres-section">
-
             <h2>Nos meilleures offres du moment</h2>
-
             <div class="vehicule-grid">
-
                 <div class="card" *ngFor="let v of vehicules">
-
                     <a [routerLink]="['/vehicule', v.idVehicule]">
                         <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
                             alt="Photo véhicule">
                     </a>
-
                     <div class="card-body">
                         <span class="badge">
                             {{ v.typeOffre }}
@@ -156,15 +141,10 @@
                         <p>{{ v.kilometrage }} km</p>
                         <p class="price">{{ v.prix | currency:'EUR' }}</p>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
 
 <!-- COMPOSANTS -->
@@ -181,8 +161,7 @@
         </div>
 
         <div class="footer-links">
-            <a routerLink="/">Accueil</a>
-            <a routerLink="/vehicules">Véhicules</a>
+            <!-- <a routerLink="/">Accueil</a><br> -->      
             <a routerLink="/contact">Contact</a>
         </div>
 

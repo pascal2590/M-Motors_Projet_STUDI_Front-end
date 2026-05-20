@@ -1,10 +1,10 @@
 export interface Client {
-    idClient?: number;      // facultatif côté frontend, sera généré par le backend
+    idClient?: number;      // Sera généré par le backend
     nom: string;
     prenom: string;
     email: string;
     password: string;
-    telephone?: string;     // facultatif
-    adresse?: string;       // facultatif
-    dateUpload?: string;    // facultatif, rempli côté backend
+    telephone?: string; 
+    adresse?: string;  
+    dateUpload?: string;   // Facultatif, sera géré par le backend
 }

@@ -1,5 +1,5 @@
+/* ATTENTION : Ce composant n'est plus utilisé */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CreateClientComponent } from './create-client';
 
 describe('CreateClientComponent', () => {

@@ -8,6 +8,7 @@ import { Login } from './components/pages/login/login';
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { commercialGuard } from './guards/commercial.guard';
+import { Contact } from './components/pages/contact/contact';
 
 export const routes: Routes = [
 
@@ -27,6 +28,10 @@ export const routes: Routes = [
     {
         path: 'login',
         component: Login
+    },
+    {
+        path: 'contact',
+        component: Contact
     },
 
       // ADMIN - Route protégée, accessible uniquement à l'administrateur
@@ -52,6 +57,13 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./components/pages/admin/admin-users/admin-users')
                         .then(m => m.AdminUsers)
+            },
+
+            {
+                path: 'clients',
+                loadComponent: () =>
+                    import('./components/pages/admin/admin-clients/admin-clients')
+                        .then(m => m.AdminClients)
             },
 
             {

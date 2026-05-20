@@ -1,3 +1,4 @@
+/* ATTENTION : Ce composant n'est plus utilisé */
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms'; // <-- import nécessaire
 import { ClientService } from '../../services/client.service';

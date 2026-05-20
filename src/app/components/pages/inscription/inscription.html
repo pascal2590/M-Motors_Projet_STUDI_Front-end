@@ -5,62 +5,84 @@
         <h1>Créer un compte client</h1>
 
         <!-- MESSAGE SUCCÈS -->
-        <div *ngIf="successMessage" class="success-message">        
-            {{ successMessage }}        
-        </div>
-        
-        <!-- MESSAGE ERREUR -->
-        <div *ngIf="errorMessage" class="error-message">        
-            {{ errorMessage }}        
+        <div *ngIf="successMessage" class="success-message">
+            {{ successMessage }}
         </div>
 
-        <form (ngSubmit)="register()" #formRef="ngForm">        
+        <!-- MESSAGE ERREUR -->
+        <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+        </div>
+
+        <form (ngSubmit)="register()" #formRef="ngForm">
+
             <!-- NOM -->
             <input type="text" name="nom" [(ngModel)]="form.nom" placeholder="Nom" required #nom="ngModel">
-        
-            <!-- Message erreur -->
+
             <div *ngIf="nom.invalid && nom.touched" class="error-message">
                 Le nom est obligatoire.
             </div>
-        
+
             <!-- PRENOM -->
             <input type="text" name="prenom" [(ngModel)]="form.prenom" placeholder="Prénom" required #prenom="ngModel">
-        
+
             <div *ngIf="prenom.invalid && prenom.touched" class="error-message">
                 Le prénom est obligatoire.
             </div>
-        
+
             <!-- EMAIL -->
-            <input type="email" name="email" [(ngModel)]="form.email" placeholder="Email" required email #email="ngModel">
-        
+            <input type="email" name="email" [(ngModel)]="form.email" placeholder="Email" required email
+                #email="ngModel">
+
             <div *ngIf="email.invalid && email.touched" class="error-message">
-        
+
                 <span *ngIf="email.errors?.['required']">
                     L'email est obligatoire.
                 </span>
-        
+
                 <span *ngIf="email.errors?.['email']">
                     Email invalide.
-                </span>        
+                </span>
+
             </div>
-        
+
+            <!-- TELEPHONE -->
+            <input type="text" name="telephone" [(ngModel)]="form.telephone" placeholder="Téléphone" required #telephone="ngModel">
+            
+            <div *ngIf="telephone.invalid && telephone.touched" class="error-message">
+                Le téléphone est obligatoire.
+            </div>
+            
+            <!-- ADRESSE -->
+            <input type="text" name="adresse" [(ngModel)]="form.adresse" placeholder="Adresse" required #adresse="ngModel">
+            
+            <div *ngIf="adresse.invalid && adresse.touched" class="error-message">
+                L'adresse est obligatoire.
+            </div>
+
             <!-- PASSWORD -->
-            <input type="password" name="password" [(ngModel)]="form.password" placeholder="Mot de passe" required minlength="6"
-                #password="ngModel">
-        
-            <div *ngIf="password.invalid && password.touched" class="error-message">        
+            <input type="password" name="password" [(ngModel)]="form.password" placeholder="Mot de passe" required
+                minlength="6" #password="ngModel">
+
+            <div *ngIf="password.invalid && password.touched" class="error-message">
+
                 <span *ngIf="password.errors?.['required']">
                     Mot de passe obligatoire.
-                </span>        
+                </span>
+
                 <span *ngIf="password.errors?.['minlength']">
                     Minimum 6 caractères.
-                </span>        
+                </span>
+
             </div>
-        
+
             <!-- Bouton -->
-            <button type="submit" [disabled]="formRef.invalid">        
-                Créer mon compte        
-            </button>        
+            <button type="submit" [disabled]="formRef.invalid">
+
+                Créer mon compte
+
+            </button>
+
         </form>
 
         <p class="login-link">
@@ -69,5 +91,7 @@
                 Se connecter
             </a>
         </p>
+
     </div>
+
 </section>

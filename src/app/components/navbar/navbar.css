@@ -1,5 +1,4 @@
-/* NAVBAR */
-
+/* NAVBAR BASE */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -10,42 +9,54 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-bottom: 2px solid #ffffff33;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* LOGO */
 .logo {
     text-decoration: none;
     font-size: 22px;
     font-weight: bold;
     color: white;
+    white-space: nowrap;
 }
 
-/* MENU */
-
+/* MENU DESKTOP */
 .menu {
     display: flex;
-    gap: 20px;
+    gap: 16px;
     list-style: none;
     align-items: center;
     margin: 0;
     padding: 0;
+    max-width: 100%;
+    flex-wrap: wrap;
 }
 
 .menu li {
     display: flex;
     align-items: center;
+    min-width: 0;/* Pour éviter l'overflow flex */
 }
 
+/* USER INFO */
 .user-name {
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .user-email {
-    opacity: 0.9;
     font-size: 14px;
+    opacity: 0.9;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* BOUTONS */
-
 .auth-btn,
 button {
     background: linear-gradient(135deg, #7c61db, #523ca3);
@@ -57,6 +68,7 @@ button {
     text-decoration: none;
     transition: 0.2s ease;
     font-size: 14px;
+    white-space: nowrap;
 }
 
 .auth-btn:hover,
@@ -65,7 +77,6 @@ button:hover {
 }
 
 /* BURGER */
-
 .burger {
     display: none;
     background: transparent;
@@ -75,8 +86,7 @@ button:hover {
     cursor: pointer;
 }
 
-/* OVERLAY */
-
+/* OVERLAY MOBILE */
 .overlay {
     position: fixed;
     inset: 0;
@@ -84,8 +94,7 @@ button:hover {
     z-index: 1100;
 }
 
-/* MOBILE MENU */
-
+/* SIDE MENU MOBILE */
 .side-menu {
     position: fixed;
     top: 0;
@@ -97,6 +106,7 @@ button:hover {
     z-index: 1200;
     transition: right 0.3s ease;
     padding: 20px;
+    box-sizing: border-box;
 }
 
 .side-menu.open {
@@ -113,6 +123,7 @@ button:hover {
     margin-bottom: 18px;
 }
 
+/* MOBILE USER INFO */
 .mobile-user {
     font-weight: bold;
 }
@@ -120,8 +131,11 @@ button:hover {
 .mobile-email {
     font-size: 14px;
     color: black;
+
+    word-break: break-word;
 }
 
+/* CLOSE BUTTON */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -130,10 +144,10 @@ button:hover {
     color: black;
     font-size: 24px;
     border: none;
+    cursor: pointer;
 }
 
 /* RESPONSIVE */
-
 @media (max-width: 900px) {
 
     .desktop-menu {
@@ -143,18 +157,15 @@ button:hover {
     .burger {
         display: block;
     }
+
+    .navbar {
+        padding: 12px 16px;
+    }
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 24px;
-    background: #7c61db;
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    border-bottom: 2px solid #ffffff33;
+/* Fix global pour éviter la "bande à droite de la page" */
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100%;
 }

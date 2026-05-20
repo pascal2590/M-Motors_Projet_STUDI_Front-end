@@ -1,0 +1,116 @@
+<div class="clients-page">
+
+    <!-- HEADER -->
+    <div class="page-header">
+
+        <div>
+            <h1>Clients</h1>
+            <p>Gestion des clients M-Motors</p>
+        </div>
+
+        <!-- <div class="header-actions">
+            <input type="text" placeholder="Rechercher un client..." class="search-input">
+        </div> -->
+
+    </div>
+
+    <!-- LOADING -->
+    <div *ngIf="loading" class="loading-card">
+        Chargement des clients...
+    </div>
+
+    <!-- ERREUR -->
+    <div *ngIf="errorMessage" class="error-card">
+        {{ errorMessage }}
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-container" *ngIf="!loading">
+        <table>
+            <thead>
+                <tr>
+                    <th (click)="sortClients('idClient')">
+                        ID                    
+                        <span class="sort-icon">                    
+                            {{
+                            sortColumn === 'idClient'
+                            ? (sortDirection === 'asc' ? '▲' : '▼')
+                            : '⇅'
+                            }}                    
+                        </span>
+                    </th>                    
+                    <th (click)="sortClients('nom')">
+                        Client                    
+                        <span class="sort-icon">                    
+                            {{
+                            sortColumn === 'nom'
+                            ? (sortDirection === 'asc' ? '▲' : '▼')
+                            : '⇅'
+                            }}                    
+                        </span>
+                    </th>                    
+                    <th (click)="sortClients('email')">
+                        Email                    
+                        <span class="sort-icon">                    
+                            {{
+                            sortColumn === 'email'
+                            ? (sortDirection === 'asc' ? '▲' : '▼')
+                            : '⇅'
+                            }}                    
+                        </span>
+                    </th>                    
+                    <th (click)="sortClients('telephone')">
+                        Téléphone                    
+                        <span class="sort-icon">                    
+                            {{
+                            sortColumn === 'telephone'
+                            ? (sortDirection === 'asc' ? '▲' : '▼')
+                            : '⇅'
+                            }}                    
+                        </span>
+                    </th>                    
+                    <th (click)="sortClients('adresse')">
+                        Adresse                    
+                        <span class="sort-icon">                    
+                            {{
+                            sortColumn === 'adresse'
+                            ? (sortDirection === 'asc' ? '▲' : '▼')
+                            : '⇅'
+                            }}                    
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let client of clients">
+                    <td>
+                        #{{ client.idClient }}
+                    </td>
+                    <td class="client-cell">
+                        <div class="avatar">
+                            {{ client.prenom.charAt(0) }}
+                        </div>
+                        <div>
+                            <div class="client-name">
+                                {{ client.prenom }} {{ client.nom }}
+                            </div>
+                            <div class="client-sub">
+                                Client M-Motors
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        {{ client.email }}
+                    </td>
+                    <td>
+                        {{ client.telephone }}
+                    </td>
+                    <td>
+                        {{ client.adresse }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
