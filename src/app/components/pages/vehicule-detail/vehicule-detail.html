@@ -57,14 +57,14 @@
             <div class="actions" *ngIf="vehicule.disponible">
             
                 <button *ngIf="vehicule.typeOffre === 'vente'" class="btn-achat"
-                    [routerLink]="['/vehicule', vehicule.idVehicule, 'achat']">
+                    [routerLink]="['/vehicules', vehicule.idVehicule, 'achat']">
             
                     Déposer un dossier Achat
             
                 </button>
             
                 <button *ngIf="vehicule.typeOffre === 'location'" class="btn-lld"
-                    [routerLink]="['/vehicule', vehicule.idVehicule, 'lld']">
+                    [routerLink]="['/vehicules', vehicule.idVehicule, 'lld']">
             
                     Déposer un dossier Location (LLD)
             

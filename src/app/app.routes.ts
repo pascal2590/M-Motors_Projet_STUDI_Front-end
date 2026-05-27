@@ -34,7 +34,7 @@ export const routes: Routes = [
         component: Contact
     },
 
-      // ADMIN - Route protégée, accessible uniquement à l'administrateur
+      // ADMIN - Routes protégées, accessibles uniquement à l'administrateur
     {
         path: 'admin',
         canActivate: [adminGuard],
@@ -82,7 +82,7 @@ export const routes: Routes = [
         ]
     },
 
-      // BACKOFFICE - Route protégée, accessible aux commerciaux et à l'administrateur  
+      // BACKOFFICE - Routes protégées, accessibles aux commerciaux et à l'administrateur  
     {
         path: 'backoffice',
         canActivate: [commercialGuard],
@@ -112,15 +112,7 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./components/pages/commercial/commercial-dossier-detail/commercial-dossier-detail')
                         .then(m => m.CommercialDossierDetail)
-            },
-            
-            // Doublon avec path: 'dossiers/:id'
-            //{
-            //    path: 'backoffice/dossiers/:id',
-            //    loadComponent: () =>
-            //        import('./components/pages/commercial/commercial-dossier-detail/commercial-dossier-detail')
-            //            .then(m => m.CommercialDossierDetail)
-            //}
+            },            
             
             // VEHICULES CRUD(US18)
             // Routes de gestion des véhicules, accessibles aux commerciaux et à l'administrateur
@@ -183,7 +175,7 @@ export const routes: Routes = [
 
       // DOSSIERS VÉHICULE - Routes protégées, accessibles aux clients et commerciaux selon le dossier
     {
-        path: 'vehicule/:id/achat',
+        path: 'vehicules/:id/achat',
         loadComponent: () =>
             import('./components/dossier-achat/dossier-achat')
                 .then(m => m.DossierAchat),
@@ -191,7 +183,7 @@ export const routes: Routes = [
     },
 
     {
-        path: 'vehicule/:id/lld',
+        path: 'vehicules/:id/lld',
         loadComponent: () =>
             import('./components/dossier-lld/dossier-lld')
                 .then(m => m.DossierLld),
@@ -199,7 +191,7 @@ export const routes: Routes = [
     },
 
     {
-        path: 'vehicule/:id',
+        path: 'vehicules/:id',
         loadComponent: () =>
             import('./components/pages/vehicule-detail/vehicule-detail')
                 .then(m => m.VehiculeDetail)

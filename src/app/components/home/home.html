@@ -101,7 +101,7 @@
             <div *ngIf="resultatsRecherche.length > 0; else noResult">
                 <div class="vehicule-grid">
                     <div class="card" *ngFor="let v of resultatsRecherche">
-                        <a [routerLink]="['/vehicule', v.idVehicule]">
+                        <a [routerLink]="['/vehicules', v.idVehicule]">
                             <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
                                 alt="Photo véhicule">
                         </a>
@@ -129,7 +129,7 @@
             <h2>Nos meilleures offres du moment</h2>
             <div class="vehicule-grid">
                 <div class="card" *ngFor="let v of vehicules">
-                    <a [routerLink]="['/vehicule', v.idVehicule]">
+                    <a [routerLink]="['/vehicules', v.idVehicule]">
                         <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
                             alt="Photo véhicule">
                     </a>

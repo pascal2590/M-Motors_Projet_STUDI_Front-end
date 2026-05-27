@@ -5,63 +5,44 @@
         
         <!-- IMAGE VEHICULE -->
 
-        <a [routerLink]="['/vehicule', v.idVehicule]">
-        
-            <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">
-        
+        <a [routerLink]="['/vehicules', v.idVehicule]">        
+            <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">        
         </a>
 
 
         <!-- HEADER -->
-
         <div class="vehicule-header">
-
             <h3>
-
                 {{ v.marque }} {{ v.modele }}
-
             </h3>
-
             <span class="badge">
-
                 {{ v.typeOffre }}
-
             </span>
-
         </div>
 
         <!-- BODY -->
-
         <div class="vehicule-body">
-
             <p>
                 📅 Année :
                 <strong>
                     {{ v.annee || 'N/A' }}
                 </strong>
             </p>
-
             <p>
                 🛣 Kilométrage :
                 <strong>
                     {{ v.kilometrage || 'N/A' }} km
                 </strong>
             </p>
-
             <p>
                 🚘 Disponibilité :
                 <strong>
                     {{ v.disponible ? 'Oui' : 'Non' }}
                 </strong>
             </p>
-
             <p class="price">
-
                 {{ v.prix | currency:'EUR' }}
-
             </p>
         </div>
-
     </div>
-
 </div>
