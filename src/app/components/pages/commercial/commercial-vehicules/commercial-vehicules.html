@@ -53,16 +53,14 @@
 
                     <!-- TYPE -->
                     <td>
-                        <span class="badge" [class.vente]="vehicule.typeOffre === 'vente'"
-                            [class.location]="vehicule.typeOffre === 'location'">
+                        <span class="badge" [class.vente]="vehicule.typeOffre === 'vente'" [class.location]="vehicule.typeOffre === 'location'">
                             {{ vehicule.typeOffre }}
                         </span>
                     </td>
 
                     <!-- DISPONIBLE -->
                     <td>
-                        <span class="status" [class.ok]="vehicule.disponible" [class.no]="!vehicule.disponible">
-                            {{ vehicule.disponible ? 'Disponible' : 'Indisponible' }}
+                        <span class="status" [class.ok]="vehicule.disponible" [class.no]="!vehicule.disponible">{{ vehicule.disponible ? 'Disponible' : 'Indisponible' }}
                         </span>
                     </td>
 
