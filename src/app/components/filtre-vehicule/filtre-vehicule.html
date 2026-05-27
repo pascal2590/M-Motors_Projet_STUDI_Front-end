@@ -33,7 +33,7 @@
     <div class="vehicule-grid">
         <div *ngFor="let v of vehicules" class="vehicule-card">
             <!-- IMAGE VEHICULE -->
-            <a [routerLink]="['/vehicule', v.idVehicule]">            
+            <a [routerLink]="['/vehicules', v.idVehicule]">            
                 <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'" alt="Photo véhicule">            
             </a>
 

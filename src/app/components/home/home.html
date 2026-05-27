@@ -1,72 +1,87 @@
-
 <!-- NAVBAR -->
-
+<!-- (inchangé, supposé ailleurs) -->
 
 <!-- MENU MOBILE -->
-
 <div class="overlay" *ngIf="menuOpen" (click)="closeMenu()" aria-hidden="true"></div>
 
 <aside class="side-menu" [class.open]="menuOpen" role="navigation" aria-label="Menu mobile">
     <button class="close-btn" (click)="closeMenu()">✕</button>
+
     <ul>
         <ng-container *ngIf="user; else guestMobile">
+
             <p class="user-info">
                 {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}
             </p>
+
             <p class="user-email">
                 {{ user.email }}
             </p>
+
             <li>
                 <a routerLink="/espace-client" class="auth-btn secondary" (click)="closeMenu()">
                     Mon espace {{ user.role }}
                 </a>
             </li>
+
             <li>
                 <button class="auth-btn secondary" (click)="handleAuthAction(); closeMenu()">
-                    {{ user ? '⏻ Déconnexion' : '⏻ Connexion' }}
+                    ⏻ Déconnexion
                 </button>
             </li>
+
         </ng-container>
 
-        <ng-template #guestMobile>        
+        <ng-template #guestMobile>
+
             <li>
                 <a routerLink="/inscription" class="auth-btn secondary" (click)="closeMenu()">
                     Inscription
                 </a>
-            </li>        
+            </li>
+
             <li>
                 <button class="auth-btn secondary" (click)="goToLogin(); closeMenu()">
                     ⏻ Connexion
                 </button>
-            </li>        
+            </li>
+
         </ng-template>
     </ul>
 </aside>
 
 <!-- HERO -->
-
 <section class="hero">
     <div class="section-container">
+
         <div *ngIf="user; else guestHero">
-            <h1>Bienvenue {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}</h1>
+
+            <h1>
+                Bienvenue {{ user.prenom ? user.prenom + ' ' : '' }}{{ user.nom }}
+            </h1>
+
             <p>
                 Explorez vos véhicules et vos offres personnalisées M-Motors
             </p>
+
         </div>
 
         <ng-template #guestHero>
+
             <h1>
                 Site de vente et de location de véhicules d'occasion
             </h1>
+
             <p>
                 Connectez-vous pour accéder à toutes les fonctionnalités
             </p>
+
         </ng-template>
+
     </div>
 </section>
 
 <!-- STATS -->
-
 <section class="stats">
     <div class="section-container stats-grid">
         <div class="stat">
@@ -76,20 +91,24 @@
     </div>
 </section>
 
-<!-- BARRE DE RECHERCHE -->
+<!-- SEARCH -->
 <div class="search-wrapper">
     <div class="search-container">
+
         <input type="text" class="search-input" placeholder="Rechercher une marque, modèle, année..."
             [(ngModel)]="searchTerm" (input)="search()" (keyup.enter)="search()">
+
     </div>
 </div>
 
 <!-- VEHICULES -->
 <section class="vehicules">
+
     <div class="section-container">
 
-        <!-- RESULTATS DE LA RECHERCHE -->
+        <!-- RESULTATS -->
         <div *ngIf="searchTerm" class="search-results">
+
             <h2>Résultats pour "{{ searchTerm }}"</h2>
 
             <p class="results-count">
@@ -99,22 +118,38 @@
             </p>
 
             <div *ngIf="resultatsRecherche.length > 0; else noResult">
+
                 <div class="vehicule-grid">
+
                     <div class="card" *ngFor="let v of resultatsRecherche">
+
                         <a [routerLink]="['/vehicules', v.idVehicule]">
                             <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
                                 alt="Photo véhicule">
                         </a>
-                        <div class="card-body">
-                            <span class="badge">
-                                {{ v.typeOffre }}
+
+                        <div class="badge-container">
+
+                            <span class="badge location" *ngIf="v.typeOffre?.toString().toLowerCase().includes('loc')">
+                                Location
                             </span>
+
+                            <span class="badge vente" *ngIf="v.typeOffre?.toString().toLowerCase().includes('vent')">
+                                Vente
+                            </span>
+
+                        </div>
+
+                        <div class="card-body">
                             <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>
                             <p>{{ v.kilometrage }} km</p>
                             <p class="price">{{ v.prix | currency:'EUR' }}</p>
                         </div>
+
                     </div>
+
                 </div>
+
             </div>
 
             <ng-template #noResult>
@@ -122,34 +157,54 @@
                     ❌ Aucun véhicule trouvé pour "{{ searchTerm }}"
                 </div>
             </ng-template>
+
         </div>
 
         <!-- OFFRES -->
         <div class="offres-section">
+
             <h2>Nos meilleures offres du moment</h2>
+
             <div class="vehicule-grid">
+
                 <div class="card" *ngFor="let v of vehicules">
+
                     <a [routerLink]="['/vehicules', v.idVehicule]">
                         <img class="vehicule-image" [src]="v.imageUrl || 'assets/exemple-de-vehicule.jpg'"
                             alt="Photo véhicule">
                     </a>
-                    <div class="card-body">
-                        <span class="badge">
-                            {{ v.typeOffre }}
+
+                    <div class="badge-container">
+
+                        <span class="badge location" *ngIf="v.typeOffre?.toString().toLowerCase().includes('loc')">
+                            Location
                         </span>
+
+                        <span class="badge vente" *ngIf="v.typeOffre?.toString().toLowerCase().includes('vent')">
+                            Vente
+                        </span>
+
+                    </div>
+
+                    <div class="card-body">
                         <h3>{{ v.marque }} {{ v.modele }} - {{ v.annee }}</h3>
                         <p>{{ v.kilometrage }} km</p>
                         <p class="price">{{ v.prix | currency:'EUR' }}</p>
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
 </section>
 
 <!-- COMPOSANTS -->
 <app-filtre-vehicule></app-filtre-vehicule>
 <app-vehicule-list></app-vehicule-list>
+
 <!-- FOOTER -->
 <footer class="footer">
 
@@ -161,13 +216,12 @@
         </div>
 
         <div class="footer-links">
-            <!-- <a routerLink="/">Accueil</a><br> -->      
             <a routerLink="/contact">Contact</a>
         </div>
 
         <div class="footer-contact">
-            <p>Email : </p>
-            <p>Tél : </p>
+            <p>Email :</p>
+            <p>Tél :</p>
         </div>
 
     </div>
