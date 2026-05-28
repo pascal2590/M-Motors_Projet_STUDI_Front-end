@@ -3,17 +3,18 @@
     height: 100vh;
     font-family: Arial, sans-serif;
     position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* SIDEBAR */
-
 .sidebar {
     width: 220px;
     background: #7c61db;
     color: white;
     padding: 20px;
-    transition: transform 0.3s ease;
-    z-index: 1001;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .sidebar nav {
@@ -23,10 +24,14 @@
 }
 
 .sidebar a {
+    display: block;
     color: #cbd5e1;
     text-decoration: none;
-    padding: 8px;
+    padding: 10px 12px;
     border-radius: 6px;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
 }
 
 .sidebar a:hover,
@@ -36,23 +41,23 @@
 }
 
 /* MAIN */
-
 .main {
     flex: 1;
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 /* TOPBAR */
-
 .topbar {
     height: 60px;
     background: white;
     border-bottom: 1px solid #e5e7eb;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    justify-content: space-between;
+    padding: 0 16px;
+    box-sizing: border-box;
 }
 
 .right {
@@ -70,54 +75,55 @@
     cursor: pointer;
 }
 
-/* BURGER */
-
-.burger {
-    display: none;
-    font-size: 24px;
-    padding: 6px 12px;
-}
-
 /* CONTENT */
-
 .content {
     padding: 20px;
     background: #f3f4f6;
     flex: 1;
     overflow-y: auto;
-}
-
-/* OVERLAY */
-
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1000;
+    box-sizing: border-box;
 }
 
 /* MOBILE */
-
 @media (max-width: 768px) {
 
-    .burger {
-        display: block;
+    .admin-container {
+        flex-direction: column;
+        height: auto;
+        overflow: visible;
     }
 
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        transform: translateX(-100%);
+        width: 100%;
+        padding: 10px;
     }
 
-    .sidebar.open {
-        transform: translateX(0);
+    .sidebar nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        scrollbar-width: thin;
+        padding-bottom: 4px;
     }
 
-    /* cache sidebar desktop */
-    .admin-container {
-        overflow-x: hidden;
+    .sidebar nav::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .sidebar a {
+        flex-shrink: 0;
+        padding: 10px 14px;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .content {
+        padding: 15px;
     }
 }

@@ -2,6 +2,7 @@
     padding: 20px;
     background: #f5f7fb;
     min-height: 100vh;
+    box-sizing: border-box;
 }
 
 /* HEADER */
@@ -9,7 +10,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .header .title h2 {
@@ -23,7 +26,7 @@
     font-size: 13px;
 }
 
-/* Bouton AJOUTER */
+/* BOUTON AJOUTER */
 .btn-add {
     background: #7c61db;
     color: white;
@@ -32,6 +35,7 @@
     border-radius: 8px;
     cursor: pointer;
     transition: 0.2s;
+    white-space: nowrap;
 }
 
 .btn-add:hover {
@@ -42,13 +46,16 @@
 .table-container {
     background: white;
     border-radius: 12px;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    -webkit-overflow-scrolling: touch;
 }
 
 /* TABLE */
 table {
     width: 100%;
+    min-width: 900px;
     border-collapse: collapse;
 }
 
@@ -60,6 +67,7 @@ th,
 td {
     padding: 14px;
     text-align: left;
+    white-space: nowrap;
 }
 
 tbody tr {
@@ -115,7 +123,7 @@ img {
     color: #b91c1c;
 }
 
-/* ACTION BUTTONS */
+/* ACTIONS */
 .actions {
     display: flex;
     gap: 8px;
@@ -128,6 +136,7 @@ img {
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .btn-edit:hover {
@@ -141,6 +150,7 @@ img {
     padding: 6px 10px;
     border-radius: 6px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .btn-delete:hover {
@@ -154,4 +164,24 @@ img {
 
 .price {
     font-weight: bold;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    .vehicules-page {
+        padding: 10px;
+    }
+
+    .header {
+        align-items: flex-start;
+    }
+
+    .header .title h2 {
+        font-size: 20px;
+    }
+
+    table {
+        min-width: 850px;
+    }
 }
