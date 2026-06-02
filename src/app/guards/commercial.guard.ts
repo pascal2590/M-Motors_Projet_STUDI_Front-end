@@ -10,7 +10,7 @@ export const commercialGuard: CanActivateFn = (
     const auth = inject(AuthService);
     const router = inject(Router);
 
-    // 🔐 1. Non connecté → redirection login
+    // Non connecté → redirection login
     if (!auth.isLoggedIn()) {
 
         router.navigate(['/login'], {
@@ -22,7 +22,7 @@ export const commercialGuard: CanActivateFn = (
         return false;
     }
 
-    // 🧑‍💼 2. Vérifie rôle Commercial uniquement
+    // Vérifie rôle Commercial uniquement
     if (!auth.isCommercial()) {
 
         router.navigate(['/']);

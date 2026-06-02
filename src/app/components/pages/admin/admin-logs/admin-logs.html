@@ -1,0 +1,89 @@
+<div class="logs-page">
+
+    <!-- HEADER -->
+    <div class="logs-header">
+        <div>
+            <h1>Logs système</h1>
+            <p>Suivi des activités et erreurs de l’application M-Motors</p>
+        </div>
+
+        <button class="btn-reload" (click)="loadLogs()">
+            ↻ Recharger
+        </button>
+    </div>
+
+    <!-- FILTRES -->
+    <div class="filters-card">
+
+        <div class="filters-grid">
+
+            <div class="field">
+                <label>Recherche</label>
+                <input type="text" [(ngModel)]="recherche" (ngModelChange)="applyFilters()"
+                    placeholder="Message, endpoint, utilisateur..." />
+            </div>
+
+            <div class="field">
+                <label>Niveau</label>
+                <select [(ngModel)]="niveau" (ngModelChange)="applyFilters()">
+                    <option value="">Tous les niveaux</option>
+                    <option value="INFO">INFO</option>
+                    <option value="WARNING">WARNING</option>
+                    <option value="ERROR">ERROR</option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+
+        <table class="logs-table">
+
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Niveau</th>
+                    <th>Message</th>
+                    <th>Endpoint</th>
+                    <th>Utilisateur</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let log of filteredLogs" class="log-row">
+
+                    <td class="date">
+                        {{ log.dateLog | date:'dd/MM/yyyy HH:mm' }}
+                    </td>
+
+                    <td>
+                        <span class="badge" [ngClass]="getBadgeClass(log.niveau)">
+                            {{ log.niveau }}
+                        </span>
+                    </td>
+
+                    <td class="message">
+                        {{ log.message }}
+                    </td>
+
+                    <td class="endpoint">
+                        {{ log.endpoint || '-' }}
+                    </td>
+
+                    <td class="user">
+                        {{ log.utilisateur || '-' }}
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

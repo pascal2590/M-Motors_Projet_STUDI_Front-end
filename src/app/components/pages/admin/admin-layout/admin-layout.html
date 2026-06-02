@@ -1,15 +1,48 @@
 <div class="admin-container">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">       
+    <aside class="sidebar">
 
-        <nav>
-            <a routerLink="dashboard">Dashboard</a>
-            <a *ngIf="auth.isAdmin()" routerLink="users">Utilisateurs</a>
-            <a *ngIf="auth.isBackOffice()" routerLink="clients">Clients</a>
-            <a *ngIf="auth.isCommercial()" routerLink="vehicules">Véhicules</a>
-            <a *ngIf="auth.isCommercial()" routerLink="dossier">Dossiers</a>            
-            <a routerLink="commerciaux">Commerciaux</a>
+        <div class="sidebar-header">
+            <h2>M-Motors Admin</h2>
+        </div>
+
+        <nav class="menu">
+
+            <a routerLink="dashboard" routerLinkActive="active">
+                Dashboard
+            </a>
+
+            <a *ngIf="auth.isAdmin()" routerLink="users" routerLinkActive="active">
+                Utilisateurs
+            </a>
+
+            <a *ngIf="auth.isBackOffice()" routerLink="clients" routerLinkActive="active">
+                Clients
+            </a>
+
+            <a *ngIf="auth.isCommercial()" routerLink="vehicules" routerLinkActive="active">
+                Véhicules
+            </a>
+
+            <a *ngIf="auth.isCommercial()" routerLink="dossier" routerLinkActive="active">
+                Dossiers
+            </a>
+
+            <a routerLink="commerciaux" routerLinkActive="active">
+                Commerciaux
+            </a>
+
+            <!-- SECTION SYSTÈME -->
+            <div class="menu-section">
+
+                <!-- <span class="section-title">Système</span> -->
+
+                <a *ngIf="auth.isAdmin()" routerLink="logs" routerLinkActive="active">
+                    Logs système
+                </a>
+
+            </div>
 
         </nav>
 
@@ -18,10 +51,6 @@
     <!-- MAIN -->
     <div class="main">
 
-        <!-- TOPBAR -->
-        
-
-        <!-- CONTENT -->
         <section class="content">
             <router-outlet></router-outlet>
         </section>

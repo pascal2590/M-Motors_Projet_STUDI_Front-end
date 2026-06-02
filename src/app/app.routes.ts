@@ -46,6 +46,13 @@ export const routes: Routes = [
             { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 
             {
+                path: 'logs',
+                loadComponent: () =>
+                    import('./components/pages/admin/admin-logs/admin-logs')
+                        .then(c => c.AdminLogs)
+            },
+
+            {
                 path: 'dashboard',
                 loadComponent: () =>
                     import('./components/pages/admin/admin-dashboard/admin-dashboard')
