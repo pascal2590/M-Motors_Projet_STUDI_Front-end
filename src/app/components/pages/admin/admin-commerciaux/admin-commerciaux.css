@@ -3,6 +3,15 @@
 }
 
 /* HEADER */
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-text h2 {
+    margin: 0;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -12,6 +21,19 @@
 
 .header h2 {
     margin: 0;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.subtitle {
+    margin-top: 6px;
+    color: #64748b;
+    font-size: 14px;
 }
 
 /* BOUTON CREATE */
