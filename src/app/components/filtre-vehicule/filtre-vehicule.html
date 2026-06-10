@@ -42,8 +42,11 @@
                 <h3>
                     {{ v.marque }} {{ v.modele }}
                 </h3>
-                <span class="badge">
-                    {{ v.typeOffre }}
+                <span class="badge" [ngClass]="{
+                        'vente': v.typeOffre.toLowerCase() === 'vente',
+                        'location': v.typeOffre.toLowerCase() === 'location'
+                    }">                
+                    {{ v.typeOffre }}                
                 </span>
             </div>
 

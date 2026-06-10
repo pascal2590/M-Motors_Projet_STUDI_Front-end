@@ -74,6 +74,14 @@
     font-size: 12px;
 }
 
+.badge.location {
+    background-color: #2ecc71;
+}
+
+.badge.vente {
+    background-color: #3498db;
+}
+
 /* BODY */
 .vehicule-body p {
     margin: 5px 0;
