@@ -141,8 +141,11 @@
 
                 <!-- BODY -->
                 <div class="document-body">
-                    <a *ngIf="doc.cheminFichier" class="btn-link" [href]="'http://localhost:5119/' + doc.cheminFichier"
-                        target="_blank">
+                    <div>
+                        {{ doc.cheminFichier }}
+                    </div>
+                    
+                    <a *ngIf="doc.cheminFichier" class="btn-link" [attr.href]="doc.cheminFichier" target="_blank" rel="noopener noreferrer">
                         Voir le document
                     </a>
                     <span *ngIf="!doc.cheminFichier" class="hint">
