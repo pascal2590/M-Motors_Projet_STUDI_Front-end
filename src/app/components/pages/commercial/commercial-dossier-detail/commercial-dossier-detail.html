@@ -133,20 +133,24 @@
         
             <h3>Documents</h3>        
             <ul class="doc-list">        
-                <li *ngFor="let d of documents" class="doc-item">        
-                    <div class="doc-info">
+                <li *ngFor="let d of documents" class="doc-item">                
+                    <div class="doc-info">                
                         <span class="doc-type">
                             {{ d.typeDocument }}
-                        </span>
-        
-                        <span class="doc-name">
-                            {{ d.nomDocument || 'Aucun fichier' }}
-                        </span>
-                    </div>        
-                    <span class="doc-status" [ngClass]="d.cheminFichier ? 'ok' : 'missing'">        
-                        {{ d.cheminFichier ? '✔ fourni' : '✖ manquant' }}        
-                    </span>        
-                </li>        
+                        </span>                
+                        <span class="doc-name">                
+                            <a *ngIf="d.cheminFichier" [attr.href]="d.cheminFichier" target="_blank" rel="noopener noreferrer">                
+                                {{ d.nomDocument }}                
+                            </a>                
+                            <span *ngIf="!d.cheminFichier">
+                                Aucun fichier
+                            </span>                
+                        </span>                
+                    </div>                
+                    <span class="doc-status" [ngClass]="d.cheminFichier ? 'ok' : 'missing'">                
+                        {{ d.cheminFichier ? '✔ fourni' : '✖ manquant' }}                
+                    </span>                
+                </li>
             </ul>        
         </div>
     </div>
